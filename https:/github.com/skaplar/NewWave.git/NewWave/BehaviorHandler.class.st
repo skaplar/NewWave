@@ -22,8 +22,8 @@ BehaviorHandler >> initialize [
 	super initialize.
 	self behaviors:  {
 			(#StartEvent -> StartEventBehavior new) .
-			(#runner -> TKTCommonQueueWorkerPool createDefault).
-			(#poolWorkerProcess -> TKTWorkerProcess).
+			(#BaseTask -> TaskEventBehavior new).
+			(#EndEvent -> EndEventBehavior new).
 			(#process -> Process).
 			(#errorHandler -> TKTExceptionHandler).
 			(#processProvider -> TKTPharoProcessProvider new).

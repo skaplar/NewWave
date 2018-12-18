@@ -10,15 +10,6 @@ Class {
 }
 
 { #category : #accessing }
-SequenceHandler >> getElementToExecute [
-	| seq |
-	seq := self getNextSequence.
-	seq srcFetched 
-	ifFalse: [ seq srcFetched: true. ^ seq sourceRef ] 
-	ifTrue: [ seq targetFetched: true. self index: index + 1. ^ seq targetRef ]. 
-]
-
-{ #category : #accessing }
 SequenceHandler >> getElementToExecute2 [
 	| seq |
 	seq := self getNextSequence.

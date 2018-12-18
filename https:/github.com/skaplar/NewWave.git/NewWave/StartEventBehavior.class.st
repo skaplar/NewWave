@@ -1,10 +1,11 @@
 Class {
 	#name : #StartEventBehavior,
-	#superclass : #Object,
+	#superclass : #EventBehavior,
 	#category : #'NewWave-Engine'
 }
 
-{ #category : #accessing }
-StartEventBehavior >> sayHello [
-	'Hello eevent start' logCr.
+{ #category : #'as yet unclassified' }
+StartEventBehavior >> performExecution: elemToExecute executor: wave [
+	wave waveAnnouncer subscribe: ExampleAnnouncer 
+		do: [ wave execute:  (wave seqHandler getElementToExecute2) ]
 ]
