@@ -21,6 +21,11 @@ Node >> addOutgoingFlow: aFlow [
 ]
 
 { #category : #initialization }
+Node >> incomingFlows [
+	^ incomingFlows
+]
+
+{ #category : #initialization }
 Node >> initialize [
 
 	super initialize.
@@ -31,4 +36,9 @@ Node >> initialize [
 { #category : #initialization }
 Node >> isEvent [
 	^ false
+]
+
+{ #category : #initialization }
+Node >> outgoingFlows [
+	^ outgoingFlows
 ]

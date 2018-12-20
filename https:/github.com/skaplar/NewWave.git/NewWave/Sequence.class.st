@@ -7,7 +7,8 @@ Class {
 		'sourceRef',
 		'targetRef',
 		'srcFetched',
-		'targetFetched'
+		'targetFetched',
+		'condition'
 	],
 	#category : #NewWave
 }
@@ -20,6 +21,16 @@ Sequence >> addIncoming: anActivity [
 { #category : #adding }
 Sequence >> addOutgoing: anActivity [
 	outgoing add: anActivity.
+]
+
+{ #category : #adding }
+Sequence >> condition [
+	^ condition
+]
+
+{ #category : #adding }
+Sequence >> condition: aCondition [
+	condition := aCondition
 ]
 
 { #category : #adding }

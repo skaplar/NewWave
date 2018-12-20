@@ -3,3 +3,8 @@ Class {
 	#superclass : #Gateway,
 	#category : #NewWave
 }
+
+{ #category : #accessing }
+Exclusive >> ctype [
+	^ #ExclusiveGateway
+]

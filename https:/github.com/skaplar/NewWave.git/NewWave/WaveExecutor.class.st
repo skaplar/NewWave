@@ -6,7 +6,9 @@ Class {
 		'currSeq',
 		'index',
 		'seqHandler',
-		'waveAnnouncer'
+		'waveAnnouncer',
+		'taskResult',
+		'flowHandler'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -21,6 +23,16 @@ WaveExecutor >> execute: elem [
 	
 	
 	
+]
+
+{ #category : #accessing }
+WaveExecutor >> flowHandler [
+	^ flowHandler
+]
+
+{ #category : #accessing }
+WaveExecutor >> flowHandler: aFlowHandler [
+	flowHandler := aFlowHandler
 ]
 
 { #category : #initialization }
@@ -56,12 +68,38 @@ WaveExecutor >> shouldExecuteNext [
 ]
 
 { #category : #accessing }
+WaveExecutor >> shouldExecuteNextNewHandler [
+	| tmp |
+	tmp := flowHandler getNextElement.
+	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute:tmp]
+]
+
+{ #category : #accessing }
 WaveExecutor >> startExecuting [
 	| elem|
 	'Starting execution ' logCr.
 	elem := seqHandler getElementToExecute2.
 	self execute: elem.
 
+]
+
+{ #category : #accessing }
+WaveExecutor >> startExecutingNewHandler [
+	| elem|
+	'Starting execution ' logCr.
+	elem := flowHandler getNextElement.
+	self execute: elem.
+
+]
+
+{ #category : #accessing }
+WaveExecutor >> taskResult [
+	^ taskResult
+]
+
+{ #category : #accessing }
+WaveExecutor >> taskResult: anObject [
+	taskResult := anObject
 ]
 
 { #category : #tests }
