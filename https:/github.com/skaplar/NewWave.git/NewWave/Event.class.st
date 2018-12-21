@@ -8,8 +8,3 @@ Class {
 Event >> ctype [
 	^ #Event
 ]
-
-{ #category : #testing }
-Event >> isEvent [
-	^ true
-]
