@@ -1,3 +1,16 @@
+"
+This class is deprecated. 
+
+Internal Representation and Key Implementation Points.
+
+    Instance Variables
+	index:		<Object>
+	sequence:		<Object>
+	sequences:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #SequenceHandler,
 	#superclass : #Object,

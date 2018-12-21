@@ -9,6 +9,12 @@ Class {
 }
 
 { #category : #initialization }
+Node >> addIncoming: anIncoming addOutgoing: anOutgoing [
+	self addIncomingFlow: anIncoming; addOutgoingFlow: anOutgoing;
+	yourself
+]
+
+{ #category : #initialization }
 Node >> addIncomingFlow: aFlow [
 	incomingFlows add: aFlow.
 

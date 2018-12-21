@@ -4,8 +4,6 @@ Class {
 	#instVars : [
 		'elements',
 		'currSeq',
-		'index',
-		'seqHandler',
 		'waveAnnouncer',
 		'taskResult',
 		'flowHandler'
@@ -48,39 +46,10 @@ WaveExecutor >> returnTKT: aTask [
 ]
 
 { #category : #accessing }
-WaveExecutor >> seqHandler [
-	^ seqHandler 
-	
-]
-
-{ #category : #accessing }
-WaveExecutor >> seqHandler: anObject [
-	seqHandler := anObject 
-	
-]
-
-{ #category : #accessing }
-WaveExecutor >> shouldExecuteNext [
-	| tmp |
-	tmp := seqHandler getElementToExecute2.
-	"tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self executeT:(self returnTKT: tmp)]"
-	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute:tmp]
-]
-
-{ #category : #accessing }
 WaveExecutor >> shouldExecuteNextNewHandler [
 	| tmp |
 	tmp := flowHandler getNextElement.
 	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute:tmp]
-]
-
-{ #category : #accessing }
-WaveExecutor >> startExecuting [
-	| elem|
-	'Starting execution ' logCr.
-	elem := seqHandler getElementToExecute2.
-	self execute: elem.
-
 ]
 
 { #category : #accessing }

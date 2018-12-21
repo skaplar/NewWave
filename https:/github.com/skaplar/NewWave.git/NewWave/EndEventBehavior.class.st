@@ -8,5 +8,5 @@ Class {
 EndEventBehavior >> performExecution: elemToExecute executor: wave [
 	| aFuture |
 	aFuture := [ 1 second wait. elemToExecute value ] future.
-	aFuture onSuccessDo: [ :v | v logCr. wave shouldExecuteNext ].
+	aFuture onSuccessDo: [ :v | v logCr. wave shouldExecuteNextNewHandler ].
 ]

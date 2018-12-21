@@ -13,6 +13,21 @@ Class {
 	#category : #'NewWave-Core'
 }
 
+{ #category : #'as yet unclassified' }
+Sequence class >> source: aSource target: aTarget [
+	^ self new 
+		sourceRef: aSource;
+		targetRef: aTarget;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Sequence class >> source: aSource target: aTarget condition: aCondition [
+	^  (self source: aSource target: aTarget)
+		condition: aCondition;
+		yourself
+]
+
 { #category : #adding }
 Sequence >> addIncoming: anActivity [
 	incoming add: anActivity.
