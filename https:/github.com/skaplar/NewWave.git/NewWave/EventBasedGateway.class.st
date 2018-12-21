@@ -1,5 +1,5 @@
 Class {
 	#name : #EventBasedGateway,
 	#superclass : #Gateway,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }

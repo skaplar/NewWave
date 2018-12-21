@@ -1,7 +1,7 @@
 Class {
 	#name : #EndEvent,
 	#superclass : #Event,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #accessing }

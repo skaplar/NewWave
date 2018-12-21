@@ -1,7 +1,7 @@
 Class {
 	#name : #Exclusive,
 	#superclass : #Gateway,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #accessing }

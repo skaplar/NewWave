@@ -5,7 +5,7 @@ Class {
 		'description',
 		'ctype'
 	],
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #accessing }

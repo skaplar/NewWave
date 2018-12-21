@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'value'
 	],
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #accessing }

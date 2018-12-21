@@ -1,5 +1,5 @@
 Class {
 	#name : #Parallel,
 	#superclass : #Gateway,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }

@@ -5,7 +5,7 @@ Class {
 		'elements',
 		'sequenceFlows'
 	],
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #initialization }

@@ -10,7 +10,7 @@ Class {
 		'targetFetched',
 		'condition'
 	],
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #adding }

@@ -1,5 +1,5 @@
 Class {
 	#name : #Inclusive,
 	#superclass : #Gateway,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }

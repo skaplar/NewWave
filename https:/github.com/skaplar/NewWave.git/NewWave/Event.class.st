@@ -1,7 +1,7 @@
 Class {
 	#name : #Event,
 	#superclass : #Node,
-	#category : #NewWave
+	#category : #'NewWave-Core'
 }
 
 { #category : #testing }
