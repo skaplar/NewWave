@@ -24,6 +24,15 @@ TestSequence >> testSequenceCreationWithCondition [
 ]
 
 { #category : #tests }
+TestSequence >> testSequenceCreationWithNumberCondition [
+	| s a b |
+	a := BaseTask new.
+	b := BaseTask new.
+	s := Sequence source: a target: b condition: 200.
+	self assert: s condition equals: 200.
+]
+
+{ #category : #tests }
 TestSequence >> testSequenceInitialSourceTargetFalse [
 	| s a b |
 	a := BaseTask new.

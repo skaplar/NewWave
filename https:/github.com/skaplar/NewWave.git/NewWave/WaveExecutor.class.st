@@ -6,7 +6,8 @@ Class {
 		'currSeq',
 		'waveAnnouncer',
 		'taskResult',
-		'flowHandler'
+		'flowHandler',
+		'workers'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -38,6 +39,7 @@ WaveExecutor >> initialize [
 
 	super initialize.
 	self waveAnnouncer: Announcer new.
+	self workers: Dictionary new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -86,4 +88,19 @@ WaveExecutor >> waveAnnouncer [
 { #category : #accessing }
 WaveExecutor >> waveAnnouncer: anObject [
 	waveAnnouncer := anObject
+]
+
+{ #category : #accessing }
+WaveExecutor >> worker [
+	^ workers at: flowHandler workerid.
+]
+
+{ #category : #running }
+WaveExecutor >> workers [
+	^ workers
+]
+
+{ #category : #running }
+WaveExecutor >> workers: aWorkers [
+	workers := aWorkers
 ]

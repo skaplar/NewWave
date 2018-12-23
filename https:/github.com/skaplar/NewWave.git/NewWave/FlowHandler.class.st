@@ -3,37 +3,34 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'node',
-		'index'
+		'workerid'
 	],
 	#category : #'NewWave-Engine'
 }
 
 { #category : #accessing }
 FlowHandler >> getNextElement [
-	| seq |
-	node outgoingFlows ifNotEmpty: [  
+	" The idea here is to go through the sequences of the nodes. Every  node knows what is his outgoing flow. So I set the target node to be executed, and return source node. When there are no more outgoing flows I return the node itself.
+	As the matter of precaution I set the next node to nil, in case something goes wrong, to don't stuck in the loop."
+	| seq tmp |
+	tmp := node.
+	node outgoingFlows 
+	ifNotEmpty: [  
 		seq := node outgoingFlows first.
-		seq ifNil: [ 'Doso do kraja valjda ' logCr ] 
+		seq ifNil: [ 'This should not happend. ' logCr ] 
 			ifNotNil: [ self node: seq targetRef. ^ seq sourceRef. ]. 
-	] ifEmpty: [ ^ nil ].
+	] 
+	ifEmpty: [ 
+		self node: nil.
+		^ tmp.
+	].
 	
 	
-]
-
-{ #category : #accessing }
-FlowHandler >> index [
-	^ index
-]
-
-{ #category : #accessing }
-FlowHandler >> index: anIndex [
-	index := anIndex
 ]
 
 { #category : #accessing }
 FlowHandler >> initialize [ 
 	super initialize.
-	self index: 0.
 ]
 
 { #category : #accessing }
@@ -44,4 +41,14 @@ FlowHandler >> node [
 { #category : #accessing }
 FlowHandler >> node: aNode [
 	node := aNode
+]
+
+{ #category : #accessing }
+FlowHandler >> workerid [
+	^ workerid
+]
+
+{ #category : #accessing }
+FlowHandler >> workerid: anId [
+	workerid := anId
 ]
