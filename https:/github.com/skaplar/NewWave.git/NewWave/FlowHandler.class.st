@@ -14,6 +14,7 @@ FlowHandler >> getNextElement [
 	As the matter of precaution I set the next node to nil, in case something goes wrong, to don't stuck in the loop."
 	| seq tmp |
 	tmp := node.
+	node ifNil: [ ^ nil ].
 	node outgoingFlows 
 	ifNotEmpty: [  
 		seq := node outgoingFlows first.

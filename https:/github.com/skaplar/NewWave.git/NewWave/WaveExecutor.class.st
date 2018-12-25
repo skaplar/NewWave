@@ -51,16 +51,7 @@ WaveExecutor >> returnTKT: aTask [
 WaveExecutor >> shouldExecuteNextNewHandler [
 	| tmp |
 	tmp := flowHandler getNextElement.
-	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute:tmp]
-]
-
-{ #category : #accessing }
-WaveExecutor >> startExecutingNewHandler [
-	| elem|
-	'Starting execution ' logCr.
-	elem := flowHandler getNextElement.
-	self execute: elem.
-
+	tmp ifNil: [ ^ nil ] ifNotNil: [ ^ tmp ].
 ]
 
 { #category : #accessing }
@@ -78,6 +69,13 @@ WaveExecutor >> testExe [
 | future |
 future := [ 1 second wait. 2 + 2 ] future.
 future onSuccessDo: [ :v | v logCr ].
+]
+
+{ #category : #accessing }
+WaveExecutor >> tryToExecuteNext [
+	| tmp |
+	tmp := self shouldExecuteNextNewHandler.
+	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute:tmp]
 ]
 
 { #category : #accessing }

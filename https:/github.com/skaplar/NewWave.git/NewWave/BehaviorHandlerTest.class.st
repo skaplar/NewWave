@@ -1,11 +1,11 @@
 Class {
-	#name : #TestBehaviorHandler,
+	#name : #BehaviorHandlerTest,
 	#superclass : #TestCase,
-	#category : #'NewWave-Test'
+	#category : #'NewWave-Tests'
 }
 
 { #category : #initialization }
-TestBehaviorHandler >> testInitialize [
+BehaviorHandlerTest >> testInitialize [
 	| bh se |
 	bh := BehaviorHandler new.
 	se := bh behaviors at: #StartEvent.

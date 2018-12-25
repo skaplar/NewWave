@@ -1,11 +1,11 @@
 Class {
-	#name : #TestSequence,
+	#name : #SequenceTest,
 	#superclass : #TestCase,
-	#category : #'NewWave-Test'
+	#category : #'NewWave-Tests'
 }
 
 { #category : #tests }
-TestSequence >> testSequenceCreation [
+SequenceTest >> testSequenceCreation [
 	| s a b |
 	a := BaseTask new.
 	b := BaseTask new.
@@ -15,7 +15,7 @@ TestSequence >> testSequenceCreation [
 ]
 
 { #category : #tests }
-TestSequence >> testSequenceCreationWithCondition [
+SequenceTest >> testSequenceCreationWithCondition [
 	| s a b |
 	a := BaseTask new.
 	b := BaseTask new.
@@ -24,7 +24,7 @@ TestSequence >> testSequenceCreationWithCondition [
 ]
 
 { #category : #tests }
-TestSequence >> testSequenceCreationWithNumberCondition [
+SequenceTest >> testSequenceCreationWithNumberCondition [
 	| s a b |
 	a := BaseTask new.
 	b := BaseTask new.
@@ -33,7 +33,7 @@ TestSequence >> testSequenceCreationWithNumberCondition [
 ]
 
 { #category : #tests }
-TestSequence >> testSequenceInitialSourceTargetFalse [
+SequenceTest >> testSequenceInitialSourceTargetFalse [
 	| s a b |
 	a := BaseTask new.
 	b := BaseTask new.

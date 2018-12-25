@@ -1,11 +1,11 @@
 Class {
-	#name : #TestBaseTask,
+	#name : #BaseTaskTest,
 	#superclass : #TestCase,
-	#category : #'NewWave-Test'
+	#category : #'NewWave-Tests'
 }
 
 { #category : #tests }
-TestBaseTask >> testIncomingFlow [
+BaseTaskTest >> testIncomingFlow [
 	| t1 t2 s |
 	t1 := BaseTask new.
 	t1 description: 'A'.
@@ -19,7 +19,7 @@ TestBaseTask >> testIncomingFlow [
 ]
 
 { #category : #tests }
-TestBaseTask >> testIncomingOutgoingFlow [
+BaseTaskTest >> testIncomingOutgoingFlow [
 	| t1 t2 t3 s s2 |
 	t1 := BaseTask new.
 	t1 description: 'A'.
@@ -48,7 +48,7 @@ TestBaseTask >> testIncomingOutgoingFlow [
 ]
 
 { #category : #tests }
-TestBaseTask >> testIncomingOutgoingListFlow [
+BaseTaskTest >> testIncomingOutgoingListFlow [
 	| t1 t2 t3 s s2 s3 split1 |
 	
 	split1 := Exclusive new.
@@ -82,7 +82,7 @@ TestBaseTask >> testIncomingOutgoingListFlow [
 ]
 
 { #category : #tests }
-TestBaseTask >> testOutgoingFlow [
+BaseTaskTest >> testOutgoingFlow [
 	| t1 t2 s |
 	t1 := BaseTask new.
 	t1 description: 'A'.
