@@ -3,3 +3,8 @@ Class {
 	#superclass : #Object,
 	#category : #'NewWave-Engine'
 }
+
+{ #category : #accessing }
+EventBehavior >> performExecution: arg1 executor: arg2 [ 
+	^ self subclassResponsibility
+]
