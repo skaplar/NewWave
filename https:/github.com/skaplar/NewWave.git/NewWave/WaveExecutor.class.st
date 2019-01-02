@@ -2,13 +2,10 @@ Class {
 	#name : #WaveExecutor,
 	#superclass : #Object,
 	#instVars : [
-		'elements',
-		'currSeq',
 		'waveAnnouncer',
 		'taskResult',
 		'flowHandler',
 		'workers',
-		'subProcList',
 		'subExecutors',
 		'joinHandler'
 	],
@@ -53,7 +50,7 @@ WaveExecutor >> initialize [
 	super initialize.
 	self waveAnnouncer: Announcer new.
 	self workers: Dictionary new.
-	self joinHandler: JoinHandler new.
+	self joinHandler: (JoinHandler context: self).
 ]
 
 { #category : #accessing }

@@ -1,3 +1,6 @@
+"
+I am super class for all other behaviors.
+"
 Class {
 	#name : #EventBehavior,
 	#superclass : #Object,

@@ -1,3 +1,6 @@
+"
+I am a class that executes the tasks,
+"
 Class {
 	#name : #TaskEventBehavior,
 	#superclass : #EventBehavior,

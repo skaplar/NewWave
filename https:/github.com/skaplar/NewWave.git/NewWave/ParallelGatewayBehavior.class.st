@@ -1,3 +1,6 @@
+"
+I am a class that splits the execution into two or more processes.
+"
 Class {
 	#name : #ParallelGatewayBehavior,
 	#superclass : #EventBehavior,
@@ -7,7 +10,6 @@ Class {
 { #category : #accessing }
 ParallelGatewayBehavior >> performExecution: elemToExecute executor: wave [
 	| rez |
-	rez := elemToExecute outgoingFlows do: [ :each | | se we | we := WaveExecutor initialNode: each targetRef. se := SubExecutor new. se executor: we. se startSubExecutor ].
-	"rez ifNotNil: [ wave flowHandler node: rez targetRef. wave tryToExecuteNext ]."
+	rez := elemToExecute outgoingFlows do: [ :each | | se we | we := WaveExecutor initialNode: each targetRef. se := SubExecutor new. se parentExecutor: wave. se executor: we. se startSubExecutor ].
 	
 ]

@@ -3,3 +3,8 @@ Class {
 	#superclass : #Gateway,
 	#category : #'NewWave-Core'
 }
+
+{ #category : #accessing }
+ParallelJoin >> ctype [
+	^ #ParallelJoin
+]

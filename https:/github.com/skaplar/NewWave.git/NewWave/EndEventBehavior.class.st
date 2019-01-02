@@ -1,3 +1,6 @@
+"
+I am a class that ends one event. My job is to stop the worker on which the tasks were executed.
+"
 Class {
 	#name : #EndEventBehavior,
 	#superclass : #EventBehavior,

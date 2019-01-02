@@ -49,10 +49,10 @@ SubExecutor >> startSubExecutor [
 	('SUB-Worker name ', worker process identityHash asString ) logCr.
 	executor workers at: worker name put: worker.
 	executor flowHandler workerid: worker name.
-	executor tryToExecuteNext.
 	executor waveAnnouncer subscribe: JoinEventAnnouncer 
-		do: [ 
+		do: [ 		
+			parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq.
 			executor worker stop.
-			parentExecutor joinHandler addIncomingSequence: executor flowHandler sequence.
 		].
+	executor tryToExecuteNext.
 ]

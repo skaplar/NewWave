@@ -1,3 +1,6 @@
+"
+I am a class that chooses one route of execution.
+"
 Class {
 	#name : #ExclusiveGatewayBehavior,
 	#superclass : #EventBehavior,
