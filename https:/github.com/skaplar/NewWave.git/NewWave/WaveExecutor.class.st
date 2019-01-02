@@ -7,10 +7,23 @@ Class {
 		'waveAnnouncer',
 		'taskResult',
 		'flowHandler',
-		'workers'
+		'workers',
+		'subProcList',
+		'subExecutors',
+		'joinHandler'
 	],
 	#category : #'NewWave-Engine'
 }
+
+{ #category : #'as yet unclassified' }
+WaveExecutor class >> initialNode: node [
+	| fh |
+	fh := FlowHandler new.
+	fh node: node.
+	^ self new 
+		flowHandler: fh;
+		yourself
+]
 
 { #category : #running }
 WaveExecutor >> execute: elem [
@@ -40,6 +53,17 @@ WaveExecutor >> initialize [
 	super initialize.
 	self waveAnnouncer: Announcer new.
 	self workers: Dictionary new.
+	self joinHandler: JoinHandler new.
+]
+
+{ #category : #accessing }
+WaveExecutor >> joinHandler [
+	^ joinHandler
+]
+
+{ #category : #accessing }
+WaveExecutor >> joinHandler: aJoinHandler [
+	joinHandler := aJoinHandler
 ]
 
 { #category : #'as yet unclassified' }
@@ -52,6 +76,16 @@ WaveExecutor >> shouldExecuteNextNewHandler [
 	| tmp |
 	tmp := flowHandler getNextElement.
 	tmp ifNil: [ ^ nil ] ifNotNil: [ ^ tmp ].
+]
+
+{ #category : #running }
+WaveExecutor >> subExecutors [
+	^ subExecutors
+]
+
+{ #category : #running }
+WaveExecutor >> subExecutors: asubExecutors [
+	subExecutors := asubExecutors
 ]
 
 { #category : #accessing }

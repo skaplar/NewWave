@@ -3,10 +3,21 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'node',
-		'workerid'
+		'workerid',
+		'currSeq'
 	],
 	#category : #'NewWave-Engine'
 }
+
+{ #category : #accessing }
+FlowHandler >> currSeq [
+	^ currSeq
+]
+
+{ #category : #accessing }
+FlowHandler >> currSeq: aSequence [
+	currSeq := aSequence
+]
 
 { #category : #accessing }
 FlowHandler >> getNextElement [
@@ -19,7 +30,7 @@ FlowHandler >> getNextElement [
 	ifNotEmpty: [  
 		seq := node outgoingFlows first.
 		seq ifNil: [ 'This should not happend. ' logCr ] 
-			ifNotNil: [ self node: seq targetRef. ^ seq sourceRef. ]. 
+			ifNotNil: [ self node: seq targetRef. self currSeq: seq. ^ seq sourceRef. ]. 
 	] 
 	ifEmpty: [ 
 		self node: nil.

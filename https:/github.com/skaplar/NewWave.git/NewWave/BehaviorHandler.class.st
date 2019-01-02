@@ -25,7 +25,7 @@ BehaviorHandler >> initialize [
 			(#BaseTask -> TaskEventBehavior new).
 			(#EndEvent -> EndEventBehavior new).
 			(#ExclusiveGateway -> ExclusiveGatewayBehavior new).
-			(#errorHandler -> TKTExceptionHandler).
-			(#processProvider -> TKTPharoProcessProvider new).
+			(#ParallelGateway -> ParallelGatewayBehavior new).
+			(#ParallelJoin -> ParallelJoinBehavior new).
 			(#serviceManager -> TKTServiceManager new)} asDictionary 
 ]
