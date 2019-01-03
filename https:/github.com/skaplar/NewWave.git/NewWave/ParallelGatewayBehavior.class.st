@@ -10,6 +10,7 @@ Class {
 { #category : #accessing }
 ParallelGatewayBehavior >> performExecution: elemToExecute executor: wave [
 	| rez |
-	rez := elemToExecute outgoingFlows do: [ :each | | se we | we := WaveExecutor initialNode: each targetRef. se := SubExecutor new. se parentExecutor: wave. se executor: we. se startSubExecutor ].
+	rez := elemToExecute outgoingFlows do: [ :each | | se | se := SubExecutor initialNode: each targetRef  parentExecutor: wave. se startSubExecutor ].
+	
 	
 ]

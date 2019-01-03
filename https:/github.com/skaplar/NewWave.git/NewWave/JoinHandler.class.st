@@ -40,14 +40,17 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 		| ex |
 		ex := jExecutor first.
 		ex addIncSequence: aSequence.
-		self checkIsExecutorCompleted: ex. 
+		"^ self checkIsExecutorCompleted: ex."
+		^ ex.
 	]  
 	ifEmpty: [  
 		| je |
 		je := JoinExecutor new.
 		je joinNode: aSequence sourceRef.
 		je addIncSequence: aSequence.
-		self addJoinExecutor: je.	
+		self addJoinExecutor: je.
+		^ je.
+		"^ self checkIsExecutorCompleted: je.	"
 	]. 
 	"jExecutor := joinExecutors detect: [ :each | each joinNode = aSequence sourceRef ] 
 	ifNone:[	
@@ -67,9 +70,19 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 ]
 
 { #category : #accessing }
+JoinHandler >> checkForFinishedExecutors [
+	^ true
+]
+
+{ #category : #accessing }
 JoinHandler >> checkIsExecutorCompleted: jExecutor [
 	"This is where I check if the executor has finished its part. All sequences have come together."
-	jExecutor checkIsFinished ifTrue: [ context flowHandler node: jExecutor joinNode outgoingFlows first targetRef. context tryToExecuteNext .'Executor Completed' logCr] ifFalse: [ 'Executor Not completed' logCr ].
+	"jExecutor checkIsFinished 
+		ifTrue: [ context flowHandler node: jExecutor continueAfterJoin. context tryToExecuteNext. 			'Executor Completed' logCr] 
+		ifFalse: [ 'Executor Not completed' logCr ]."
+	jExecutor checkIsFinished 
+		ifTrue: [ 'Executor Completed' logCr. ^ true ] 
+		ifFalse: [ 'Executor Not completed' logCr. ^ false ].
 ]
 
 { #category : #accessing }
