@@ -17,5 +17,5 @@ TaskEventBehavior >> performExecution: elemToExecute executor: wave [
 	tktElem := wave returnTKT: elemToExecute.
 	aFuture := wave worker future: [ 1 second wait. tktElem value ].
 	aFuture onSuccessDo: [ :v | v logCr. wave taskResult: v. wave tryToExecuteNext ].
-	aFuture onFailureDo: [ :v | v logCr. ]
+	aFuture onFailureDo: [ :v | 'failed' logCr. v logCr. ]
 ]

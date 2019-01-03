@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'waveAnnouncer',
-		'joinCompletedAnnouncer',
 		'taskResult',
 		'flowHandler',
 		'workers',
@@ -52,16 +51,7 @@ WaveExecutor >> initialize [
 	self waveAnnouncer: Announcer new.
 	self workers: Dictionary new.
 	self joinHandler: (JoinHandler context: self).
-]
-
-{ #category : #accessing }
-WaveExecutor >> joinCompletedAnnouncer [
-	^ joinCompletedAnnouncer
-]
-
-{ #category : #accessing }
-WaveExecutor >> joinCompletedAnnouncer: anObject [
-	joinCompletedAnnouncer := anObject
+	self subExecutors: OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -118,6 +108,11 @@ WaveExecutor >> tryToExecuteNext [
 	| tmp |
 	tmp := self shouldExecuteNextNewHandler.
 	tmp ifNil: ['End of executing' logCr. ] ifNotNil: [self execute: tmp]
+]
+
+{ #category : #accessing }
+WaveExecutor >> tryToExecuteNextOnWorker [
+	self worker schedule: [ self tryToExecuteNext. ].
 ]
 
 { #category : #accessing }
