@@ -112,6 +112,7 @@ WaveExecutor >> tryToExecuteNext [
 
 { #category : #accessing }
 WaveExecutor >> tryToExecuteNextOnWorker [
+	"This is where I continue the execution after join. Because join is completed I want to continue executing on the worker inside this executor, so I can remove the existing SubExecutors."
 	self worker schedule: [ self tryToExecuteNext. ].
 ]
 

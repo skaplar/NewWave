@@ -1,5 +1,5 @@
 Class {
-	#name : #JoinCompletedEventAnnouncer,
+	#name : #StartAnnouncer,
 	#superclass : #Announcement,
 	#category : #'NewWave-Announcers'
 }

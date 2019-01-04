@@ -1,7 +1,7 @@
 Class {
 	#name : #JoinEventAnnouncer,
 	#superclass : #Announcement,
-	#category : #'NewWave-Example'
+	#category : #'NewWave-Announcers'
 }
 
 { #category : #'instance creation' }

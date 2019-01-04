@@ -11,7 +11,7 @@ Class {
 StartEventBehavior >> performExecution: elemToExecute executor: wave [
 	"wave waveAnnouncer subscribe: ExampleAnnouncer 
 		do: [ wave execute: (wave flowHandler getNextElement) ]"
-	wave waveAnnouncer subscribe: ExampleAnnouncer 
+	wave waveAnnouncer subscribe: StartAnnouncer 
 		do: [ 
 			| worker |
 			worker := TKTWorker new.

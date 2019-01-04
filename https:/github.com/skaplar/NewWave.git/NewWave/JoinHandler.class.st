@@ -66,20 +66,11 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 		jExecutor addIncSequence: aSequence.
 		self checkIsExecutorCompleted: jExecutor. 
 	]."
-	
-]
-
-{ #category : #accessing }
-JoinHandler >> checkForFinishedExecutors [
-	^ true
 ]
 
 { #category : #accessing }
 JoinHandler >> checkIsExecutorCompleted: jExecutor [
 	"This is where I check if the executor has finished its part. All sequences have come together."
-	"jExecutor checkIsFinished 
-		ifTrue: [ context flowHandler node: jExecutor continueAfterJoin. context tryToExecuteNext. 			'Executor Completed' logCr] 
-		ifFalse: [ 'Executor Not completed' logCr ]."
 	jExecutor checkIsFinished 
 		ifTrue: [ 'Executor Completed' logCr. ^ true ] 
 		ifFalse: [ 'Executor Not completed' logCr. ^ false ].
