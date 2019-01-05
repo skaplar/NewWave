@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'node',
 		'workerid',
-		'currSeq'
+		'currSeq',
+		'sequences'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -27,8 +28,9 @@ FlowHandler >> getNextElement [
 	tmp := node.
 	node ifNil: [ ^ nil ].
 	node outgoingFlows 
-	ifNotEmpty: [  
+	ifNotEmpty: [ 
 		seq := node outgoingFlows first.
+		sequences add: seq.
 		seq ifNil: [ 'This should not happend. ' logCr ] 
 			ifNotNil: [ self node: seq targetRef. self currSeq: seq. ^ seq sourceRef. ]. 
 	] 
@@ -43,6 +45,7 @@ FlowHandler >> getNextElement [
 { #category : #accessing }
 FlowHandler >> initialize [ 
 	super initialize.
+	sequences := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -53,6 +56,11 @@ FlowHandler >> node [
 { #category : #accessing }
 FlowHandler >> node: aNode [
 	node := aNode
+]
+
+{ #category : #accessing }
+FlowHandler >> sequences [
+	^ sequences
 ]
 
 { #category : #accessing }

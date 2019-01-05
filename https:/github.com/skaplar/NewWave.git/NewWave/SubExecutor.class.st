@@ -48,7 +48,8 @@ SubExecutor >> startSubExecutor [
 	executor waveAnnouncer subscribe: JoinEventAnnouncer 
 		do: [ 	
 			| tmpExecutor rez |
-			tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq.
+			"tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq. Razmisli o ovome jos"
+			tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: (executor flowHandler sequences at: (executor flowHandler sequences size -1)).
 			rez := parentExecutor joinHandler checkIsExecutorCompleted: tmpExecutor.
 			rez ifTrue: [ parentExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. parentExecutor tryToExecuteNextOnWorker.].
 			"rez ifTrue: [parentExecutor flowHandler node: tmpExecutor continueAfterJoin. parentExecutor  waveAnnouncer announce: JoinCompletedEventAnnouncer new.]."

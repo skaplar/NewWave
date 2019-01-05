@@ -9,8 +9,6 @@ Class {
 
 { #category : #'as yet unclassified' }
 StartEventBehavior >> performExecution: elemToExecute executor: wave [
-	"wave waveAnnouncer subscribe: ExampleAnnouncer 
-		do: [ wave execute: (wave flowHandler getNextElement) ]"
 	wave waveAnnouncer subscribe: StartAnnouncer 
 		do: [ 
 			| worker |

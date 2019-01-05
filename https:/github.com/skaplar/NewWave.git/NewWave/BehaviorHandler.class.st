@@ -35,6 +35,5 @@ BehaviorHandler >> initialize [
 			(#EndEvent -> EndEventBehavior new).
 			(#ExclusiveGateway -> ExclusiveGatewayBehavior new).
 			(#ParallelGateway -> ParallelGatewayBehavior new).
-			(#ParallelJoin -> ParallelJoinBehavior new).
-			(#serviceManager -> TKTServiceManager new)} asDictionary 
+			(#ParallelJoin -> ParallelJoinBehavior new)} asDictionary 
 ]
