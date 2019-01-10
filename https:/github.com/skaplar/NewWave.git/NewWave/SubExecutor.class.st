@@ -11,7 +11,7 @@ Class {
 { #category : #'as yet unclassified' }
 SubExecutor class >> initialNode: node parentExecutor: executor [
 	^ self new 
-		executor: (WaveExecutor initialNode: node);
+		executor: (WaveExecutor initialNode: node engine: executor);
 		parentExecutor: executor;
 		yourself.
 ]
@@ -51,7 +51,7 @@ SubExecutor >> startSubExecutor [
 			"tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq. Razmisli o ovome jos"
 			tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: (executor flowHandler sequences at: (executor flowHandler sequences size -1)).
 			rez := parentExecutor joinHandler checkIsExecutorCompleted: tmpExecutor.
-			rez ifTrue: [ parentExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. parentExecutor tryToExecuteNextOnWorker.].
+			rez ifTrue: [ parentExecutor mainExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. parentExecutor mainExecutor tryToExecuteNextOnWorker.].
 			"rez ifTrue: [parentExecutor flowHandler node: tmpExecutor continueAfterJoin. parentExecutor  waveAnnouncer announce: JoinCompletedEventAnnouncer new.]."
 			('Ending-SUB-Worker process is ', worker process identityHash asString) logCr.
 			executor worker stop.

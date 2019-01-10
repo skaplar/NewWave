@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 ParallelGatewayBehavior >> performExecution: elemToExecute executor: wave [
-	elemToExecute outgoingFlows do: [ :each | | se | se := SubExecutor initialNode: each targetRef  parentExecutor: wave. se startSubExecutor ].
+	elemToExecute outgoingFlows do: [ :each | wave engine addSubExecutor: each targetRef ].
 	
 	wave waveAnnouncer subscribe: JoinCompletedEventAnnouncer 
 	do: [ 

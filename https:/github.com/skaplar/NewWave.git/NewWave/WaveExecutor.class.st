@@ -6,8 +6,8 @@ Class {
 		'taskResult',
 		'flowHandler',
 		'workers',
-		'subExecutors',
-		'joinHandler'
+		'joinHandler',
+		'engine'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -20,6 +20,27 @@ WaveExecutor class >> initialNode: node [
 	^ self new 
 		flowHandler: fh;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+WaveExecutor class >> initialNode: node engine: aEngine [
+	| fh |
+	fh := FlowHandler new.
+	fh node: node.
+	^ self new 
+		flowHandler: fh;
+		engine: aEngine;
+		yourself
+]
+
+{ #category : #accessing }
+WaveExecutor >> engine [
+	^ engine
+]
+
+{ #category : #accessing }
+WaveExecutor >> engine: anEngine [
+	engine := anEngine
 ]
 
 { #category : #running }
@@ -51,7 +72,6 @@ WaveExecutor >> initialize [
 	self waveAnnouncer: Announcer new.
 	self workers: Dictionary new.
 	self joinHandler: (JoinHandler context: self).
-	self subExecutors: OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -74,16 +94,6 @@ WaveExecutor >> shouldExecuteNextNewHandler [
 	| tmp |
 	tmp := flowHandler getNextElement.
 	tmp ifNil: [ ^ nil ] ifNotNil: [ ^ tmp ].
-]
-
-{ #category : #running }
-WaveExecutor >> subExecutors [
-	^ subExecutors
-]
-
-{ #category : #running }
-WaveExecutor >> subExecutors: asubExecutors [
-	subExecutors := asubExecutors
 ]
 
 { #category : #accessing }

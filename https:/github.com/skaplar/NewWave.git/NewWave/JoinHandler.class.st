@@ -35,7 +35,7 @@ JoinHandler >> addJoinExecutor: aJoinExecutor [
 { #category : #accessing }
 JoinHandler >> addSequenceToExecutors: aSequence [
 	| jExecutor |
-	jExecutor := joinExecutors select: [ :each | each joinNode = aSequence targetRef   ].
+	jExecutor := joinExecutors select: [ :each | each joinNode = aSequence targetRef ].
 	jExecutor ifNotEmpty: [  
 		| ex |
 		ex := jExecutor first.
