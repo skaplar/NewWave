@@ -11,6 +11,11 @@ Class {
 }
 
 { #category : #accessing }
+FlowHandler >> addSequence: aSeq [
+	sequences add: aSeq
+]
+
+{ #category : #accessing }
 FlowHandler >> currSeq [
 	^ currSeq
 ]

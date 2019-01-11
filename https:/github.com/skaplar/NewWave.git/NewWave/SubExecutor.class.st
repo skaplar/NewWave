@@ -16,6 +16,17 @@ SubExecutor class >> initialNode: node parentExecutor: executor [
 		yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+SubExecutor class >> initialSequence: sequence parentExecutor: executor [
+	| we |
+	we := WaveExecutor initialNode: sequence targetRef engine: executor.
+	we flowHandler addSequence: sequence.
+	^ self new 
+		executor: we;
+		parentExecutor: executor;
+		yourself.
+]
+
 { #category : #finalization }
 SubExecutor >> executor [ 
 	^ executor
@@ -48,7 +59,7 @@ SubExecutor >> startSubExecutor [
 	executor waveAnnouncer subscribe: JoinEventAnnouncer 
 		do: [ 	
 			| tmpExecutor rez |
-			"tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq. Razmisli o ovome jos"
+			"tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq."
 			tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: (executor flowHandler sequences at: (executor flowHandler sequences size -1)).
 			rez := parentExecutor joinHandler checkIsExecutorCompleted: tmpExecutor.
 			rez ifTrue: [ parentExecutor mainExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. parentExecutor mainExecutor tryToExecuteNextOnWorker.].

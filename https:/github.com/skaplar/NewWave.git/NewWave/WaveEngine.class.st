@@ -16,9 +16,9 @@ WaveEngine >> addExecutor: anExecutor [
 ]
 
 { #category : #accessing }
-WaveEngine >> addSubExecutor: anInitialNode [
+WaveEngine >> addSubExecutor: anInitialSequence [
 	| se |
-	se := SubExecutor initialNode: anInitialNode parentExecutor: self.
+	se := SubExecutor initialSequence: anInitialSequence parentExecutor: self.
 	se startSubExecutor.
 	subExecutors add: se.
 ]

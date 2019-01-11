@@ -6,7 +6,6 @@ Class {
 		'taskResult',
 		'flowHandler',
 		'workers',
-		'joinHandler',
 		'engine'
 	],
 	#category : #'NewWave-Engine'
@@ -71,17 +70,6 @@ WaveExecutor >> initialize [
 	super initialize.
 	self waveAnnouncer: Announcer new.
 	self workers: Dictionary new.
-	self joinHandler: (JoinHandler context: self).
-]
-
-{ #category : #accessing }
-WaveExecutor >> joinHandler [
-	^ joinHandler
-]
-
-{ #category : #accessing }
-WaveExecutor >> joinHandler: aJoinHandler [
-	joinHandler := aJoinHandler
 ]
 
 { #category : #'as yet unclassified' }
