@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'executor',
-		'parentExecutor'
+		'engine'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -17,14 +17,24 @@ SubExecutor class >> initialNode: node parentExecutor: executor [
 ]
 
 { #category : #'as yet unclassified' }
-SubExecutor class >> initialSequence: sequence parentExecutor: executor [
+SubExecutor class >> initialSequence: sequence engine: executor [
 	| we |
 	we := WaveExecutor initialNode: sequence targetRef engine: executor.
 	we flowHandler addSequence: sequence.
 	^ self new 
 		executor: we;
-		parentExecutor: executor;
+		engine: executor;
 		yourself.
+]
+
+{ #category : #finalization }
+SubExecutor >> engine [
+	^ engine
+]
+
+{ #category : #finalization }
+SubExecutor >> engine: anExecutor [ 
+	engine := anExecutor
 ]
 
 { #category : #finalization }
@@ -38,16 +48,6 @@ SubExecutor >> executor: anExecutor [
 ]
 
 { #category : #finalization }
-SubExecutor >> parentExecutor [
-	^ parentExecutor
-]
-
-{ #category : #finalization }
-SubExecutor >> parentExecutor: anExecutor [ 
-	parentExecutor := anExecutor
-]
-
-{ #category : #finalization }
 SubExecutor >> startSubExecutor [
 	| worker |
 	worker := TKTWorker new.
@@ -56,17 +56,6 @@ SubExecutor >> startSubExecutor [
 	('SUB-Worker process is ', worker process identityHash asString ) logCr.
 	executor workers at: worker name put: worker.
 	executor flowHandler workerid: worker name.
-	executor waveAnnouncer subscribe: JoinEventAnnouncer 
-		do: [ 	
-			| tmpExecutor rez |
-			"tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: executor flowHandler currSeq."
-			tmpExecutor := parentExecutor joinHandler addSequenceToExecutors: (executor flowHandler sequences at: (executor flowHandler sequences size -1)).
-			rez := parentExecutor joinHandler checkIsExecutorCompleted: tmpExecutor.
-			rez ifTrue: [ parentExecutor mainExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. parentExecutor mainExecutor tryToExecuteNextOnWorker.].
-			"rez ifTrue: [parentExecutor flowHandler node: tmpExecutor continueAfterJoin. parentExecutor  waveAnnouncer announce: JoinCompletedEventAnnouncer new.]."
-			('Ending-SUB-Worker process is ', worker process identityHash asString) logCr.
-			executor worker stop.
-		].
 	executor tryToExecuteNext.
 	
 ]

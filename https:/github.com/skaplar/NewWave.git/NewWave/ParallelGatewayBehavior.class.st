@@ -11,12 +11,6 @@ Class {
 ParallelGatewayBehavior >> performExecution: elemToExecute executor: wave [
 	elemToExecute outgoingFlows do: [ :each | wave engine addSubExecutor: each ].
 	
-	wave waveAnnouncer subscribe: JoinCompletedEventAnnouncer 
-	do: [ 
-		wave worker schedule: [ wave tryToExecuteNext. ].
-	].
-	
-	
 	
 	
 ]
