@@ -40,7 +40,6 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 		| ex |
 		ex := jExecutor first.
 		ex addIncSequence: aSequence.
-		"^ self checkIsExecutorCompleted: ex."
 		^ ex.
 	]  
 	ifEmpty: [  
@@ -50,22 +49,7 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 		je addIncSequence: aSequence.
 		self addJoinExecutor: je.
 		^ je.
-		"^ self checkIsExecutorCompleted: je.	"
 	]. 
-	"jExecutor := joinExecutors detect: [ :each | each joinNode = aSequence sourceRef ] 
-	ifNone:[	
-		| je |
-		je := JoinExecutor new.
-		je joinNode: aSequence sourceRef.
-		'ovo ' logCr.
-		je addIncSequence: aSequence.
-		self addJoinExecutor: je.	
-	].
-	
-	jExecutor ifNotNil: [ 
-		jExecutor addIncSequence: aSequence.
-		self checkIsExecutorCompleted: jExecutor. 
-	]."
 ]
 
 { #category : #accessing }
