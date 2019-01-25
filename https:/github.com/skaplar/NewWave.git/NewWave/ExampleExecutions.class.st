@@ -1,3 +1,12 @@
+"
+I am a class that contains several examples. You can use one of my examples really easy with
+
+| e |
+e := ExampleExecutions new.
+e startExample1.
+
+Which will run example 1. And so on for the other examples.
+"
 Class {
 	#name : #ExampleExecutions,
 	#superclass : #Object,
@@ -59,7 +68,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample2 [
 "This example uses parallel gateway, where both paths are taken, and joined later."
-| se ee t1 t2 t3 we seq seq2 seq3 seqexc seqexc1 seqexc2 split1 fh pj seq4 seq5 t4 engine|
+| se ee t1 t2 t3 we seq seq2 seq3 seqexc seqexc1 seqexc2 split1 pj seq4 seq5 t4 engine|
 TKTDebugger disable.
 se := StartEvent new.
 se description: 'StartEvent'.
@@ -123,7 +132,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample3 [
 "This example uses two parallel gateways, where both paths are taken, and joined later."
-| start end1 end2 psplit1 a b c d psplit2 pjoin1 e1 e2 seqeps1 seqps1a seqps1b seqapj1 seqpj1e seqbps2 seqps2c seqcpj1  seqps2d seqde2 fh we f sss sss2 engine|
+| start  psplit1 a b c d psplit2 pjoin1 e1 e2 seqeps1 seqps1a seqps1b seqapj1 seqpj1e seqbps2 seqps2c seqcpj1  seqps2d seqde2 we f sss2 engine|
 TKTDebugger disable.
 start := StartEvent new.
 start description: 'StartEvent'.
@@ -173,7 +182,6 @@ seqps2c := Sequence source: psplit2 target: c.
 seqcpj1 := Sequence source: c target: pjoin1.
 seqps2d := Sequence source: psplit2  target: d.
 seqde2 := Sequence source: d target: e2.
-sss := Sequence source: pjoin1  target: f.
 sss2 := Sequence source: f target: e1. 
 
 start addOutgoingFlow: seqeps1.
@@ -202,7 +210,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample4 [
 "This example uses two parallel gateways, where both paths are taken, and joined later. Doesnt use task f as intermediate after Join 1."
-| start end1 psplit1 a b c d psplit2 pjoin1 e1 e2 seqeps1 seqps1a seqps1b seqapj1 seqpj1e seqbps2 seqps2c seqcpj1  seqps2d seqde2 we engine|
+| start psplit1 a b c d psplit2 pjoin1 e1 e2 seqeps1 seqps1a seqps1b seqapj1 seqpj1e seqbps2 seqps2c seqcpj1  seqps2d seqde2 we engine|
 TKTDebugger disable.
 start := StartEvent new.
 start description: 'StartEvent'.
@@ -273,7 +281,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample5 [
 "This example uses two parallel gateways, one immediately after another where both paths are taken, and joined later. Doesnt use any task as intermediate after ps1 to ps2."
-| start end1 end2 psplit1 a b c d psplit2 pjoin1 e1 e2 fh we  engine 
+| start psplit1 a b c psplit2 pjoin1 e1 e2 we engine 
 seqeps1
 seqps1a
 seqps1ps2 
@@ -419,7 +427,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample7 [
 "This example uses two parallel gateways, where both paths are taken, and uses two joines. "
-| start end1 end2 psplit1 a b c d psplit2 pjoin1 e1 e2 fh we  engine 
+| start  psplit1 a b c  psplit2 pjoin1 e1 e2 we  engine 
 seqeps1
 seqps1a
 seqps1ps2 
