@@ -7,12 +7,10 @@ Class {
 	#category : #'NewWave-Tests'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 FlowHandlerTest >> setUp [
 	| se ee t1 seq seq2 | 
 	super setUp.
-	
-		
 	se := StartEvent new.
 	se description: 'StartEvent'.
 	
@@ -35,7 +33,7 @@ FlowHandlerTest >> setUp [
 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #tests }
 FlowHandlerTest >> testGetNextElement [
 	| n |
 	n := flowHandler getNextElement.

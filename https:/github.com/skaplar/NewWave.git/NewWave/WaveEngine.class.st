@@ -1,6 +1,6 @@
 "
-I am a class that represents the engine of the workflow. Execution is started through this class by calling startEngine which access the main executor.
-Engine contains one main executor and other subexecutors (depending on the model) and a system of announcers which announnce when something happends during execution.
+I am a class that represents the engine of the workflow. Execution is started through this class by calling message startEngine which accesses the main executor.
+Engine contains one main executor and other subexecutors (depending on the model) and a system of announcers which announnces when something happens during execution.
 
 We create engine using, and then provide it with main executor. Main executor needs the node from which he will start executing. We start the execution by simply calling startEngine. 
 
@@ -21,7 +21,7 @@ engine startEngine.
 
 Internal Representation and Key Implementation Points.
 
-    Instance Variables
+Instance Variables
 	engineAnnouncer: Announcer for receiving announcements in the engine (eg. joinCompleted)
 	joinHandler:		JoinHandler for handling joins in the engine
 	mainExecutor:		WaveExecutor for performing main execution
