@@ -30,10 +30,8 @@ ExampleClass >> rici [
 		:ann | ann logCr. 'pera' logCr.
 	]."
 
-announcer subscribe: ExampleAnnouncer
-	do: [ 
-		:ann | ann parameter logCr. 'pera' logCr.
-	].
+	announcer subscribe: ExampleAnnouncer
+		do: [ :ann | ann parameter logCr. 'pera' logCr ].
 
 "
 Ovako se pokrece
