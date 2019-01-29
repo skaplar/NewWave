@@ -38,3 +38,15 @@ e startExample1.
 ```
 
 Output of the examples is in the `Transcript` for now.
+
+
+## Installation
+
+You can load NewWave now using metacello as follows:
+
+```smalltalk
+Metacello new
+  baseline: #NewWave;
+  repository: 'github://skaplar/NewWave:master';
+  load.
+```
