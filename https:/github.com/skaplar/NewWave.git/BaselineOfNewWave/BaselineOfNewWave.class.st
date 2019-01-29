@@ -16,12 +16,12 @@ BaselineOfNewWave >> baseline: spec [
 			"Packages"
 			spec
 				package: 'NewWave';
-				package: 'NewWave-Model';
-				package: 'NewWave-Core';
-				package: 'NewWave-Engine';
-				package: 'NewWave-Announcers';
-				package: 'NewWave-Tests';
-				package: 'NewWave-Example'	
+				package: 'NewWave-Model' with: [ spec requires: #('NewWave') ];
+				package: 'NewWave-Core' with: [ spec requires: #('NewWave') ];
+				package: 'NewWave-Engine' with: [ spec requires: #('NewWave') ];
+				package: 'NewWave-Announcers' with: [ spec requires: #('NewWave') ];
+				package: 'NewWave-Tests' with: [ spec requires: #('NewWave') ];
+				package: 'NewWave-Example'	with: [ spec requires: #('NewWave') ]
 		]
 ]
 
