@@ -28,10 +28,9 @@ FlowHandler >> currSeq: aSequence [
 { #category : #accessing }
 FlowHandler >> getNextElement [
 	" The idea here is to go through the sequences of the nodes. Every  node knows what is his outgoing flow. So I set the target node to be executed, and return source node. When there are no more outgoing flows I return the node itself.
-	As the matter of precaution I set the next node to nil, in case something goes wrong, to don't stuck in the loop."
+	As the matter of precaution I added the NullNode, which is actually here to avoid ifNil checks."
 	| seq tmp |
 	tmp := node.
-	node ifNil: [ ^ nil ].
 	node outgoingFlows 
 	ifNotEmpty: [ 
 		seq := node outgoingFlows first.
@@ -40,7 +39,7 @@ FlowHandler >> getNextElement [
 			ifNotNil: [ self node: seq targetRef. self currSeq: seq. ^ seq sourceRef. ]. 
 	] 
 	ifEmpty: [ 
-		self node: nil.
+		self node: NullNode new.
 		^ tmp.
 	].
 	

@@ -43,5 +43,5 @@ FlowHandlerTest >> testGetNextElement [
 	n := flowHandler getNextElement.
 	self assert: n class == EndEvent.
 	n := flowHandler getNextElement.
-	self assert: n isNil.
+	self assert: n class == NullNode.
 ]

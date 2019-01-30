@@ -71,7 +71,7 @@ WaveExecutorTest >> testShouldExecuteNextNewHandler [
 ]
 
 { #category : #tests }
-WaveExecutorTest >> testShouldNotExecuteLastNewHandler [
+WaveExecutorTest >> testShouldNotGetNilNewHandler [
 	| node |
 	node := waveExecutor shouldExecuteNextNewHandler.
 	self assert: node isNotNil.
@@ -80,7 +80,7 @@ WaveExecutorTest >> testShouldNotExecuteLastNewHandler [
 	node := waveExecutor shouldExecuteNextNewHandler.
 	self assert: node isNotNil.
 	node := waveExecutor shouldExecuteNextNewHandler.
-	self assert: node isNil.
+	self assert: node isNotNil.
 	
 	
 ]
