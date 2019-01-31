@@ -41,8 +41,8 @@ ExampleExecutions >> startExample1 [
 	seq := Sequence source: se target: t1.
 	seqexc := Sequence source: t1 target: split1.
 
-	seqexc1 := Sequence source: split1 target: t2 condition: true. 
-	seqexc2 := Sequence source: split1 target: t3 condition: false.
+	seqexc1 := Sequence source: split1 target: t2 condition: [:x | x = true]. 
+	seqexc2 := Sequence source: split1 target: t3 condition: [:x | x = false].
 
 	seq2 := Sequence source: t2 target: ee.
 	seq3 := Sequence source: t3 target: ee.
@@ -99,8 +99,8 @@ pj description: 'ParallelJoin'.
 seq := Sequence source: se target: t1.
 seqexc := Sequence source: t1 target: split1.
 
-seqexc1 := Sequence source: split1 target: t2 condition: true. 
-seqexc2 := Sequence source: split1 target: t3 condition: false.
+seqexc1 := Sequence source: split1 target: t2 condition: [:x | x = true]. 
+seqexc2 := Sequence source: split1 target: t3 condition: [:x | x = false].
 
 seq2 := Sequence source: t2 target: pj.
 seq3 := Sequence source: t3 target: pj.
