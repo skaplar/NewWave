@@ -95,6 +95,13 @@ WaveEngine >> joinHandler: aJoinHandler [
 ]
 
 { #category : #accessing }
+WaveEngine >> logNewActivation: anActivation on: anExecutor forNode: aNode [
+"TODO when adding a history"
+
+
+]
+
+{ #category : #accessing }
 WaveEngine >> mainExecutor [
 	^ mainExecutor
 ]
