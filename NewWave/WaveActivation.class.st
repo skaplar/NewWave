@@ -35,6 +35,16 @@ WaveActivation >> initialize [
 ]
 
 { #category : #accessing }
+WaveActivation >> isCompleted [ 
+	^ executor workList isCompleted: self.
+]
+
+{ #category : #accessing }
+WaveActivation >> isStartedOrCompleted [ 
+	^ executor workList isStartedOrCompleted: self.
+]
+
+{ #category : #accessing }
 WaveActivation >> node [ 
 	^ node
 ]

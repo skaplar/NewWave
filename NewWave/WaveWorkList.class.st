@@ -9,6 +9,13 @@ Class {
 }
 
 { #category : #adding }
+WaveWorkList >> addToCompleted: activation [
+	"Proveriti da li je vec aktivacija pocela, ako je pocela podigni error"
+	completed add: activation
+	"Treba zabaleziti za istoriju.... noteRunOf: anActivation in: self"
+]
+
+{ #category : #adding }
 WaveWorkList >> addToRunning: activation [
 	"Proveriti da li je vec aktivacija pocela, ako je pocela podigni error"
 	running add: activation
@@ -18,7 +25,16 @@ WaveWorkList >> addToRunning: activation [
 { #category : #adding }
 WaveWorkList >> initialize [ 
 	super initialize.
-	
 	running := OrderedCollection new.
 	completed := OrderedCollection new.
+]
+
+{ #category : #adding }
+WaveWorkList >> isCompleted: anActivation [
+	^ completed includes: anActivation
+]
+
+{ #category : #adding }
+WaveWorkList >> isStartedOrCompleted: anActivation [
+	^ (running includes: anActivation ) or: [ completed includes: anActivation ]
 ]

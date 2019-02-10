@@ -1,5 +1,5 @@
 Class {
-	#name : #ExampleAnnouncer,
+	#name : #WaveAnnouncer,
 	#superclass : #Announcement,
 	#instVars : [
 		'parameter'
@@ -8,17 +8,17 @@ Class {
 }
 
 { #category : #'instance creation' }
-ExampleAnnouncer class >> with: anObject [
+WaveAnnouncer class >> with: anObject [
 	^self new 
 		parameter: anObject
 ]
 
 { #category : #accessing }
-ExampleAnnouncer >> parameter [
+WaveAnnouncer >> parameter [
 	^ parameter
 ]
 
 { #category : #accessing }
-ExampleAnnouncer >> parameter: aParameter [
+WaveAnnouncer >> parameter: aParameter [
 	parameter := aParameter
 ]

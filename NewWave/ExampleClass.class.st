@@ -30,7 +30,7 @@ ExampleClass >> rici [
 		:ann | ann logCr. 'pera' logCr.
 	]."
 
-	announcer subscribe: ExampleAnnouncer
+	announcer subscribe: WaveAnnouncer
 		do: [ :ann | ann parameter logCr. 'pera' logCr ].
 
 "

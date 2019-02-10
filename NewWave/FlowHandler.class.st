@@ -35,7 +35,7 @@ FlowHandler >> getNextElement [
 	ifNotEmpty: [ 
 		seq := node outgoingFlows first.
 		sequences add: seq.
-		seq ifNil: [ 'This should not happend. ' logCr ] 
+		seq ifNil: [ self error: 'Outgoing seq in flow handler is Nil. This should not happend.'  ] 
 			ifNotNil: [ self node: seq targetRef. self currSeq: seq. ^ seq sourceRef. ]. 
 	] 
 	ifEmpty: [ 

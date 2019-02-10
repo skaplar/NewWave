@@ -36,5 +36,6 @@ BehaviorHandler >> initialize [
 			(#ExclusiveGateway -> ExclusiveGatewayBehavior new).
 			(#ParallelGateway -> ParallelGatewayBehavior new).
 			(#ParallelJoin -> ParallelJoinBehavior new).
-			(#NullNode -> NullNodeBehavior new)} asDictionary 
+			(#NullNode -> NullNodeBehavior new).
+			(#ManualTask -> ManualTaskEventBehavior new).} asDictionary 
 ]
