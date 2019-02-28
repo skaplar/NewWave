@@ -4,7 +4,10 @@ Class {
 	#instVars : [
 		'node',
 		'executor',
-		'properties'
+		'properties',
+		'state',
+		'activated',
+		'completed'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -15,7 +18,29 @@ WaveActivation class >> node: aNode executor: anExecutor [
 ^ self new 
 	node: aNode;
 	executor: anExecutor;
+	activated: false;
+	completed: false;
 	yourself
+]
+
+{ #category : #accessing }
+WaveActivation >> activated [
+	^ activated 
+]
+
+{ #category : #accessing }
+WaveActivation >> activated: aBoolean [
+	activated := aBoolean
+]
+
+{ #category : #accessing }
+WaveActivation >> completed [
+	^ completed
+]
+
+{ #category : #accessing }
+WaveActivation >> completed: aBoolean [
+	completed := aBoolean
 ]
 
 { #category : #accessing }
@@ -35,16 +60,6 @@ WaveActivation >> initialize [
 ]
 
 { #category : #accessing }
-WaveActivation >> isCompleted [ 
-	^ executor workList isCompleted: self.
-]
-
-{ #category : #accessing }
-WaveActivation >> isStartedOrCompleted [ 
-	^ executor workList isStartedOrCompleted: self.
-]
-
-{ #category : #accessing }
 WaveActivation >> node [ 
 	^ node
 ]
@@ -55,6 +70,25 @@ WaveActivation >> node: aNode [
 ]
 
 { #category : #accessing }
+WaveActivation >> printOn: aStream [
+	"super printOn: aStream."
+	aStream
+		nextPutAll: 'Act(';
+		nextPutAll: self node description;
+		nextPutAll: ')'.
+]
+
+{ #category : #accessing }
 WaveActivation >> properties [
 	^ properties
+]
+
+{ #category : #accessing }
+WaveActivation >> state [ 
+	^ state
+]
+
+{ #category : #accessing }
+WaveActivation >> state: aState [
+	state := aState
 ]

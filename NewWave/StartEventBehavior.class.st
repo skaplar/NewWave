@@ -18,6 +18,6 @@ StartEventBehavior >> performExecution: elemToExecute executor: wave [
 			('Worker process is ', worker process identityHash asString ) logCr.
 			wave workers at: worker name put: worker.
 			wave flowHandler workerid: worker name.
-			wave tryToExecuteNext.
+			wave tryToExecuteNext: elemToExecute.
 		]
 ]

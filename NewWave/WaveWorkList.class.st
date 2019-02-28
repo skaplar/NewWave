@@ -2,7 +2,6 @@ Class {
 	#name : #WaveWorkList,
 	#superclass : #Object,
 	#instVars : [
-		'completed',
 		'running'
 	],
 	#category : #'NewWave-Engine'
@@ -10,31 +9,36 @@ Class {
 
 { #category : #adding }
 WaveWorkList >> addToCompleted: activation [
-	"Proveriti da li je vec aktivacija pocela, ako je pocela podigni error"
-	completed add: activation
+	activation completed: true.
+	"Proveriti da li je vec aktivacija pocela, ako je pocela podigni error
+	running remove: activation.
+	completed add: activation."
+	
 	"Treba zabaleziti za istoriju.... noteRunOf: anActivation in: self"
 ]
 
 { #category : #adding }
 WaveWorkList >> addToRunning: activation [
 	"Proveriti da li je vec aktivacija pocela, ako je pocela podigni error"
-	running add: activation
+	"running add: activation"
+	activation activated: true.
+	running indexOf: activation ifAbsent: [ running add: activation ].
 	"Treba zabaleziti za istoriju.... noteRunOf: anActivation in: self"
+	
+]
+
+{ #category : #adding }
+WaveWorkList >> completed [
+	^ running select: [ :each | each completed ]
 ]
 
 { #category : #adding }
 WaveWorkList >> initialize [ 
 	super initialize.
 	running := OrderedCollection new.
-	completed := OrderedCollection new.
 ]
 
 { #category : #adding }
-WaveWorkList >> isCompleted: anActivation [
-	^ completed includes: anActivation
-]
-
-{ #category : #adding }
-WaveWorkList >> isStartedOrCompleted: anActivation [
-	^ (running includes: anActivation ) or: [ completed includes: anActivation ]
+WaveWorkList >> running [
+	^ running select: [ :each | each activated ].
 ]

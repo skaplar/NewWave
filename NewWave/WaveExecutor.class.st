@@ -36,9 +36,7 @@ Class {
 		'taskResult',
 		'flowHandler',
 		'workers',
-		'engine',
-		'activations',
-		'workList'
+		'engine'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -67,16 +65,16 @@ WaveExecutor class >> initialNode: node engine: aEngine [
 { #category : #running }
 WaveExecutor >> activationForNode: aNode [
 	| activation |
-	activation := activations at: aNode ifAbsent: [ self newActivationForNode: aNode ].
+	activation := self activations at: aNode ifAbsent: [ self newActivationForNode: aNode ].
 	" Treba dodati proveru o workListi i o tome sta se izvrsava, odnosno ako je vec dodata jednom aktivacija ne bi je trebalo dodavati drugi put."
-	self workList addToRunning: activation.
+	"self workList addToRunning: activation."
 	^ activation.
 	
 ]
 
 { #category : #running }
 WaveExecutor >> activations [
-	^ activations
+	^ engine activations
 ]
 
 { #category : #accessing }
@@ -95,7 +93,7 @@ WaveExecutor >> execute: elem [
 	elemHandler := BehaviorHandler new.
 	executor := elemHandler behaviors at: elem ctype.
 	" Ideja je da bi execute mogao da se pozove i naknadno, odnosno ukoliko je aktivacija vec napravljena ili treba da se nastavi nakon prekida."
-	self activationForNode: elem.
+	self workList addToRunning: (self activationForNode: elem).
 	executor performExecution: elem executor: self.
 	
 	
@@ -119,15 +117,13 @@ WaveExecutor >> initialize [
 	super initialize.
 	waveAnnouncer := Announcer new.
 	workers := Dictionary new.
-	activations := Dictionary new.
-	workList := WaveWorkList new.
 ]
 
 { #category : #running }
 WaveExecutor >> newActivationForNode: aNode [
 	| activation |
-	(activations includesKey: aNode) ifTrue: [ self error: 'Activation already exists!'].
-	activation := activations at: aNode put: (WaveActivation node: aNode executor: self).
+	(self activations includesKey: aNode) ifTrue: [ self error: 'Activation already exists!'].
+	activation := self activations at: aNode put: (WaveActivation node: aNode executor: self).
 	"engine logNewActivation: activation on: self forNode: aNode."
 	^ activation.
 ]
@@ -164,7 +160,17 @@ WaveExecutor >> tryToExecuteNext [
 	| tmp |
 	tmp := self shouldExecuteNextNewHandler.
 	"So this should happen once, when the element should be activated and executed"
-	self newActivationForNode: tmp.
+	"self newActivationForNode: tmp."
+	self execute: tmp.
+]
+
+{ #category : #accessing }
+WaveExecutor >> tryToExecuteNext: aCompletedNode [
+	| tmp |
+	self workList addToCompleted: (self activationForNode: aCompletedNode).
+	tmp := self shouldExecuteNextNewHandler.
+	"So this should happen once, when the element should be activated and executed"
+	"self newActivationForNode: tmp."
 	self execute: tmp.
 ]
 
@@ -172,6 +178,13 @@ WaveExecutor >> tryToExecuteNext [
 WaveExecutor >> tryToExecuteNextOnWorker [
 	"This is where I continue the execution after join. Because join is completed I want to continue executing on the worker inside this executor, so I can remove the existing SubExecutors."
 	self worker schedule: [ self tryToExecuteNext. ].
+]
+
+{ #category : #accessing }
+WaveExecutor >> tryToExecuteNextOnWorker: aCompletedNode [
+	"This is where I continue the execution after join. Because join is completed I want to continue executing on the worker inside this executor, so I can remove the existing SubExecutors."
+	self worker schedule: [ self tryToExecuteNext: aCompletedNode. ].
+
 ]
 
 { #category : #accessing }
@@ -186,7 +199,7 @@ WaveExecutor >> waveAnnouncer: anObject [
 
 { #category : #running }
 WaveExecutor >> workList [
-	^ workList
+	^ engine workList
 ]
 
 { #category : #accessing }

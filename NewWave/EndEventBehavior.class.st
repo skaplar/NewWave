@@ -13,6 +13,10 @@ EndEventBehavior >> performExecution: elemToExecute executor: wave [
 	"wave flowHandler node: nil."
 	('Ending worker on process ', Processor activeProcess identityHash asString) logCr.
 	('Worker process is ', wave worker process identityHash asString ) logCr.
+	"wave workList addToCompleted: (wave activationForNode: elemToExecute)."
+	wave engine workList completed asString logCr.
+	wave engine workList running asString logCr.
+	
 	wave worker stop.
 	
 ]

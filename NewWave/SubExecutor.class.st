@@ -3,18 +3,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'executor',
-		'engine'
+		'engine',
+		'previousNode'
 	],
 	#category : #'NewWave-Engine'
 }
-
-{ #category : #'as yet unclassified' }
-SubExecutor class >> initialNode: node parentExecutor: executor [
-	^ self new 
-		executor: (WaveExecutor initialNode: node engine: executor);
-		parentExecutor: executor;
-		yourself.
-]
 
 { #category : #'as yet unclassified' }
 SubExecutor class >> initialSequence: sequence engine: executor [
@@ -24,6 +17,7 @@ SubExecutor class >> initialSequence: sequence engine: executor [
 	^ self new 
 		executor: we;
 		engine: executor;
+		previousNode: sequence sourceRef;
 		yourself.
 ]
 
@@ -48,6 +42,16 @@ SubExecutor >> executor: anExecutor [
 ]
 
 { #category : #finalization }
+SubExecutor >> previousNode [
+	^ previousNode  
+]
+
+{ #category : #finalization }
+SubExecutor >> previousNode: aPreviousNode [
+	previousNode := aPreviousNode 
+]
+
+{ #category : #finalization }
 SubExecutor >> startSubExecutor [
 	| worker |
 	worker := TKTWorker new.
@@ -56,6 +60,6 @@ SubExecutor >> startSubExecutor [
 	('SUB-Worker process is ', worker process identityHash asString ) logCr.
 	executor workers at: worker name put: worker.
 	executor flowHandler workerid: worker name.
-	executor tryToExecuteNext.
+	executor tryToExecuteNext: previousNode.
 	
 ]

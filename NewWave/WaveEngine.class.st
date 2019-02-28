@@ -37,10 +37,17 @@ Class {
 		'mainExecutor',
 		'joinHandler',
 		'subExecutors',
-		'engineAnnouncer'
+		'engineAnnouncer',
+		'workList',
+		'activations'
 	],
 	#category : #'NewWave-Engine'
 }
+
+{ #category : #accessing }
+WaveEngine >> activations [
+	^ activations
+]
 
 { #category : #accessing }
 WaveEngine >> addExecutor: anExecutor [
@@ -52,7 +59,11 @@ WaveEngine >> addExecutor: anExecutor [
 			:ann | | tmpExecutor rez | 
 			tmpExecutor := joinHandler addSequenceToExecutors: ann parameter.
 			rez := joinHandler checkIsExecutorCompleted: tmpExecutor.
-			rez ifTrue: [ mainExecutor flowHandler node: tmpExecutor returnNodeAfterJoin. mainExecutor tryToExecuteNextOnWorker.].
+			rez ifTrue: [ | an |
+				an := tmpExecutor returnNodeAfterJoin.
+				mainExecutor flowHandler node: an. 
+				mainExecutor tryToExecuteNextOnWorker: an.
+			].
 			('Ending-SUB-Worker process is ', ann executor worker process identityHash asString) logCr.
 			ann executor worker stop.
 	].
@@ -82,6 +93,8 @@ WaveEngine >> initialize [
 	self joinHandler: (JoinHandler context: self).
 	self subExecutors: OrderedCollection new.
 	self engineAnnouncer: Announcer new.
+	workList := WaveWorkList new.
+	activations := Dictionary new.
 ]
 
 { #category : #accessing }
@@ -125,4 +138,9 @@ WaveEngine >> subExecutors [
 { #category : #accessing }
 WaveEngine >> subExecutors: aSubExecutor [
 	subExecutors := aSubExecutor 
+]
+
+{ #category : #accessing }
+WaveEngine >> workList [
+	^ workList
 ]

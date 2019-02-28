@@ -17,6 +17,6 @@ ExclusiveGatewayBehavior >> performExecution: elemToExecute executor: wave [
 	I should think about default gateway, if nothing is true
 	And also think about multiple params to block"
 	rez := elemToExecute outgoingFlows detect: [ :each | each condition value: wave taskResult].
-	rez ifNotNil: [ wave flowHandler node: rez targetRef. wave tryToExecuteNext ].
+	rez ifNotNil: [ wave flowHandler node: rez targetRef. wave tryToExecuteNext: elemToExecute. ].
 	
 ]
