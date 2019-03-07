@@ -1,52 +1,64 @@
 Class {
-	#name : #ManualTask,
+	#name : #UserTask,
 	#superclass : #BaseActivity,
 	#instVars : [
 		'value',
 		'announcer',
-		'result'
+		'result',
+		'formProperties'
 	],
 	#category : #'NewWave-Core'
 }
 
 { #category : #initialization }
-ManualTask >> announcer [
+UserTask >> addProperty: aProperty [
+	formProperties add: aProperty
+]
+
+{ #category : #initialization }
+UserTask >> announcer [
 	^ announcer
 ]
 
 { #category : #initialization }
-ManualTask >> complete [
+UserTask >> complete [
 	announcer announce: (WaveAnnouncer with: self result).
 	
 ]
 
 { #category : #initialization }
-ManualTask >> ctype [
-	^ #ManualTask
+UserTask >> ctype [
+	^ #UserTask
 ]
 
 { #category : #initialization }
-ManualTask >> initialize [
+UserTask >> formProperties [
+	^ formProperties
+]
+
+{ #category : #initialization }
+UserTask >> initialize [
 	super initialize.
 	announcer := Announcer new.
+	formProperties := OrderedCollection new.
 ]
 
 { #category : #initialization }
-ManualTask >> result [
+UserTask >> result [
 	^ result
 ]
 
 { #category : #initialization }
-ManualTask >> result: aResult [
+UserTask >> result: aResult [
 	result := aResult
 ]
 
 { #category : #initialization }
-ManualTask >> value [
+UserTask >> value [
 	^ value
 ]
 
 { #category : #initialization }
-ManualTask >> value: aValue [
+UserTask >> value: aValue [
 	value := aValue
 ]

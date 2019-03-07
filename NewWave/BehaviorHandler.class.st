@@ -37,5 +37,5 @@ BehaviorHandler >> initialize [
 			(#ParallelGateway -> ParallelGatewayBehavior new).
 			(#ParallelJoin -> ParallelJoinBehavior new).
 			(#NullNode -> NullNodeBehavior new).
-			(#ManualTask -> ManualTaskEventBehavior new).} asDictionary 
+			(#UserTask -> ManualTaskEventBehavior new).} asDictionary 
 ]
