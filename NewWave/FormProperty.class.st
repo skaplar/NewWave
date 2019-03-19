@@ -1,17 +1,29 @@
 Class {
 	#name : #FormProperty,
-	#superclass : #Node,
+	#superclass : #Element,
 	#instVars : [
 		'name',
 		'type',
-		'variable'
+		'variable',
+		'formValues'
 	],
 	#category : #'NewWave-Core'
 }
 
 { #category : #initialization }
+FormProperty >> addFormValue: aValue [
+	formValues add: aValue
+]
+
+{ #category : #initialization }
+FormProperty >> formValues [
+	^ formValues
+]
+
+{ #category : #initialization }
 FormProperty >> initialize [ 
 	super initialize.
+	formValues := OrderedCollection new.
 
 ]
 

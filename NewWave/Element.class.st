@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'description',
-		'ctype'
+		'ctype',
+		'id'
 	],
 	#category : #'NewWave-Core'
 }
@@ -21,4 +22,14 @@ Element >> description [
 { #category : #accessing }
 Element >> description: anObject [
 	description := anObject 
+]
+
+{ #category : #accessing }
+Element >> id [ 
+	^ id
+]
+
+{ #category : #accessing }
+Element >> id: anId [
+	id := anId
 ]
