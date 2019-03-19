@@ -3,3 +3,8 @@ Class {
 	#superclass : #Event,
 	#category : #'NewWave-Core'
 }
+
+{ #category : #testing }
+IntermediateCatchEvent >> ctype [
+	^ #IntermediateCatchEvent
+]
