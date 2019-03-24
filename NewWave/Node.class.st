@@ -21,6 +21,24 @@ Node >> addIncomingFlow: aFlow [
 ]
 
 { #category : #initialization }
+Node >> addOutgoingEdge: anElement [
+	| sequence |
+	sequence := Sequence source: self target: anElement.
+	self addOutgoingFlow: sequence.
+	anElement addIncomingFlow: sequence.
+	
+]
+
+{ #category : #initialization }
+Node >> addOutgoingEdge: anElement withCondition: aCondition [
+	| sequence |
+	sequence := Sequence source: self target: anElement condition: aCondition.
+	self addOutgoingFlow: sequence.
+	anElement addIncomingFlow: sequence.
+	
+]
+
+{ #category : #initialization }
 Node >> addOutgoingFlow: aFlow [
 	outgoingFlows add: aFlow.
 
