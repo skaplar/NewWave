@@ -39,7 +39,8 @@ Class {
 		'subExecutors',
 		'engineAnnouncer',
 		'workList',
-		'activations'
+		'activations',
+		'scheduler'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -95,6 +96,8 @@ WaveEngine >> initialize [
 	self engineAnnouncer: Announcer new.
 	workList := WaveWorkList new.
 	activations := Dictionary new.
+	scheduler := TaskScheduler new.
+	scheduler start.
 ]
 
 { #category : #accessing }
@@ -122,6 +125,11 @@ WaveEngine >> mainExecutor [
 { #category : #accessing }
 WaveEngine >> mainExecutor: executors [
 	mainExecutor := executors 
+]
+
+{ #category : #accessing }
+WaveEngine >> scheduler [
+	^ scheduler
 ]
 
 { #category : #accessing }

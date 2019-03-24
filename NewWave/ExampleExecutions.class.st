@@ -518,3 +518,35 @@ we := WaveExecutor initialNode: start.
 engine addExecutor: we.
 engine startEngine.
 ]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions >> startExampleIntermediateCatchEvent7 [
+"This example uses two parallel gateways, where both paths are taken, and uses two joines. "
+| se ee t1 we seq seq2 fh engine ts |
+	se := StartEvent new.
+	se description: 'StartEvent'.
+	
+	t1 := IntermediateCatchEvent new.
+	t1 description: 'Intermediate Catch Event'.
+	
+	t1 addEventDefinition: (EventDefinition new).
+	
+	ee := EndEvent new.
+	ee description: 'EndEvent'.
+	
+	seq := Sequence source: se target: t1.
+	seq2 := Sequence source: t1 target: ee.
+	
+	se addOutgoingFlow: seq.
+	t1 addIncoming: seq addOutgoing: seq2.
+	ee addIncomingFlow: seq2.
+	
+	fh := FlowHandler new.
+	fh node: se.
+	
+	we := WaveExecutor new.
+	we flowHandler: fh.
+	engine := WaveEngine new. 
+	engine addExecutor: we.
+	engine startEngine.
+]

@@ -38,5 +38,7 @@ BehaviorHandler >> initialize [
 			(#ParallelJoin -> ParallelJoinBehavior new).
 			(#NullNode -> NullNodeBehavior new).
 			(#CustomTask -> TaskEventBehavior new).
-			(#UserTask -> UserTaskEventBehavior new).} asDictionary 
+			(#UserTask -> UserTaskEventBehavior new).
+			(#IntermediateCatchEvent -> IntermediateCatchEventBehavior new).
+			(#BoundaryEvent -> BoundaryEventBehavior new).} asDictionary 
 ]
