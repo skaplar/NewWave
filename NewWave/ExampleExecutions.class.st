@@ -55,7 +55,7 @@ ExampleExecutions >> startExample1 [
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample2 [
 "This example uses parallel gateway, where both paths are taken, and joined later."
-| se ee t1 t2 t3 we seq seq2 seq3 seqexc seqexc1 seqexc2 split1 pj seq4 seq5 t4 engine|
+| se ee t1 t2 t3 we split1 pj t4 engine|
 TKTDebugger disable.
 se := StartEvent new.
 se description: 'StartEvent'.
@@ -105,7 +105,7 @@ engine startEngine.
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample3 [
 "This example uses two parallel gateways, where both paths are taken, and joined later."
-| start  psplit1 a b c d psplit2 pjoin1 e1 e2 seqeps1 seqps1a seqps1b seqapj1 seqpj1e seqbps2 seqps2c seqcpj1  seqps2d seqde2 we f sss2 engine|
+| start  psplit1 a b c d psplit2 pjoin1 e1 e2 we f engine |
 TKTDebugger disable.
 start := StartEvent new.
 start description: 'StartEvent'.
@@ -145,34 +145,17 @@ e1 description: 'End Event 1'.
 e2 := EndEvent new.
 e2 description: 'End Event 2'.
 
-seqeps1 := Sequence source: start target: psplit1.
-seqps1a := Sequence source: psplit1  target: a.
-seqps1b := Sequence source: psplit1  target: b.
-seqapj1 := Sequence source: a target: pjoin1.
-seqpj1e := Sequence source: pjoin1  target: f.
-seqbps2 := Sequence source: b target: psplit2.
-seqps2c := Sequence source: psplit2 target: c.
-seqcpj1 := Sequence source: c target: pjoin1.
-seqps2d := Sequence source: psplit2  target: d.
-seqde2 := Sequence source: d target: e2.
-sss2 := Sequence source: f target: e1. 
-
-start addOutgoingFlow: seqeps1.
-psplit1 addIncoming: seqeps1 addOutgoingList: (OrderedCollection with: seqps1a with: seqps1b).
-
-a addIncoming: seqps1a addOutgoing: seqapj1.
-b addIncoming: seqps1b addOutgoing: seqbps2.
-pjoin1 addIncomingList: (OrderedCollection with: seqapj1 with: seqcpj1 ) addOutgoing: seqpj1e.
-
-f addIncoming: seqpj1e addOutgoing: sss2.
-
-psplit2 addIncoming: seqbps2  addOutgoingList: (OrderedCollection with: seqps2c with: seqps2d).
-
-c addIncoming: seqps2c addOutgoing: seqcpj1.
-d addIncoming: seqps2d  addOutgoing: seqde2.
-
-e1 addIncomingFlow: sss2.
-e2 addIncomingFlow: seqde2.
+start addOutgoingEdge: psplit1.
+psplit1 addOutgoingEdge: a.
+psplit1 addOutgoingEdge: b.
+a addOutgoingEdge: pjoin1.
+pjoin1 addOutgoingEdge: f.
+b addOutgoingEdge: psplit2.
+psplit2 addOutgoingEdge: c.
+c addOutgoingEdge: pjoin1.
+psplit2 addOutgoingEdge: d.
+d addOutgoingEdge: e2.
+f addOutgoingEdge: e1.
 
 engine := WaveEngine new.
 we := WaveExecutor initialNode: start.
