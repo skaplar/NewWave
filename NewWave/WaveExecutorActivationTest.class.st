@@ -9,7 +9,7 @@ Class {
 
 { #category : #tests }
 WaveExecutorActivationTest >> setUp [
-	| se ee t1 we seq seq2 fh |
+	| se ee t1 we seq seq2 fh engine |
 	super setUp.
 		
 	se := StartEvent new.
@@ -35,6 +35,10 @@ WaveExecutorActivationTest >> setUp [
 	we := WaveExecutor new.
 	we flowHandler: fh.
 	waveExecutor := we.
+	
+	engine := WaveEngine new.
+	engine addExecutor: we.
+	
 ]
 
 { #category : #tests }
