@@ -16,7 +16,7 @@ Class {
 { #category : #'as yet unclassified' }
 ExampleExecutions >> startExample1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
-	| se ee t1 t2 t3 we seq seq2 seq3 seqexc seqexc1 seqexc2 split1 engine|
+	| se ee t1 t2 t3 we split1 engine|
 
 	se := StartEvent new.
 	se description: 'StartEvent'.
@@ -37,27 +37,15 @@ ExampleExecutions >> startExample1 [
 
 	split1 := Exclusive new.
 	split1 description: 'Split1'.
-
-	seq := Sequence source: se target: t1.
-	seqexc := Sequence source: t1 target: split1.
-
-	seqexc1 := Sequence source: split1 target: t2 condition: [:x | x = true]. 
-	seqexc2 := Sequence source: split1 target: t3 condition: [:x | x = false].
-
-	seq2 := Sequence source: t2 target: ee.
-	seq3 := Sequence source: t3 target: ee.
 	
-	se addOutgoingFlow: seq.
-
-	t1 addIncoming: seq addOutgoing: seqexc. 
-	split1 addIncoming: seqexc addOutgoingList: (OrderedCollection with: seqexc1  with: seqexc2). 
-
-	t2 addIncoming: seqexc1  addOutgoing: seq2.
-	t3 addIncoming: seqexc1  addOutgoing: seq3.
-
-	ee addIncomingFlow: seq2.
-	ee addIncomingFlow: seq3.
-
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: split1.
+	split1 addOutgoingEdge: t2 withCondition: [ :x | x = true ].
+	split1 addOutgoingEdge: t3 withCondition: [ :x | x = false ].
+	
+	t2 addOutgoingEdge: ee.
+	t3 addOutgoingEdge: ee.
+	
 	engine := WaveEngine new.
 	we := WaveExecutor initialNode: se.
 	engine addExecutor: we.
@@ -96,31 +84,17 @@ split1 description: 'Split1'.
 pj := ParallelJoin new.
 pj description: 'ParallelJoin'.
 
-seq := Sequence source: se target: t1.
-seqexc := Sequence source: t1 target: split1.
+se addOutgoingEdge: t1.
+t1 addOutgoingEdge: split1.
 
-seqexc1 := Sequence source: split1 target: t2 condition: [:x | x = true]. 
-seqexc2 := Sequence source: split1 target: t3 condition: [:x | x = false].
+split1 addOutgoingEdge: t2 withCondition: [ :x | x = true ]. 
+split1 addOutgoingEdge: t3 withCondition: [ :x | x = false ].
 
-seq2 := Sequence source: t2 target: pj.
-seq3 := Sequence source: t3 target: pj.
+t2 addOutgoingEdge: pj.
+t3 addOutgoingEdge: pj.
 
-seq4 := Sequence source: pj target: t4.
-seq5 := Sequence source: t4 target: ee.
-
-se addOutgoingFlow: seq.
-
-t1 addIncoming: seq addOutgoing: seqexc. 
-split1 addIncoming: seqexc addOutgoingList: (OrderedCollection with: seqexc1  with: seqexc2). 
-
-t2 addIncoming: seqexc1  addOutgoing: seq2.
-t3 addIncoming: seqexc2  addOutgoing: seq3.
-
-pj addIncomingList: (OrderedCollection with: seq2 with: seq3) addOutgoing: seq4.
-
-t4 addIncoming: seq4 addOutgoing: seq5.  
-
-ee addIncomingFlow: seq5.
+pj addOutgoingEdge: t4.
+t4 addOutgoingEdge: ee.
 
 engine := WaveEngine new.
 we := WaveExecutor initialNode: se.

@@ -11,4 +11,6 @@ BoundaryEventBehavior >> performExecution: elemToExecute executor: wave [
 		wave engine scheduler doOnce: ['Uradi nesto ' logCr. wave tryToExecuteNext: elemToExecute.]
     		at: (DateAndTime now + 10 seconds).
 	]."
+	wave engine scheduler doOnce: [wave engine mainExecutor flowHandler node: elemToExecute outgoingFlows first targetRef. wave tryToExecuteNext: elemToExecute.]
+    		at: (DateAndTime now + 10 seconds).
 ]

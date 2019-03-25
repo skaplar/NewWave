@@ -97,7 +97,7 @@ WaveEngine >> initialize [
 	workList := WaveWorkList new.
 	activations := Dictionary new.
 	scheduler := TaskScheduler new.
-	scheduler start.
+	"scheduler start."
 ]
 
 { #category : #accessing }
