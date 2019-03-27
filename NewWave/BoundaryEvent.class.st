@@ -10,6 +10,16 @@ Class {
 }
 
 { #category : #testing }
+BoundaryEvent >> cancelActivity [
+	^ cancelActivity
+]
+
+{ #category : #testing }
+BoundaryEvent >> cancelActivity: aBoolean [
+	cancelActivity := aBoolean
+]
+
+{ #category : #testing }
 BoundaryEvent >> ctype [
 	^ #BoundaryEvent
 ]
