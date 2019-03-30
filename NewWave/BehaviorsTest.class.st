@@ -9,7 +9,7 @@ Class {
 
 { #category : #tests }
 BehaviorsTest >> setUp [ 
-	| se we seq fh |
+	| se we seq fh engine |
 	super setUp.
 		
 	se := StartEvent new.
@@ -25,6 +25,8 @@ BehaviorsTest >> setUp [
 	we := WaveExecutor new.
 	we flowHandler: fh.
 	waveExecutor := we.
+	engine := WaveEngine new.
+	engine addExecutor: waveExecutor.
 ]
 
 { #category : #tests }
