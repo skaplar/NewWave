@@ -63,7 +63,7 @@ WaveEngine >> addExecutor: anExecutor [
 			rez ifTrue: [ | an |
 				an := tmpExecutor returnNodeAfterJoin.
 				mainExecutor flowHandler node: an. 
-				mainExecutor tryToExecuteNext: an.
+				mainExecutor tryToExecuteNext: tmpExecutor joinNode.
 			].
 			('Ending-SUB-Worker process is ', ann executor worker process identityHash asString) logCr.
 			ann executor worker stop.
