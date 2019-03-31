@@ -29,7 +29,6 @@ BaselineOfNewWave >> scheduler: spec [
 	spec 
 		project: 'Scheduler'
 		with: [ spec
-			className: #TaskScheduler;
 			versionString: #'common';
 			repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Scheduler/main' ]
 ]
