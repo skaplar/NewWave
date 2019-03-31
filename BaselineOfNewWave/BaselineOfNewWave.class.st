@@ -30,7 +30,7 @@ BaselineOfNewWave >> scheduler: spec [
 		project: 'Scheduler'
 		with: [ spec
 			className: #ConfigurationOfScheduler;
-			versionString:#'2.2';
+			versionString:#'development';
 			repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Scheduler/main' ]
 ]
 
