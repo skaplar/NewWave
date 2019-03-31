@@ -12,7 +12,7 @@ BaselineOfNewWave >> baseline: spec [
 		do: [ 
 			"Dependencies"
 			self taskIt: spec.
-			
+			self scheduler: spec.
 			"Packages"
 			spec
 				package: 'NewWave'
@@ -22,6 +22,16 @@ BaselineOfNewWave >> baseline: spec [
 { #category : #accessing }
 BaselineOfNewWave >> projectClass [ 
 	^ MetacelloCypressBaselineProject
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> scheduler: spec [
+	spec 
+		project: 'Scheduler'
+		with: [ spec
+			className: #TaskScheduler;
+			versionString: #'main';
+			repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Scheduler/main' ]
 ]
 
 { #category : #accessing }

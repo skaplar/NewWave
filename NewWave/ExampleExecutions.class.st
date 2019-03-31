@@ -110,6 +110,7 @@ engine := WaveEngine new.
 we := WaveExecutor initialNode: se.
 engine addExecutor: we.
 engine startEngine.
+
 ]
 
 { #category : #'as yet unclassified' }
