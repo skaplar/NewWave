@@ -27,7 +27,8 @@ BaselineOfNewWave >> projectClass [
 { #category : #accessing }
 BaselineOfNewWave >> scheduler: spec [
 	spec 
-		baseline: 'Scheduler'
+		className: #ConfigurationOfScheduler;
+		versionString:#'stable';
 		with: [ spec
 			repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Scheduler/main' ]
 ]
