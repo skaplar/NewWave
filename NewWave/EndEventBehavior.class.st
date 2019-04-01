@@ -17,6 +17,11 @@ EndEventBehavior >> performExecution: elemToExecute executor: wave [
 	wave engine workList completed asString logCr.
 	wave engine workList running asString logCr.
 	
+	" Kad se zaustavi glavni executor zaustavi i task scheduler"
+	wave engine mainExecutor = wave ifTrue: [ 
+		wave engine scheduler stop.
+	].
+	
 	wave worker stop.
 	
 ]
