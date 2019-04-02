@@ -71,11 +71,11 @@ Now we want to create an execution using the MyTask and Exclusive gateway.
 
 	t2 := BaseTask new.
 	t2 description: 'B'.
-	t2 value: 'Cool'.
+	t2 value: 'Super Cool'.
 
 	t3 := BaseTask new.
 	t3 description: 'C'.
-	t3 value: 'Not Cool'.
+	t3 value: 'Cool'.
 
 	ee := EndEvent new.
 	ee description: 'End'.
@@ -102,10 +102,10 @@ Output will look like
 
 ```smalltalk
 8
-Cool
+Super Cool
 
 3
-Not Cool
+Cool
 ```
 
 Because this is simple example, this type of task can be replaced with ScriptTask. So in the previous example we replace MyTask with:
@@ -127,19 +127,11 @@ t1 script: [ 10 atRandom ].
 
 	t1 := ScriptTask new.
 	t1 description: 'A'.
-	t1 script: [ 
-		10 timesRepeat: [ 
-			10 milliSeconds wait. 'Task1 executed' logCr.
-		].
-	].
+	t1 script: [ 10 timesRepeat: [ 10 milliSeconds wait. 'Task1 executed' logCr. ]].
 
 	t2 := ScriptTask new.
 	t2 description: 'B'.
-	t2 script: [ 
-		20 timesRepeat: [ 
-			10 milliSeconds wait. 'Task2 executed' logCr.
-			].
-		].
+	t2 script: [ 20 timesRepeat: [ 10 milliSeconds wait. 'Task2 executed' logCr. ]].
 
 	ee := EndEvent new.
 	ee description: 'End'.
