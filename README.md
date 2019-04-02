@@ -194,7 +194,7 @@ Output will look something like:
 'Executor Completed'
 ```
 
-Message `'Executor not completed'` will be shown when the first branch completes and reaches the join. At the time Task2 wasn't completed so it will execute 10 more times, 20 in total when the message `'Executor completed'` shows, and the whole execution completes.
+After starting the execution, both task t1 and t2 will start executing. Task t1 will complete first and the message `'Executor not completed'` will be shown when the first branch completes and reaches the join. Join will wait for all the incoming branches to complete. At the time Task2 wasn't completed so it will execute 10 more times, 20 in total when the message `'Executor completed'` shows, and the whole execution completes.
 
 Additional examples are in the `ExampleExecutions` class. 
 We execute example by calling
