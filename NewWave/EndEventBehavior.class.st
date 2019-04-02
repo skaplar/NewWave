@@ -14,8 +14,8 @@ EndEventBehavior >> performExecution: elemToExecute executor: wave [
 	('Ending worker on process ', Processor activeProcess identityHash asString) logCr.
 	('Worker process is ', wave worker process identityHash asString ) logCr.
 	"wave workList addToCompleted: (wave activationForNode: elemToExecute)."
-	wave engine workList completed asString logCr.
-	wave engine workList running asString logCr.
+	"wave engine workList completed asString logCr.
+	wave engine workList running asString logCr."
 	
 	" Kad se zaustavi glavni executor zaustavi i task scheduler"
 	wave engine mainExecutor = wave ifTrue: [ 

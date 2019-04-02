@@ -45,6 +45,15 @@ Class {
 	#category : #'NewWave-Engine'
 }
 
+{ #category : #'as yet unclassified' }
+WaveEngine class >> initialNode: startNode [
+	| we | 
+	we := WaveExecutor initialNode: startNode.
+	^ self new 
+		addExecutor: we;
+		yourself.
+]
+
 { #category : #accessing }
 WaveEngine >> activations [
 	^ activations
