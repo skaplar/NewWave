@@ -2,10 +2,23 @@
 
 Workflow engine written in Pharo. Still in early development. 
 
-## Example
+## First Example
 
 In order to run the engine, for the minimal execution you need create Start and End, with the Sequence connecting them.
+```smalltalk
+start := StartEvent new.
+start description: 'StartEvent'.
 
+end := EndEvent new.
+end description: 'End Event ee'.
+
+start addOutgoingEdge: end.
+
+engine := WaveEngine initialNode: start.
+engine startEngine.
+```
+
+Which is just syntactic sugar for:
 
 ```smalltalk
 start := StartEvent new.
@@ -27,6 +40,89 @@ engine startEngine.
 WaveExecutor is the executor for the engine, and it needs the node from which will start executing. 
 In the example initialNode is named `start`. We supply the executor to the engine by calling `addExecutor:` and simply 
 run the engine with `engine startEngine.`
+
+NewWave also supports execution with Exclusive and Parallel gateways, with different types of tasks.
+
+## Tasks and Exclusive Gateway 
+
+You can customize the type of task you want to perform by subclassing one of the BaseTask, ScriptTask or CustomTask. 
+For example we want our task to generate a number between and 1 and 10. It is enough to subclass BaseTask, and to redefine the value method.
+
+```smalltalk
+BaseTask subclass: #MyTask
+	instanceVariableNames: ''
+	classVariableNames: ''
+	package: 'NewWave-Model'
+```
+
+```smalltalk
+MyTask >> value
+  ^ 10 atRandom
+```
+
+Now we want to create an execution using the MyTask and Exclusive gateway.
+
+```smalltalk
+	se := StartEvent new.
+	se description: 'Start '.
+
+	t1 := MyTask new.
+	t1 description: 'Generate random number'.
+
+	t2 := BaseTask new.
+	t2 description: 'B'.
+	t2 value: 'Cool'.
+
+	t3 := BaseTask new.
+	t3 description: 'C'.
+	t3 value: 'Not Cool'.
+
+	ee := EndEvent new.
+	ee description: 'End'.
+
+	exclusive := Exclusive new.
+	exclusive description: 'Exclusive'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: exclusive.
+	exclusive addOutgoingEdge: t2 withCondition: [ :x | x >= 5 ].
+	exclusive addOutgoingEdge: t3 withCondition: [ :x | x < 5 ].
+	
+	t2 addOutgoingEdge: ee.
+	t3 addOutgoingEdge: ee.
+	
+	engine := WaveEngine initialNode: se.
+	engine startEngine.
+
+```
+Descriptions are a way to distinguish different elements for printing, debugging, visualizing, etc.
+Exclusive gateway creates a transition to the next element with `addOutgoingEdge: t2 withCondition: [ :x | x >= 5 ]`. So `t2` is the next element to execute if block returns true. `x` is the result of executing ```MyTask >> value```.
+
+Output will look like
+
+```smalltalk
+8
+Cool
+
+3
+Not Cool
+```
+
+Because this is simple example, this type of task can be replaced with ScriptTask. So in the previous example we replace MyTask with:
+
+```smalltalk
+t1 := ScriptTask new.
+t1 description: 'Generate random number'.
+t1 script: [ 10 atRandom ].
+```
+
+`ScriptTask >> value: ` expects a block to be evaluated during execution. And we get the exact same result!
+
+
+## Parallel Gateway 
+
+
+
 
 Additional examples are in the `ExampleExecutions` class. 
 We execute example by calling
