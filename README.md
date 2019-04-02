@@ -116,13 +116,93 @@ t1 description: 'Generate random number'.
 t1 script: [ 10 atRandom ].
 ```
 
-`ScriptTask >> value: ` expects a block to be evaluated during execution. And we get the exact same result!
+`ScriptTask >> script: ` expects a block to be evaluated during execution. And we get the exact same result!
 
 
 ## Parallel Gateway 
 
+```smalltalk
+	se := StartEvent new.
+	se description: 'Start'.
 
+	t1 := ScriptTask new.
+	t1 description: 'A'.
+	t1 script: [ 
+		10 timesRepeat: [ 
+			10 milliSeconds wait. 'Task1 executed' logCr.
+		].
+	].
 
+	t2 := ScriptTask new.
+	t2 description: 'B'.
+	t2 script: [ 
+		20 timesRepeat: [ 
+			10 milliSeconds wait. 'Task2 executed' logCr.
+			].
+		].
+
+	ee := EndEvent new.
+	ee description: 'End'.
+
+	parallel := Parallel new.
+	parallel description: 'Parallel'.
+	
+	join := ParallelJoin new.
+	join description: 'Main join'.
+	
+	se addOutgoingEdge: parallel.
+	parallel addOutgoingEdge: t1.
+	parallel addOutgoingEdge: t2.
+	
+	t1 addOutgoingEdge: join.
+	t2 addOutgoingEdge: join.	
+	
+	join addOutgoingEdge: ee.
+	
+	engine := WaveEngine initialNode: se.
+	engine startEngine.
+```
+
+Output will look something like:
+
+```
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+'Task2 executed'
+'Task1 executed'
+10
+'Executor Not completed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+'Task2 executed'
+20
+'Executor Completed'
+```
+
+Message `'Executor not completed'` will be shown when the first branch completes and reaches the join. At the time Task2 wasn't completed so it will execute 10 more times, 20 in total when the message `'Executor completed'` shows, and the whole execution completes.
 
 Additional examples are in the `ExampleExecutions` class. 
 We execute example by calling
