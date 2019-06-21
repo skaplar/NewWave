@@ -45,6 +45,11 @@ Node >> addOutgoingFlow: aFlow [
 ]
 
 { #category : #initialization }
+Node >> hasNext [
+	outgoingFlows isEmptyOrNil ifTrue: [ ^ false ] ifFalse: [ ^ true ].
+]
+
+{ #category : #initialization }
 Node >> incomingFlows [
 	^ incomingFlows
 ]

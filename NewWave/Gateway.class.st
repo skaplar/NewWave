@@ -20,3 +20,8 @@ Gateway >> addIncomingList: anIncomingList addOutgoing: anOutgoing [
 	self addOutgoingFlow: anOutgoing;
 	yourself
 ]
+
+{ #category : #adding }
+Gateway >> basetype [
+	^ #Gateway
+]

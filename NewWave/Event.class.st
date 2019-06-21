@@ -13,6 +13,11 @@ Event >> addEventDefinition: anEventDefinition [
 ]
 
 { #category : #testing }
+Event >> basetype [
+	^ #Event
+]
+
+{ #category : #testing }
 Event >> ctype [
 	^ #Event
 ]

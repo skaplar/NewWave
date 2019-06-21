@@ -19,6 +19,11 @@ BaseActivity >> addElement: anElement [
 ]
 
 { #category : #initialization }
+BaseActivity >> basetype [
+	^ #Activity
+]
+
+{ #category : #initialization }
 BaseActivity >> boundaryEvents [
 	^ boundaryEvents 
 ]
