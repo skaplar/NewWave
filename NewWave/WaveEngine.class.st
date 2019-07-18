@@ -40,7 +40,8 @@ Class {
 		'engineAnnouncer',
 		'workList',
 		'activations',
-		'scheduler'
+		'scheduler',
+		'server'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -105,8 +106,9 @@ WaveEngine >> initialize [
 	self engineAnnouncer: Announcer new.
 	workList := WaveWorkList new.
 	activations := Dictionary new.
-	scheduler := TaskScheduler new.
-	scheduler start.
+	"scheduler := TaskScheduler new."
+	server := NewWaveServer serveOn: 8081 waveEngine: self.
+	"scheduler start."
 ]
 
 { #category : #accessing }
@@ -142,6 +144,11 @@ WaveEngine >> scheduler [
 ]
 
 { #category : #accessing }
+WaveEngine >> server [ 
+	^ server.
+]
+
+{ #category : #accessing }
 WaveEngine >> startEngine [
 	mainExecutor tryToExecuteNext.
 	mainExecutor waveAnnouncer announce: StartAnnouncer new.
@@ -150,6 +157,7 @@ WaveEngine >> startEngine [
 { #category : #accessing }
 WaveEngine >> stopEngine [
 	scheduler stop.
+	server stop.
 ]
 
 { #category : #accessing }

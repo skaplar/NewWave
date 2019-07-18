@@ -19,7 +19,7 @@ EndEventBehavior >> performExecution: elemToExecute executor: wave [
 	
 	" Kad se zaustavi glavni executor zaustavi i task scheduler"
 	wave engine mainExecutor = wave ifTrue: [ 
-		wave engine scheduler stop.
+		"wave engine scheduler stop."
 	].
 	
 	wave worker stop.
