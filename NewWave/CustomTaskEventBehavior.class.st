@@ -11,6 +11,11 @@ CustomTaskEventBehavior >> performExecution: elemToExecute executor: wave [
 	"wave engine server element: elemToExecute."
 	wave engine server addTask: elemToExecute user: 'default'. 
 	wave engine engineAnnouncer subscribe: WaveAnnouncer
-		do: [ :a | a parameter logCr. wave taskResult: a parameter. wave tryToExecuteNext: elemToExecute.].
+		do: [ :a | 
+			a parameter logCr. 
+			wave taskResult: a parameter. 
+			wave engine server removeTask: elemToExecute user: 'default'.
+			wave tryToExecuteNext: elemToExecute.
+	].
 	elemToExecute value.
 ]

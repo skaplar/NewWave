@@ -26,14 +26,24 @@ NewWaveServer class >> serveOn: portNumber waveEngine: aWaveEngine [
 		start
 ]
 
-{ #category : #initialization }
+{ #category : #routes }
 NewWaveServer >> addEvent: aRequest [
 	engine engineAnnouncer announce: (WaveAnnouncer with: 'Izvrsen').
 	^ 'Izvrsen'
 		
 ]
 
-{ #category : #initialization }
+{ #category : #routes }
+NewWaveServer >> addNewEntity: aRequest [
+	| tmp |
+	(aRequest at: 'ime') logCr.
+	(aRequest at: 'prezime') logCr.
+	tmp := NeoJSONWriter toString: aRequest entity fields.
+	engine engineAnnouncer announce: (WaveAnnouncer with: tmp).
+	^ 'Adding of entity executed'.
+]
+
+{ #category : #routes }
 NewWaveServer >> addTask: aTask user: aUser [
 	| tasks |
 	tasks := pendingTasks
@@ -101,10 +111,9 @@ NewWaveServer >> readEvents: aRequest [
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
+	"n ifEmpty: [ ^ NeoJSONWriter toStringPretty: { #result -> 'empty'.} ]."
 	prvi := n first. 
-	n remove: prvi. 
 	^ prvi value.
-	"element ifNil: [ ^ 'Nema nista' ] ifNotNil: [ ^ element value]. "
 		
 ]
 
@@ -121,16 +130,24 @@ NewWaveServer >> registerRoutes [
 	teapot
 		GET: '/' -> '<h1>It works!</h1>';output: #html;
 		GET: '/events' -> (Send message: #readEvents: to: self); output: #json;
-		GET: '/eventzz' -> (Send message: #addEvent: to: self); output: #json.
+		GET: '/eventzz' -> (Send message: #addEvent: to: self); output: #json;
+		POST: '/addNewEntity' -> (Send message: #addNewEntity: to: self).
 ]
 
-{ #category : #initialization }
+{ #category : #routes }
+NewWaveServer >> removeTask: aTask user: aUser [
+	| tasks |
+	tasks := pendingTasks at: aUser ifAbsent: [ ^ '{"result": "Empty"}'].
+	tasks remove: aTask.
+]
+
+{ #category : #controlling }
 NewWaveServer >> start [
 	teapot start.
 	^ self.
 ]
 
-{ #category : #initialization }
+{ #category : #controlling }
 NewWaveServer >> stop [
 	teapot stop.
 ]
