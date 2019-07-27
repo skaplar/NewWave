@@ -31,6 +31,16 @@ NewWavePlugin >> baseTemplate [
 ]
 
 { #category : #initialization }
+NewWavePlugin >> baseTemplateNew [
+	^ '
+	<form action="http://localhost:8081/addNewEntity" method="post">
+			{{ visibleClassName  }}
+			{{> partial }}
+			<button type="submit" class="btn btn-primary">Submit</button>
+	</form>'
+]
+
+{ #category : #initialization }
 NewWavePlugin >> determineComponent: aComponent [
 	aComponent logCr.
 	^ '<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">'
@@ -41,18 +51,34 @@ NewWavePlugin >> determineComponent: aComponent [
 
 { #category : #initialization }
 NewWavePlugin >> displayForm: aRequest [
-	|forma s templateString partial |
+	|forma s templateString partial parts p |
 	forma := (ZnEasy get: 'http://localhost:8081/events') entity string.
 	s := NeoJSONReader fromString: forma.
 	s = 'Empty' ifTrue: [ ^ 'Nista' ].
 	"templateString := self getStyle, self baseTemplate."
 	templateString := String new writeStream.
 	templateString nextPutAll: self getStyle.
-	templateString nextPutAll: self baseTemplate.
+	templateString nextPutAll: self baseTemplateNew.
 	partial := '<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">'.
-	^ (FormTransHelper dictionary: s) performTemplating.
-	"^ templateString contents asMustacheTemplate value: (NeoJSONReader 
-         fromString: forma) partials: {'partial' -> partial} asDictionary."
+	partial := String new writeStream.
+	parts := Dictionary new.
+	(s at: 'visibleElements') do: [
+		:el | 
+		| tmp |
+		tmp := self preparePartial2: el.
+		parts at: (el at: 'columnLabel') put: tmp.
+		partial nextPutAll: '{{> '.
+		partial nextPutAll: (el at: 'columnLabel').
+		partial nextPutAll: '}}'.
+	].
+	parts logCr.
+	
+	partial contents logCr.
+	p := partial contents asMustacheTemplate value: '' asDictionary partials: parts.
+	"^ self preparePartial: s."
+	"^ (FormTransHelper dictionary: s) performTemplating."
+	^ templateString contents asMustacheTemplate value: (NeoJSONReader 
+         fromString: forma) partials: {'partial' -> p } asDictionary.
 		
 ]
 
@@ -92,6 +118,23 @@ NewWavePlugin >> preparePartial [
 ^'{{#wrapped}} {{tekst}} {{/wrapped}}' asMustacheTemplate value: { 
 	'tekst' -> '{{ component }}'.
 	'label' -> '{{ label }}'.
+	'wrapped' -> [ :render| self determineComponent: render value ]  
+} asDictionary.
+]
+
+{ #category : #initialization }
+NewWavePlugin >> preparePartial2: s [
+^'<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}" component={{component}}> ' asMustacheTemplate value: { 
+	'label' -> (s at: 'columnLabel').
+	'component' -> (s at: 'component').
+} asDictionary.
+]
+
+{ #category : #initialization }
+NewWavePlugin >> preparePartial: s [
+^'{{label}} {{#wrapped}} {{tekst}} {{/wrapped}}' asMustacheTemplate value: { 
+	'tekst' -> '{{ component }}'.
+	'label' -> (s at: 'columnLabel').
 	'wrapped' -> [ :render| self determineComponent: render value ]  
 } asDictionary.
 ]
