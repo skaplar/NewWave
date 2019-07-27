@@ -65,7 +65,7 @@ NewWavePlugin >> displayForm: aRequest [
 	(s at: 'visibleElements') do: [
 		:el | 
 		| tmp |
-		tmp := self preparePartial2: el.
+		tmp := self preparePartialNew: el.
 		parts at: (el at: 'columnLabel') put: tmp.
 		partial nextPutAll: '{{> '.
 		partial nextPutAll: (el at: 'columnLabel').
@@ -123,19 +123,23 @@ NewWavePlugin >> preparePartial [
 ]
 
 { #category : #initialization }
-NewWavePlugin >> preparePartial2: s [
-^'<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}" component={{component}}> ' asMustacheTemplate value: { 
-	'label' -> (s at: 'columnLabel').
-	'component' -> (s at: 'component').
-} asDictionary.
-]
-
-{ #category : #initialization }
 NewWavePlugin >> preparePartial: s [
 ^'{{label}} {{#wrapped}} {{tekst}} {{/wrapped}}' asMustacheTemplate value: { 
 	'tekst' -> '{{ component }}'.
 	'label' -> (s at: 'columnLabel').
 	'wrapped' -> [ :render| self determineComponent: render value ]  
+} asDictionary.
+]
+
+{ #category : #initialization }
+NewWavePlugin >> preparePartialNew: s [
+^'
+<div class="form-group">
+	<label for="{{ label }}">{{ label }}</label>
+	<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}" component={{component}}> 
+</div>' asMustacheTemplate value: { 
+	'label' -> (s at: 'columnLabel').
+	'component' -> (s at: 'component').
 } asDictionary.
 ]
 
