@@ -43,10 +43,10 @@ NewWavePlugin >> baseTemplateNew [
 { #category : #initialization }
 NewWavePlugin >> determineComponent: aComponent [
 	aComponent logCr.
-	^ '<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">'
-
-	
-	
+	aComponent = 'TextFieldComponent' ifTrue: [ 
+	^ '<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">'].
+	aComponent = 'NumberComponent' ifTrue: [ 
+	^ '<input type="number" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">'].
 ]
 
 { #category : #initialization }
@@ -123,24 +123,20 @@ NewWavePlugin >> preparePartial [
 ]
 
 { #category : #initialization }
-NewWavePlugin >> preparePartial: s [
-^'{{label}} {{#wrapped}} {{tekst}} {{/wrapped}}' asMustacheTemplate value: { 
-	'tekst' -> '{{ component }}'.
-	'label' -> (s at: 'columnLabel').
-	'wrapped' -> [ :render| self determineComponent: render value ]  
-} asDictionary.
-]
-
-{ #category : #initialization }
 NewWavePlugin >> preparePartialNew: s [
-^'
+| templateString |
+templateString := String new writeStream.
+templateString nextPutAll: 
+'
 <div class="form-group">
 	<label for="{{ label }}">{{ label }}</label>
-	<input type="text" class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}" component={{component}}> 
-</div>' asMustacheTemplate value: { 
+'.
+templateString nextPutAll: (self determineComponent: (s at: 'component')).
+templateString nextPutAll: '</div>'.
+^ templateString contents asMustacheTemplate value: { 
 	'label' -> (s at: 'columnLabel').
-	'component' -> (s at: 'component').
 } asDictionary.
+
 ]
 
 { #category : #initialization }
