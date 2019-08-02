@@ -17,24 +17,24 @@ NewWavePlugin class >> serveOn: portNumber [
 
 { #category : #initialization }
 NewWavePlugin >> baseTemplate [
-	^ '
+	^'
 	<form action="http://localhost:8081/addNewEntity" method="post">
-			{{ visibleClassName  }}
-			{{# visibleElements }}
+			{{ name  }}
+			{{# formProperties }}
 				<div class="form-group">
 					<label for="{{ label }}">{{ label }}</label>
-					{{> partial  }}
+					<input type={{type}} class="form-control" id="{{ label }}" name="{{ label }}" placeholder="Enter {{ label }}">
 				</div>
-			{{/ visibleElements }}
+			{{/ formProperties }}
 			<button type="submit" class="btn btn-primary">Submit</button>
 	</form>'
 ]
 
 { #category : #initialization }
 NewWavePlugin >> baseTemplateNew [
-	^ '
+	^'
 	<form action="http://localhost:8081/addNewEntity" method="post">
-			{{ visibleClassName  }}
+			{{ visibleClassName }}
 			{{> partial }}
 			<button type="submit" class="btn btn-primary">Submit</button>
 	</form>'
@@ -50,12 +50,25 @@ NewWavePlugin >> determineComponent: aComponent [
 ]
 
 { #category : #initialization }
+NewWavePlugin >> displayFieldUserForm: aRequest [
+	|forma s templateString partial parts p |
+	forma := (ZnEasy get: 'http://localhost:8081/events') entity string.
+	s := NeoJSONReader fromString: forma.
+	s = 'Empty' ifTrue: [ ^ 'Nista' ].
+	templateString := String new writeStream.
+	templateString nextPutAll: self getStyle.
+	templateString nextPutAll: self baseTemplate.
+	^ templateString contents asMustacheTemplate value: (NeoJSONReader 
+         fromString: forma) partials: {'partial' -> partial } asDictionary.
+		
+]
+
+{ #category : #initialization }
 NewWavePlugin >> displayForm: aRequest [
 	|forma s templateString partial parts p |
 	forma := (ZnEasy get: 'http://localhost:8081/events') entity string.
 	s := NeoJSONReader fromString: forma.
 	s = 'Empty' ifTrue: [ ^ 'Nista' ].
-	"templateString := self getStyle, self baseTemplate."
 	templateString := String new writeStream.
 	templateString nextPutAll: self getStyle.
 	templateString nextPutAll: self baseTemplateNew.
@@ -72,11 +85,8 @@ NewWavePlugin >> displayForm: aRequest [
 		partial nextPutAll: '}}'.
 	].
 	parts logCr.
-	
 	partial contents logCr.
 	p := partial contents asMustacheTemplate value: '' asDictionary partials: parts.
-	"^ self preparePartial: s."
-	"^ (FormTransHelper dictionary: s) performTemplating."
 	^ templateString contents asMustacheTemplate value: (NeoJSONReader 
          fromString: forma) partials: {'partial' -> p } asDictionary.
 		
@@ -126,7 +136,7 @@ NewWavePlugin >> preparePartial [
 NewWavePlugin >> preparePartialNew: s [
 | templateString |
 templateString := String new writeStream.
-templateString nextPutAll: 
+templateString nextPutAll:
 '
 <div class="form-group">
 	<label for="{{ label }}">{{ label }}</label>
@@ -151,27 +161,8 @@ NewWavePlugin >> registerErrorHandlers [
 NewWavePlugin >> registerRoutes [
 	teapot
 		GET: '/' -> '<h1>It works!</h1>';output: #html;
-		GET: '/displayForm' -> (Send message: #displayForm: to: self); output: #html.
-]
-
-{ #category : #accessing }
-NewWavePlugin >> schema [
-"deprecated"
-|s|
-s := {
-  #visibleClassName -> JSONSchema string.
-  #modal -> JSONSchema boolean.
-  #visibleElements -> [
-	#label -> JSONSchema string.
-	#visible -> JSONSchema boolean.
-	#columnLabel -> JSONSchema string.
-	#displayFormat -> JSONSchema string.
-	#representative -> JSONSchema boolean.
-	#autoGo -> JSONSchema boolean.
-	#disabled -> JSONSchema boolean.
-	#default -> JSONSchema boolean.
-	].
-#persisentClass ->JSONSchema string.  } asJSONSchema.
+		GET: '/displayForm' -> (Send message: #displayForm: to: self); output: #html;
+		GET: '/displayFieldUserForm' -> (Send message: #displayFieldUserForm: to: self); output: #html.
 ]
 
 { #category : #initialization }

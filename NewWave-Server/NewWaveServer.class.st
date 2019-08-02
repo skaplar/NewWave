@@ -113,6 +113,7 @@ NewWaveServer >> readEvents: aRequest [
 	n ifEmpty: [ ^ 'Empty' ].
 	"n ifEmpty: [ ^ NeoJSONWriter toStringPretty: { #result -> 'empty'.} ]."
 	prvi := n first. 
+	"^ prvi value."
 	^ prvi value.
 		
 ]

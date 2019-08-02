@@ -5,10 +5,21 @@ Class {
 		'name',
 		'type',
 		'variable',
-		'formValues'
+		'formValues',
+		'label'
 	],
 	#category : #'NewWave-Core'
 }
+
+{ #category : #accessing }
+FormProperty class >> neoJsonMapping: mapper [
+	"For inheritance mapping to work, the schema/classname must be self,
+	but the instance variables have to be enumerated manually per class"
+	
+	super neoJsonMapping: mapper.
+	mapper for: self do: [ :mapping |
+		mapping mapInstVars: #(name type variable formValues label) ] 
+]
 
 { #category : #initialization }
 FormProperty >> addFormValue: aValue [
@@ -25,6 +36,16 @@ FormProperty >> initialize [
 	super initialize.
 	formValues := OrderedCollection new.
 
+]
+
+{ #category : #accessing }
+FormProperty >> label [
+	^ label
+]
+
+{ #category : #accessing }
+FormProperty >> label: anObject [
+	label := anObject
 ]
 
 { #category : #initialization }
