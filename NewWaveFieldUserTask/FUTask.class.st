@@ -26,6 +26,11 @@ FUTask >> initialize [
 	status := 'waiting' " -done- is a value when task is NO more waiting/activ"
 ]
 
+{ #category : #testing }
+FUTask >> isWaiting [
+	^ self status='waiting'
+]
+
 { #category : #accessing }
 FUTask >> status [ 
 	^ status

@@ -31,7 +31,7 @@ FUUser >> addTask: aTask [
 
 { #category : #operations }
 FUUser >> getWaitingTasks [
-	^ self tasks select: [ :t | t status equals: 'waiting' ]
+	^ self tasks select: [ :t | t isWaiting  ]
 ]
 
 { #category : #operations }
