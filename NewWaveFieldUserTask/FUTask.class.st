@@ -14,6 +14,19 @@ Class {
 }
 
 { #category : #accessing }
+FUTask class >> status: aStatus [
+	^ self new 
+		status: aStatus;
+		yourself
+]
+
+{ #category : #initialization }
+FUTask >> initialize [
+	super initialize.
+	status := 'waiting' " -done- is a value when task is NO more waiting/activ"
+]
+
+{ #category : #accessing }
 FUTask >> status [ 
 	^ status
 ]
