@@ -33,7 +33,7 @@ FUApplicationRootComponent >> children [
 { #category : #initialization }
 FUApplicationRootComponent >> initialize [
 	super initialize.
-	main := FUScreenComponent new
+	main := FUSignInComponent new
 ]
 
 { #category : #rendering }
