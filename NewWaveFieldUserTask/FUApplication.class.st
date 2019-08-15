@@ -2,7 +2,8 @@ Class {
 	#name : #FUApplication,
 	#superclass : #Object,
 	#instVars : [
-		'users'
+		'users',
+		'loggedUser'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -74,6 +75,16 @@ FUApplication >> initialize [
 { #category : #testing }
 FUApplication >> isVoyageRoot [
 	^ true
+]
+
+{ #category : #accessing }
+FUApplication >> loggedUser [
+	^ loggedUser
+]
+
+{ #category : #initialization }
+FUApplication >> setLoggedUser: aUser [
+	loggedUser := aUser
 ]
 
 { #category : #accessing }
