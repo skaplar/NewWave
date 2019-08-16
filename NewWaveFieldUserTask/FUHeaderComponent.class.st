@@ -22,6 +22,7 @@ FUHeaderComponent >> component: anObject [
 
 { #category : #'as yet unclassified' }
 FUHeaderComponent >> goToSignUpView [
+	self call: FUSignUpComponent new
 ]
 
 { #category : #rendering }

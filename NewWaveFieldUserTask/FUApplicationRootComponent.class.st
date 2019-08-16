@@ -35,7 +35,12 @@ FUApplicationRootComponent >> children [
 { #category : #initialization }
 FUApplicationRootComponent >> initialize [
 	super initialize.
-	main := FUSignInComponent new
+	main := FUSignUpComponent new
+]
+
+{ #category : #accessing }
+FUApplicationRootComponent >> main: aComponent [
+	main := aComponent
 ]
 
 { #category : #rendering }

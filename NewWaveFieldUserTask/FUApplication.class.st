@@ -65,6 +65,19 @@ FUApplication >> addUser: anUser [
 	self users at: (anUser username asString) put: anUser. 
 ]
 
+{ #category : #'as yet unclassified' }
+FUApplication >> createUserWithUsername: aUsername andPassword: aPassword [
+	| newUser |
+	newUser := FUUser new
+		username: aUsername;
+		password: aPassword;
+		tasks: OrderedCollection new.
+	self addUser: newUser.
+	^ newUser 
+		
+	
+]
+
 { #category : #operations }
 FUApplication >> getUserWithUsername: aUsername andPassword: aPassword [
 	| user userList|
@@ -78,6 +91,14 @@ FUApplication >> getUserWithUsername: aUsername andPassword: aPassword [
 FUApplication >> initialize [
 	super initialize.
 	users := Dictionary new
+]
+
+{ #category : #testing }
+FUApplication >> isUsernameUnique: aUsername [
+	| user |
+	user := users at: aUsername ifAbsent: nil.
+	^ user isNil
+	
 ]
 
 { #category : #testing }
