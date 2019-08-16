@@ -19,9 +19,11 @@ FUApplicationRootComponent class >> initialize [
 	| app |
 	app := WAAdmin register: self asApplicationAt: 'NewWave-Engine'.
 	app
-	addLibrary: JQDeploymentLibrary;
-	addLibrary: JQUiDeploymentLibrary;
-	addLibrary: TBSDeploymentLibrary
+		preferenceAt: #sessionClass put: FUSession.
+	app
+		addLibrary: JQDeploymentLibrary;
+		addLibrary: JQUiDeploymentLibrary;
+		addLibrary: TBSDeploymentLibrary
 
 ]
 

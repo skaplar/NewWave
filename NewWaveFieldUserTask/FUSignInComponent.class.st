@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'component'
+		'component',
+		'showLoginError'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
@@ -27,6 +28,28 @@ FUSignInComponent >> component [
 FUSignInComponent >> component: aComponent [
 	component := aComponent 
 
+
+]
+
+{ #category : #operations }
+FUSignInComponent >> goToAllTasksView [ 
+	self call: FUAllUserTasksComponent new
+]
+
+{ #category : #testing }
+FUSignInComponent >> hasLoginError [
+	^ showLoginError ifNil: [ false ]
+
+]
+
+{ #category : #operations }
+FUSignInComponent >> loginErrorMessage [
+	^ 'Credentials must be wrong. Try again'
+]
+
+{ #category : #comparing }
+FUSignInComponent >> loginErrorOccurred [
+	showLoginError := true
 
 ]
 
@@ -59,6 +82,18 @@ FUSignInComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
+FUSignInComponent >> renderLoginErrorMessageIfAnyOn: html [
+	self hasLoginError ifTrue: [
+		showLoginError := false.
+		html html: '<br><br>'.
+		html tbsAlert   
+		beDanger ;
+		with: self loginErrorMessage
+	]
+
+]
+
+{ #category : #rendering }
 FUSignInComponent >> renderPasswordField: html [
 	html tbsFormGroup: [
 		html label with: 'Password'.
@@ -86,7 +121,9 @@ FUSignInComponent >> renderSignInForm: html [
 				html tbsForm: [
 					self renderUsernameField: html.
 					self renderPasswordField: html.
-					html tbsModalFooter: [ self renderButtonsOn: html ]
+					html tbsModalFooter: [ 
+						self renderButtonsOn: html.
+						self renderLoginErrorMessageIfAnyOn: html.]
 					] 
 				]
 			].		
@@ -109,6 +146,17 @@ FUSignInComponent >> renderUsernameField: html [
 	]
 ]
 
+{ #category : #operations }
+FUSignInComponent >> tryConnectionWithUsername: aUsername andPassword: aPassword [
+	|user|
+	user := FUApplication current getUserWithUsername: aUsername 
+					andPassword: (SHA256 hashMessage: aPassword).
+	user isNil 
+		ifTrue: [ self loginErrorOccurred ]
+		ifFalse: [ "self session currentlyLoggedUser: user."
+						self goToAllTasksView ]
+]
+
 { #category : #accessing }
 FUSignInComponent >> username [ 
 	^ username
@@ -121,6 +169,5 @@ FUSignInComponent >> username: anUsername [
 
 { #category : #accessing }
 FUSignInComponent >> validate [
-	"^ component tryConnectionWithLogin: self account andPassword: self password"
-	^ true
+	^ self tryConnectionWithUsername: self username andPassword: self password
 ]

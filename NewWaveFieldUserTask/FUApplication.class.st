@@ -2,8 +2,7 @@ Class {
 	#name : #FUApplication,
 	#superclass : #Object,
 	#instVars : [
-		'users',
-		'loggedUser'
+		'users'
 	],
 	#classInstVars : [
 		'uniqueInstance'
@@ -36,10 +35,10 @@ p4 variable: '175.5'.
 
 
 self current
-	addUser: ((FUUser username: 'user1' password: 'user1' ) 
+	addUser: ((FUUser username: 'user1' password: (SHA256 hashMessage: 'user1')) 
 		addTask: (((FUTask status: 'waiting') value: 'test'; result: 'test result') addProperty: p1; 			addProperty: p2; addProperty: p3; addProperty: p4);
 		addTask: (((FUTask status: 'waiting') value: 'test2'; result: 'test2 result') addProperty: p3; 			addProperty: p4) );
-	addUser: ((FUUser username: 'user2' password: 'user2' ) 
+	addUser: ((FUUser username: 'user2' password: (SHA256 hashMessage: 'user2')  ) 
 		addTask: (((FUTask status: 'done') value: 'test3'; result: 'test3 result') addProperty: p1; 			addProperty: p2);
 		addTask: (((FUTask status: 'waiting') value: 'test4'; result: 'test4 result') addProperty: p1) )
 ]
@@ -63,28 +62,27 @@ FUApplication class >> reset [
 
 { #category : #adding }
 FUApplication >> addUser: anUser [
-	^ self users add: anUser
+	self users at: (anUser username asString) put: anUser. 
+]
+
+{ #category : #operations }
+FUApplication >> getUserWithUsername: aUsername andPassword: aPassword [
+	| user userList|
+	user := users at: aUsername .
+	user password = aPassword
+		ifTrue: [^ user]
+		ifFalse: [^ nil]
 ]
 
 { #category : #initialization }
 FUApplication >> initialize [
 	super initialize.
-	users := OrderedCollection new
+	users := Dictionary new
 ]
 
 { #category : #testing }
 FUApplication >> isVoyageRoot [
 	^ true
-]
-
-{ #category : #accessing }
-FUApplication >> loggedUser [
-	^ loggedUser
-]
-
-{ #category : #initialization }
-FUApplication >> setLoggedUser: aUser [
-	loggedUser := aUser
 ]
 
 { #category : #accessing }
