@@ -32,8 +32,8 @@ FUSignInComponent >> component: aComponent [
 ]
 
 { #category : #operations }
-FUSignInComponent >> goToAllTasksView [ 
-	self call: FUAllUserTasksComponent new
+FUSignInComponent >> goToAllTasksView: aUser [ 
+	self call: (FUAllUserTasksComponent new tasks: aUser tasks)
 ]
 
 { #category : #testing }
@@ -154,7 +154,7 @@ FUSignInComponent >> tryConnectionWithUsername: aUsername andPassword: aPassword
 	user isNil 
 		ifTrue: [ self loginErrorOccurred ]
 		ifFalse: [ "self session currentlyLoggedUser: user."
-						self goToAllTasksView ]
+						self goToAllTasksView: user ]
 ]
 
 { #category : #accessing }

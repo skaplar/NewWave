@@ -30,8 +30,3 @@ FUScreenComponent >> renderContentOn: html [
 	html render: header
 
 ]
-
-{ #category : #accessing }
-FUScreenComponent >> user [
-	^ FUApplication current loggedUser
-]

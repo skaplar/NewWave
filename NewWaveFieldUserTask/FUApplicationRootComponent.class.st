@@ -35,17 +35,17 @@ FUApplicationRootComponent >> children [
 { #category : #initialization }
 FUApplicationRootComponent >> initialize [
 	super initialize.
-	main := FUSignUpComponent new
-]
-
-{ #category : #accessing }
-FUApplicationRootComponent >> main: aComponent [
-	main := aComponent
+	main := FUSignInComponent new
 ]
 
 { #category : #rendering }
 FUApplicationRootComponent >> renderContentOn: html [
 	html render: main
+]
+
+{ #category : #accessing }
+FUApplicationRootComponent >> setMainComponent: aComponent [
+	main := aComponent
 ]
 
 { #category : #updating }

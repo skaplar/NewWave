@@ -21,12 +21,12 @@ FUHeaderComponent >> component: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-FUHeaderComponent >> goToSignUpView [
+FUHeaderComponent >> goToSignUpView [ 
 	self call: FUSignUpComponent new
 ]
 
 { #category : #rendering }
-FUHeaderComponent >> renderBrandOn: html [
+FUHeaderComponent >> renderBrandOn: html [ 
 	html tbsNavbarHeader: [
 		html tbsNavbarBrand
 			url: self application url;
@@ -36,8 +36,9 @@ FUHeaderComponent >> renderBrandOn: html [
 ]
 
 { #category : #rendering }
-FUHeaderComponent >> renderContentOn: html [
-	html tbsNavbar beDefault; with: [
+FUHeaderComponent >> renderContentOn: html [ 
+	html tbsNavbar beDefault; 
+	with: [
 		html tbsContainer: [
 			html tbsColumn
 				extraSmallSize: 11;
@@ -55,14 +56,9 @@ FUHeaderComponent >> renderContentOn: html [
 ]
 
 { #category : #rendering }
-FUHeaderComponent >> renderSignUp: html [
-	html tbsNavbarHeader: [
-		html tbsNavbarButton
-			tbsPullRight;
-			callback: [ component goToSignUpView ];
-			with: [
-				html text: ' SignUp' ]
-		]
-
-	
+FUHeaderComponent >> renderSignUp: html [ 
+	html tbsNavbarButton
+		tbsPullRight;
+		callback: [ self goToSignUpView ];
+		with: ' SignUp' 
 ]
