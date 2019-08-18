@@ -6,10 +6,28 @@ Class {
 		'password',
 		'passwordRepeated',
 		'showSignUpError',
-		'errorMessage'
+		'errorMessage',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
+
+{ #category : #'instance creation' }
+FUSignUpComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
+
+{ #category : #accessing }
+FUSignUpComponent >> component [
+	^ component
+]
+
+{ #category : #accessing }
+FUSignUpComponent >> component: aComponent [
+	component := aComponent 
+]
 
 { #category : #accessing }
 FUSignUpComponent >> errorMessage [
@@ -22,8 +40,8 @@ FUSignUpComponent >> errorMessage: aMessage [
 ]
 
 { #category : #operations }
-FUSignUpComponent >> goToAllTasksView [ 
-	self call: FUAllUserTasksComponent new
+FUSignUpComponent >> goToAllTasksView: aUser [ 
+	self call: (FUAllUserTasksComponent new tasks: aUser tasks)
 ]
 
 { #category : #testing }
@@ -146,7 +164,7 @@ FUSignUpComponent >> tryCreatingUserWithUsername: aUsername andPassword: aPasswo
 	user isNil 
 		ifTrue: [ self signUpErrorOccurred ]
 		ifFalse: [ "self session currentlyLoggedUser: user."
-						self goToAllTasksView ]
+						self goToAllTasksView: user ]
 ]
 
 { #category : #accessing }

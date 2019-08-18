@@ -81,7 +81,9 @@ FUApplication >> createUserWithUsername: aUsername andPassword: aPassword [
 { #category : #operations }
 FUApplication >> getUserWithUsername: aUsername andPassword: aPassword [
 	| user userList|
-	user := users at: aUsername .
+	user := users at: aUsername ifAbsent: nil.
+	user isNil 
+		ifTrue: [^ nil].
 	user password = aPassword
 		ifTrue: [^ user]
 		ifFalse: [^ nil]

@@ -7,9 +7,19 @@ Class {
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
+{ #category : #initialization }
+FUAllUserTasksComponent >> initialize [
+	super initialize.
+	tasks := OrderedCollection new
+
+]
+
 { #category : #rendering }
 FUAllUserTasksComponent >> renderAllTasks: html [
-	self tasks do: [ :t | t isWaiting and: [html render: ( FUTaskComponent new task: t)] ]
+	self tasks isNil 
+		ifFalse: [ 
+			self tasks do: [ :t | t isWaiting and: [html render: ( FUTaskComponent new task: t )] ]
+	 ]
 ]
 
 { #category : #rendering }

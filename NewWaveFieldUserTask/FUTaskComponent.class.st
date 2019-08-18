@@ -12,6 +12,14 @@ FUTaskComponent >> announcer [
 	^ task announcer
 ]
 
+{ #category : #'as yet unclassified' }
+FUTaskComponent >> goToDoTask [
+	self halt.
+	self call: FUSignUpComponent new
+	
+	
+]
+
 { #category : #initialization }
 FUTaskComponent >> initialize [
 	super initialize.
@@ -22,8 +30,8 @@ FUTaskComponent >> initialize [
 FUTaskComponent >> renderButtonDoTask: html [	
 	html tbsSubmitButton
 	beSuccess;
-	callback: [ self validate ];
-	value: 'Do task'
+	callback: [self goToDoTask ];
+	with: 'Do task'
 ]
 
 { #category : #rendering }
@@ -54,6 +62,11 @@ FUTaskComponent >> renderContentOn: html [
 { #category : #evaluating }
 FUTaskComponent >> result [
 	^ task result
+]
+
+{ #category : #accessing }
+FUTaskComponent >> task [
+	^ task 
 ]
 
 { #category : #accessing }

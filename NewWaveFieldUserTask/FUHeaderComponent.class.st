@@ -59,6 +59,6 @@ FUHeaderComponent >> renderContentOn: html [
 FUHeaderComponent >> renderSignUp: html [ 
 	html tbsNavbarButton
 		tbsPullRight;
-		callback: [ self goToSignUpView ];
+		callback: [ component goToSignUpView ];
 		with: ' SignUp' 
 ]
