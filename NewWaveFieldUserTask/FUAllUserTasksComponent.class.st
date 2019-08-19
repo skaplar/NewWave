@@ -2,10 +2,28 @@ Class {
 	#name : #FUAllUserTasksComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
-		'tasks'
+		'tasks',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
+
+{ #category : #'instance creation' }
+FUAllUserTasksComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
+
+{ #category : #accessing }
+FUAllUserTasksComponent >> component [
+	^ component
+]
+
+{ #category : #accessing }
+FUAllUserTasksComponent >> component: aComponent [
+	component := aComponent 
+]
 
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
@@ -36,7 +54,12 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		extraSmallSize: 12;
 		smallSize: 10;
 		mediumSize: 8;
-		with: [ self renderAllTasks: html].
+		with: [ 
+			html tbsModalBody: [
+				html tbsForm: [	
+					self renderAllTasks: html ].
+				]
+			].
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;

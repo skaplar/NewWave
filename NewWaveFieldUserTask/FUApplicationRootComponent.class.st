@@ -48,11 +48,6 @@ FUApplicationRootComponent >> renderContentOn: html [
 	html render: main
 ]
 
-{ #category : #accessing }
-FUApplicationRootComponent >> setMainComponent: aComponent [
-	main := aComponent
-]
-
 { #category : #updating }
 FUApplicationRootComponent >> updateRoot: anHtmlRoot [
 	super updateRoot: anHtmlRoot.

@@ -2,22 +2,37 @@ Class {
 	#name : #FURowTaskComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'task'
+		'task',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
+
+{ #category : #'instance creation' }
+FURowTaskComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
 
 { #category : #evaluating }
 FURowTaskComponent >> announcer [
 	^ task announcer
 ]
 
+{ #category : #accessing }
+FURowTaskComponent >> component [
+	^ component
+]
+
+{ #category : #accessing }
+FURowTaskComponent >> component: aComponent [
+	component := aComponent 
+]
+
 { #category : #'as yet unclassified' }
 FURowTaskComponent >> goToDoTask [
-	| newComponent |
-	newComponent := FUDoTaskComponent new.
-	newComponent fields: (self task formProperties ).
-	self call: newComponent 
+	self call: (FUDoTaskComponent new task: self task)
 	
 ]
 
@@ -31,13 +46,15 @@ FURowTaskComponent >> initialize [
 FURowTaskComponent >> renderButtonDoTask: html [	
 	html tbsSubmitButton
 	beSuccess;
-	callback: [self goToDoTask ];
+	callback: [ self goToDoTask ];
 	with: 'Do task'
 ]
 
 { #category : #rendering }
 FURowTaskComponent >> renderContentOn: html [
-	html tbsContainer: [ 
+	html tbsModalBody: [
+				html tbsForm: [	
+					html tbsContainer: [ 
 		html tbsColumn
 				extraSmallSize: 6;
 				smallSize: 3;
@@ -57,7 +74,7 @@ FURowTaskComponent >> renderContentOn: html [
 			with: [ self renderButtonDoTask: html ]
 		 ].	
 		html horizontalRule.
-
+]]
 ]
 
 { #category : #evaluating }

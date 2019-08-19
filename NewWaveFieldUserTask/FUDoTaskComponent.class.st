@@ -2,17 +2,55 @@ Class {
 	#name : #FUDoTaskComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
-		'fields',
-		'showError'
+		'task',
+		'showError',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
+{ #category : #'instance creation' }
+FUDoTaskComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
+
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> allFieldsGood [
-	fields do: [ :f | f variable isEmptyOrNil 
-		ifTrue: [ ^ false ] ].
+	task formProperties do: [ :f | f type = 'date'  
+		ifTrue: [ (self checkIfDateValid: f variable)
+						ifFalse: [^ false] ]
+		ifFalse:[
+				f type = 'email'
+			ifTrue: [ (self checkIfEmailValid: f variable)
+						ifFalse: [^ false]  ]
+			ifFalse: [ f variable isEmptyOrNil
+							ifTrue: [^ false]]
+			]
+		
+		].
 	^ true
+]
+
+{ #category : #'as yet unclassified' }
+FUDoTaskComponent >> checkIfDateValid: aDate [
+	^ (aDate isMemberOf: Date)
+]
+
+{ #category : #'as yet unclassified' }
+FUDoTaskComponent >> checkIfEmailValid: aEmail [
+	^ (aEmail isMemberOf: WAEmailAddress )
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> component [
+	^ component 
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> component: aComponent [
+	component := aComponent 
 ]
 
 { #category : #accessing }
@@ -23,16 +61,6 @@ FUDoTaskComponent >> errorMessage [
 { #category : #comparing }
 FUDoTaskComponent >> errorOccurred [
 	showError := true
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> fields [ 
-	^ fields
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> fields: aFields [
-	fields := aFields
 ]
 
 { #category : #'as yet unclassified' }
@@ -48,7 +76,6 @@ FUDoTaskComponent >> hasError [
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
-	fields := OrderedCollection new
 ]
 
 { #category : #rendering }
@@ -80,10 +107,18 @@ FUDoTaskComponent >> renderContentOn: html [
 		extraSmallSize: 12;
 		smallSize: 10;
 		mediumSize: 8;
-		with: [ self renderTaskForm: html.
-			html horizontalRule.
-			self renderAcceptButton: html.
-			self renderErrorMessageOn: html].
+		with: [ 
+			html tbsModalBody: 
+				[html tbsForm: [
+					self renderTaskForm: html.
+					html tbsModalFooter: [ 
+						self renderAcceptButton: html.
+						self renderErrorMessageOn: html
+						]
+					]
+				].
+				
+				].
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
@@ -103,16 +138,26 @@ FUDoTaskComponent >> renderErrorMessageOn: html [
 
 { #category : #rendering }
 FUDoTaskComponent >> renderTaskForm: html [
-	self fields isNil 
+	self task isNil 
 		ifFalse: [ 
-			self fields do: [ :f | html render: ( FUFieldComponent new field: f ) ]
+			self task formProperties do: [ :f | html render: ( FUFieldComponent new field: f ) ]
 	 ]
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> task [
+	^ task
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> task: aTask [
+	task := aTask
 ]
 
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> validateForm [
 	self allFieldsGood
-		ifTrue: [ self goBack ] 
+		ifTrue: [ self task status: 'done'. self goBack ] 
 		ifFalse: [ self errorOccurred ]
 	
 ]

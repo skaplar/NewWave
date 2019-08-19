@@ -29,7 +29,7 @@ FUHeaderComponent >> component: anObject [
 
 { #category : #'as yet unclassified' }
 FUHeaderComponent >> goToSignUpView [ 
-	self call: FUSignUpComponent new
+	component call: FUSignUpComponent new
 ]
 
 { #category : #rendering }
@@ -66,13 +66,17 @@ FUHeaderComponent >> renderContentOn: html [
 FUHeaderComponent >> renderSignUp: html [ 
 	self session isLogged
 	ifTrue: [ 
-		html tbsNavbarButton
+		html form: [
+			html tbsNavbarButton
 			tbsPullRight;
-			callback: [self session reset] ;
+			callback:  [self session reset] ;
 			with: ' SignOut'  ]
-	ifFalse: [ 
-		html tbsNavbarButton
+		]
+	ifFalse: [ 		
+		html form: [ 
+			html tbsNavbarButton
 			tbsPullRight;
-			callback: [component goToSignUpView] ;
+			callback: [self goToSignUpView] ;
 			with: ' SignUp'  ]
+		]
 ]
