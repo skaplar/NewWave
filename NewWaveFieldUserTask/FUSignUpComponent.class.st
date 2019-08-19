@@ -163,7 +163,7 @@ FUSignUpComponent >> tryCreatingUserWithUsername: aUsername andPassword: aPasswo
 					andPassword: (SHA256 hashMessage: aPassword).
 	user isNil 
 		ifTrue: [ self signUpErrorOccurred ]
-		ifFalse: [ "self session currentlyLoggedUser: user."
+		ifFalse: [ self session currentlyLoggedUser: user.
 						self goToAllTasksView: user ]
 ]
 

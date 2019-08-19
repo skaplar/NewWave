@@ -18,7 +18,7 @@ FUAllUserTasksComponent >> initialize [
 FUAllUserTasksComponent >> renderAllTasks: html [
 	self tasks isNil 
 		ifFalse: [ 
-			self tasks do: [ :t | t isWaiting and: [html render: ( FUTaskComponent new task: t )] ]
+			self tasks do: [ :t | t isWaiting and: [html render: ( FURowTaskComponent new task: t )] ]
 	 ]
 ]
 
@@ -29,18 +29,18 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		html heading: 'Your tasks are:'.
 		html horizontalRule].
 	html tbsColumn
-				extraSmallSize: 0;
-				smallSize: 1;
-				mediumSize: 2. 
-			html tbsColumn
-				extraSmallSize: 12;
-				smallSize: 10;
-				mediumSize: 8;
-			with: [ self renderAllTasks: html].
-			html tbsColumn
-				extraSmallSize: 0;
-				smallSize: 1;
-				mediumSize: 2. 
+		extraSmallSize: 0;
+		smallSize: 1;
+		mediumSize: 2. 
+	html tbsColumn
+		extraSmallSize: 12;
+		smallSize: 10;
+		mediumSize: 8;
+		with: [ self renderAllTasks: html].
+	html tbsColumn
+		extraSmallSize: 0;
+		smallSize: 1;
+		mediumSize: 2. 
 ]
 
 { #category : #accessing }

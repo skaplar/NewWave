@@ -74,11 +74,15 @@ FUSignInComponent >> renderButtonsOn: html [
 
 { #category : #rendering }
 FUSignInComponent >> renderContentOn: html [
-	super renderContentOn: html.
-	html tbsContainer: [
-		html heading: 'Sign in'.
-		html horizontalRule.
-		self renderSignInForm: html]
+	self session isLogged 
+	ifTrue: [ self goToAllTasksView: self session currentlyLoggedUser ]
+	ifFalse: [ 
+		super renderContentOn: html.
+		html tbsContainer: [
+			html heading: 'Sign in'.
+			html horizontalRule.
+			self renderSignInForm: html]
+	]
 ]
 
 { #category : #rendering }
@@ -153,7 +157,7 @@ FUSignInComponent >> tryConnectionWithUsername: aUsername andPassword: aPassword
 					andPassword: (SHA256 hashMessage: aPassword).
 	user isNil 
 		ifTrue: [ self loginErrorOccurred ]
-		ifFalse: [ "self session currentlyLoggedUser: user."
+		ifFalse: [ self session currentlyLoggedUser: user.
 						self goToAllTasksView: user ]
 ]
 

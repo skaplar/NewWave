@@ -1,5 +1,5 @@
 Class {
-	#name : #FUTaskComponent,
+	#name : #FURowTaskComponent,
 	#superclass : #WAComponent,
 	#instVars : [
 		'task'
@@ -8,26 +8,27 @@ Class {
 }
 
 { #category : #evaluating }
-FUTaskComponent >> announcer [
+FURowTaskComponent >> announcer [
 	^ task announcer
 ]
 
 { #category : #'as yet unclassified' }
-FUTaskComponent >> goToDoTask [
-	self halt.
-	self call: FUSignUpComponent new
-	
+FURowTaskComponent >> goToDoTask [
+	| newComponent |
+	newComponent := FUDoTaskComponent new.
+	newComponent fields: (self task formProperties ).
+	self call: newComponent 
 	
 ]
 
 { #category : #initialization }
-FUTaskComponent >> initialize [
+FURowTaskComponent >> initialize [
 	super initialize.
 	task := FUTask new
 ]
 
 { #category : #rendering }
-FUTaskComponent >> renderButtonDoTask: html [	
+FURowTaskComponent >> renderButtonDoTask: html [	
 	html tbsSubmitButton
 	beSuccess;
 	callback: [self goToDoTask ];
@@ -35,7 +36,7 @@ FUTaskComponent >> renderButtonDoTask: html [
 ]
 
 { #category : #rendering }
-FUTaskComponent >> renderContentOn: html [
+FURowTaskComponent >> renderContentOn: html [
 	html tbsContainer: [ 
 		html tbsColumn
 				extraSmallSize: 6;
@@ -60,21 +61,21 @@ FUTaskComponent >> renderContentOn: html [
 ]
 
 { #category : #evaluating }
-FUTaskComponent >> result [
+FURowTaskComponent >> result [
 	^ task result
 ]
 
 { #category : #accessing }
-FUTaskComponent >> task [
+FURowTaskComponent >> task [
 	^ task 
 ]
 
 { #category : #accessing }
-FUTaskComponent >> task: aTask [
+FURowTaskComponent >> task: aTask [
 	task := aTask
 ]
 
 { #category : #evaluating }
-FUTaskComponent >> value [
+FURowTaskComponent >> value [
 	^ task value
 ]

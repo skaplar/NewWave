@@ -57,8 +57,15 @@ FUHeaderComponent >> renderContentOn: html [
 
 { #category : #rendering }
 FUHeaderComponent >> renderSignUp: html [ 
-	html tbsNavbarButton
-		tbsPullRight;
-		callback: [ component goToSignUpView ];
-		with: ' SignUp' 
+	self session isLogged
+	ifTrue: [ 
+		html tbsNavbarButton
+			tbsPullRight;
+			callback: [self session reset] ;
+			with: ' SignOut'  ]
+	ifFalse: [ 
+		html tbsNavbarButton
+			tbsPullRight;
+			callback: [self goToSignUpView] ;
+			with: ' SignUp'  ]
 ]
