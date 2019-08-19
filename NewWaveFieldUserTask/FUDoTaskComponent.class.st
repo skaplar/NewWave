@@ -17,10 +17,30 @@ FUDoTaskComponent >> fields: aFields [
 	fields := aFields
 ]
 
+{ #category : #'as yet unclassified' }
+FUDoTaskComponent >> goBack [
+]
+
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
 	fields := OrderedCollection new
+]
+
+{ #category : #rendering }
+FUDoTaskComponent >> renderAcceptButton: html [
+	html tbsSubmitButton 
+		tbsPullRight;
+		bePrimary;
+		callback: [ self validateForm ];
+		value: 'Finish task'.
+	
+	html tbsSubmitButton
+		tbsPullRight;
+		bePrimary;
+		callback: [ self goBack ];
+		value: 'Cancel'.
+	
 ]
 
 { #category : #rendering }
@@ -37,7 +57,9 @@ FUDoTaskComponent >> renderContentOn: html [
 		extraSmallSize: 12;
 		smallSize: 10;
 		mediumSize: 8;
-		with: [ self renderTaskForm: html].
+		with: [ self renderTaskForm: html.
+			html horizontalRule.
+			self renderAcceptButton: html].
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
@@ -50,4 +72,9 @@ FUDoTaskComponent >> renderTaskForm: html [
 		ifFalse: [ 
 			self fields do: [ :f | html render: ( FUFieldComponent new field: f ) ]
 	 ]
+]
+
+{ #category : #'as yet unclassified' }
+FUDoTaskComponent >> validateForm [
+	
 ]

@@ -38,6 +38,11 @@ FUApplicationRootComponent >> initialize [
 	main := FUSignInComponent new
 ]
 
+{ #category : #accessing }
+FUApplicationRootComponent >> main: aComponent [
+	main := aComponent
+]
+
 { #category : #rendering }
 FUApplicationRootComponent >> renderContentOn: html [
 	html render: main

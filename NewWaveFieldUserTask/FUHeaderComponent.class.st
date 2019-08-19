@@ -7,6 +7,13 @@ Class {
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
+{ #category : #'instance creation' }
+FUHeaderComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
+
 { #category : #accessing }
 FUHeaderComponent >> component [
 	^ component
@@ -66,6 +73,6 @@ FUHeaderComponent >> renderSignUp: html [
 	ifFalse: [ 
 		html tbsNavbarButton
 			tbsPullRight;
-			callback: [self goToSignUpView] ;
+			callback: [component goToSignUpView] ;
 			with: ' SignUp'  ]
 ]

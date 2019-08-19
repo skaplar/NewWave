@@ -12,7 +12,7 @@ Class {
 
 { #category : #'as yet unclassified' }
 FUApplication class >> createDemo [
-| p1 p2 p3 p4 |
+| p1 p2 p3 p4 p5 p6 p7|
 p1 := FormProperty new.
 p1 name: 'firstName'.
 p1 type: 'string'.
@@ -23,6 +23,23 @@ p2 name: 'lastName'.
 p2 type: 'string'.
 p2 variable: 'Peric'.
 
+p5 := FormProperty new.
+p5 name: 'gender'.
+p5 type: 'singleChoice'.
+p5 variable: 'Male'.
+p5 addFormValue: 'Male'.
+p5 addFormValue: 'Female'.
+
+p6 := FormProperty new.
+p6 name: 'email'.
+p6 type: 'email'.
+p6 variable: 'pera@p.com'.
+
+p7 := FormProperty new.
+p7 name: 'phone'.
+p7 type: 'phone'.
+p7 variable: '060 000 111'.
+
 p3 := FormProperty new.
 p3 name: 'dateOfBirth'.
 p3 type: 'date'.
@@ -30,13 +47,13 @@ p3 variable: '01-01-2000'.
 
 p4 := FormProperty new.
 p4 name: 'height'.
-p4 type: 'decimal'.
+p4 type: 'number'.
 p4 variable: '175.5'.
 
 
 self current
 	addUser: ((FUUser username: 'user1' password: (SHA256 hashMessage: 'user1')) 
-		addTask: (((FUTask status: 'waiting') value: 'test'; result: 'test result') addProperty: p1; 			addProperty: p2; addProperty: p3; addProperty: p4);
+		addTask: (((FUTask status: 'waiting') value: 'test'; result: 'test result') addProperty: p1; 			addProperty: p2; addProperty: p3; addProperty: p4; addProperty: p5; addProperty: p6; addProperty: p7);
 		addTask: (((FUTask status: 'waiting') value: 'test2'; result: 'test2 result') addProperty: p3; 			addProperty: p4) );
 	addUser: ((FUUser username: 'user2' password: (SHA256 hashMessage: 'user2')  ) 
 		addTask: (((FUTask status: 'done') value: 'test3'; result: 'test3 result') addProperty: p1; 			addProperty: p2);

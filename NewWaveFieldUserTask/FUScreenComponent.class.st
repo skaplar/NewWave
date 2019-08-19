@@ -15,7 +15,7 @@ FUScreenComponent >> children [
 
 { #category : #'as yet unclassified' }
 FUScreenComponent >> createHeaderComponent [
-	^ FUHeaderComponent new
+	^ FUHeaderComponent from: self
 
 ]
 
