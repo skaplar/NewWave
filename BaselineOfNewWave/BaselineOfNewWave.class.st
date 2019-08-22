@@ -14,10 +14,32 @@ BaselineOfNewWave >> baseline: spec [
 			self taskIt: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
+			self seaside: spec.
+			self magritte: spec.
+			self bootstrap: spec.
+			
 			"Packages"
 			spec
 				package: 'NewWave'
 		]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> bootstrap: spec [
+	spec 
+		baseline: 'Bootstrap'
+		with: [ 
+			spec repository: 'github://astares/Seaside-Bootstrap:master/src' 
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> magritte: spec [
+	spec 
+		baseline: 'Magritte'
+		with: [ 
+			spec repository: 'github://magritte-metamodel/magritte:v3.5.4' 
+		 ]
 ]
 
 { #category : #accessing }
@@ -42,6 +64,15 @@ BaselineOfNewWave >> scheduler: spec [
 			className: #ConfigurationOfScheduler;
 			versionString:#'development';
 			repository: 'http://smalltalkhub.com/mc/TorstenBergmann/Scheduler/main' ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> seaside: spec [
+	spec 
+		baseline: 'Seaside'
+		with: [ 
+			spec repository: 'github://SeasideSt/Seaside:master/repository'
+		 ]
 ]
 
 { #category : #accessing }
