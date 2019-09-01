@@ -118,7 +118,7 @@ FUFieldComponent >> renderFieldType: html [
 	self field type = 'phone'
 	ifTrue: [ self renderFieldPhone: html ].
 	
-	self field type = 'singleChoice'
+	self field type = 'singleOption'
 	ifTrue: [ self renderFieldSingleChoice: html ]
 	
 ]

@@ -3,18 +3,10 @@ Class {
 	#superclass : #FUScreenComponent,
 	#instVars : [
 		'task',
-		'showError',
-		'component'
+		'taskForm'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
-
-{ #category : #'instance creation' }
-FUDoTaskComponent class >> from: aComponent [
-	^ self new
-	component: aComponent;
-	yourself
-]
 
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> allFieldsGood [
@@ -43,24 +35,9 @@ FUDoTaskComponent >> checkIfEmailValid: aEmail [
 	^ (aEmail isMemberOf: WAEmailAddress )
 ]
 
-{ #category : #accessing }
-FUDoTaskComponent >> component [
-	^ component 
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> component: aComponent [
-	component := aComponent 
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> errorMessage [
-	^ 'All fields can not be empty'
-]
-
-{ #category : #comparing }
-FUDoTaskComponent >> errorOccurred [
-	showError := true
+{ #category : #hooks }
+FUDoTaskComponent >> children [
+	^ Array with: taskForm
 ]
 
 { #category : #'as yet unclassified' }
@@ -68,14 +45,11 @@ FUDoTaskComponent >> goBack [
 	self call: (FUAllUserTasksComponent new tasks: self session currentlyLoggedUser tasks)
 ]
 
-{ #category : #testing }
-FUDoTaskComponent >> hasError [
-	^ showError ifNil: [ false ]
-]
-
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
+	taskForm := (FUFormMagritte new fields: task formProperties) asComponent
+	
 ]
 
 { #category : #rendering }
@@ -113,7 +87,6 @@ FUDoTaskComponent >> renderContentOn: html [
 					self renderTaskForm: html.
 					html tbsModalFooter: [ 
 						self renderAcceptButton: html.
-						self renderErrorMessageOn: html
 						]
 					]
 				].
@@ -123,17 +96,6 @@ FUDoTaskComponent >> renderContentOn: html [
 		extraSmallSize: 0;
 		smallSize: 1;
 		mediumSize: 2. 
-]
-
-{ #category : #rendering }
-FUDoTaskComponent >> renderErrorMessageOn: html [
-	self hasError ifTrue: [
-		showError := false.
-		html html: '<br><br>'.
-		html tbsAlert   
-		beDanger ;
-		with: self errorMessage
-	]
 ]
 
 { #category : #rendering }
@@ -158,6 +120,4 @@ FUDoTaskComponent >> task: aTask [
 FUDoTaskComponent >> validateForm [
 	self allFieldsGood
 		ifTrue: [ self task status: 'done'. self goBack ] 
-		ifFalse: [ self errorOccurred ]
-	
 ]

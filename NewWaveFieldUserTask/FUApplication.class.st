@@ -25,7 +25,7 @@ p2 variable: 'Peric'.
 
 p5 := FormProperty new.
 p5 name: 'gender'.
-p5 type: 'singleChoice'.
+p5 type: 'singleOption'.
 p5 variable: 'Male'.
 p5 addFormValue: 'Male'.
 p5 addFormValue: 'Female'.
