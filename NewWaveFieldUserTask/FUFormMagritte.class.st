@@ -7,6 +7,13 @@ Class {
 	#category : #NewWaveFieldUserTask
 }
 
+{ #category : #'instance creation' }
+FUFormMagritte class >> from: aTask [
+   | forma |
+	forma := FUFormMagritte new fields: aTask formProperties.
+   ^ forma getMagritteForm magritteDescription
+]
+
 { #category : #adding }
 FUFormMagritte >> addField: aField [
 	fields add: aField
@@ -25,7 +32,10 @@ FUFormMagritte >> fields: aFields [
 
 { #category : #'as yet unclassified' }
 FUFormMagritte >> getMagritteForm [
-	^ self fields collect: [ :f | FUFieldMagritte new field: f; getDescription ]
+	| fieldDesc |
+	fieldDesc := OrderedCollection new.
+	fieldDesc := self fields collect: [ :f | (FUFieldMagritte new field: f) magritteDescription ].
+	^ fieldDesc
 ]
 
 { #category : #initialization }

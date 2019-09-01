@@ -37,7 +37,7 @@ FUDoTaskComponent >> checkIfEmailValid: aEmail [
 
 { #category : #hooks }
 FUDoTaskComponent >> children [
-	^ Array with: taskForm
+	^ OrderedCollection with: self taskForm 
 ]
 
 { #category : #'as yet unclassified' }
@@ -48,7 +48,7 @@ FUDoTaskComponent >> goBack [
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
-	taskForm := (FUFormMagritte new fields: task formProperties) asComponent
+	self taskForm: (FUFormMagritte from: (self session currentlyLoggedUser tasks at: 1))
 	
 ]
 
@@ -69,7 +69,7 @@ FUDoTaskComponent >> renderAcceptButton: html [
 
 { #category : #rendering }
 FUDoTaskComponent >> renderContentOn: html [
-	super renderContentOn: html.
+	super renderContentOn: html.	
 	html tbsContainer: [
 		html heading: 'Please, fill up a form:'.
 		html horizontalRule].
@@ -84,7 +84,8 @@ FUDoTaskComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: 
 				[html tbsForm: [
-					self renderTaskForm: html.
+					"self renderTaskForm: html."
+					html render: self taskForm.
 					html tbsModalFooter: [ 
 						self renderAcceptButton: html.
 						]
@@ -95,7 +96,7 @@ FUDoTaskComponent >> renderContentOn: html [
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
-		mediumSize: 2. 
+		mediumSize: 2.
 ]
 
 { #category : #rendering }
@@ -113,7 +114,18 @@ FUDoTaskComponent >> task [
 
 { #category : #accessing }
 FUDoTaskComponent >> task: aTask [
-	task := aTask
+	task := aTask.	
+	taskForm := (FUFormMagritte new fields: self task formProperties) asComponent 
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> taskForm [
+	^ taskForm 
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> taskForm: aTaskForm [
+	taskForm := aTaskForm 
 ]
 
 { #category : #'as yet unclassified' }
