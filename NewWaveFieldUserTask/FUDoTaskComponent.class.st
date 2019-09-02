@@ -37,7 +37,10 @@ FUDoTaskComponent >> checkIfEmailValid: aEmail [
 
 { #category : #hooks }
 FUDoTaskComponent >> children [
-	^ OrderedCollection with: self taskForm 
+	| desc |
+	desc := OrderedCollection new.
+	desc := (self taskForm collect: [ :each | (each children at: 1) magritteDescription ]).
+	^ desc
 ]
 
 { #category : #'as yet unclassified' }
@@ -48,7 +51,7 @@ FUDoTaskComponent >> goBack [
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
-	self taskForm: (FUFormMagritte from: (self session currentlyLoggedUser tasks at: 1))
+	self taskForm: (FUFormMagritte from: (self session currentlyLoggedUser tasks at: 1)).
 	
 ]
 
@@ -85,6 +88,7 @@ FUDoTaskComponent >> renderContentOn: html [
 			html tbsModalBody: 
 				[html tbsForm: [
 					"self renderTaskForm: html."
+					self halt.
 					html render: self taskForm.
 					html tbsModalFooter: [ 
 						self renderAcceptButton: html.

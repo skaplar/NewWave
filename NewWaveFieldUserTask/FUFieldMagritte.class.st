@@ -52,7 +52,7 @@ FUFieldMagritte >> field: aField [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> fieldDescription [
-	^ self giveDescription asComponent 
+	^ self giveDescription
 ]
 
 { #category : #'as yet unclassified' }

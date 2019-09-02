@@ -11,7 +11,7 @@ Class {
 FUFormMagritte class >> from: aTask [
    | forma |
 	forma := FUFormMagritte new fields: aTask formProperties.
-   ^ forma getMagritteForm magritteDescription
+   ^ forma getMagritteForm
 ]
 
 { #category : #adding }
