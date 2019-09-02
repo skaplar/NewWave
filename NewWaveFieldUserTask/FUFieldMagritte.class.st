@@ -10,8 +10,9 @@ Class {
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> booleanDescription [
-	^ MABooleanDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #ABooleanMagretteNewWave put: field name.
+	^ MABooleanDescription new 
+		accessor: #ABooleanMagretteNewWave;
 		label: field name;
 		priority: counter;
 		beRequired;
@@ -29,9 +30,22 @@ FUFieldMagritte >> counter: aCounter [
 ]
 
 { #category : #'as yet unclassified' }
+FUFieldMagritte >> dateDescription [
+	Smalltalk globals at: #ADateMagretteNewWave put: field name.
+	^ MADateDescription new 
+		accessor: #ADateMagretteNewWave;
+		label: field name;
+		priority: counter;
+		beRequired;
+		addCondition: [ :value | (Date fromString: value) <= Date today];
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
 FUFieldMagritte >> emailDescription [
-	^ MAStringDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #AEmailMagretteNewWave put: field name.
+	^ MAStringDescription new 
+		accessor: #AEmailMagretteNewWave;
 		label: field name;
 		priority: counter;
 		addCondition: [ :value | value matches: '#*@#*.#*' ]
@@ -52,7 +66,7 @@ FUFieldMagritte >> field: aField [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> fieldDescription [
-	^ self giveDescription
+	^ self giveDescription magritteDescription 
 ]
 
 { #category : #'as yet unclassified' }
@@ -65,6 +79,7 @@ FUFieldMagritte >> giveDescription [
 		'singleOption' -> [ ^ self singleOptionDescription] .
 		'phone' -> [ ^ self phoneDescription ].	
 		'email' -> [ ^ self emailDescription ].	
+		'date' -> [ ^ self dateDescription  ]
 	 } otherwise: []
 ]
 
@@ -75,8 +90,9 @@ FUFieldMagritte >> initialize [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> numberDescription [
-	^ MANumberDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #ANumberMagretteNewWave put: field name.
+	^ MANumberDescription new 
+		accessor: #ANumberMagretteNewWave;
 		label: field name;
 		priority: counter;
 		beRequired;
@@ -85,8 +101,9 @@ FUFieldMagritte >> numberDescription [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> phoneDescription [ 
-	^ MAStringDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #APhoneMagretteNewWave put: field name.
+	^ MAStringDescription new 
+		accessor: #APhoneMagretteNewWave;
 		label: field name;
 		priority: counter;
 		addCondition: [ :value | value matches: '^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$' ]
@@ -97,8 +114,9 @@ FUFieldMagritte >> phoneDescription [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> singleOptionDescription [
-	^ MASingleOptionDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #ASingleOptionMagretteNewWave put: field name.
+	^ MASingleOptionDescription new 
+		accessor: #ASingleOptionMagretteNewWave;
 		label: field name;
 		priority: counter;
 		options: field formValues;
@@ -109,9 +127,9 @@ FUFieldMagritte >> singleOptionDescription [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> stringDescription [
-
-	^ MAStringDescription new "
-		accessor: field name;"
+	Smalltalk globals at: #AStringMagretteNewWave put: field name.
+	^ MAStringDescription new 
+		accessor: #AStringMagretteNewWave;
 		label: field name;
 		priority: counter;
 		beRequired;

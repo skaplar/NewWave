@@ -34,7 +34,7 @@ FUFormMagritte >> fields: aFields [
 FUFormMagritte >> getMagritteForm [
 	| fieldDesc |
 	fieldDesc := OrderedCollection new.
-	fieldDesc := self fields collect: [ :f | (FUFieldMagritte new field: f) magritteDescription ].
+	fieldDesc := self fields collect: [ :f | (FUFieldMagritte new field: f) giveDescription ].
 	^ fieldDesc
 ]
 
