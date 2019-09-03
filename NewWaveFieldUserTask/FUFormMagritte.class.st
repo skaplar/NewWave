@@ -1,6 +1,6 @@
 Class {
 	#name : #FUFormMagritte,
-	#superclass : #Object,
+	#superclass : #MAReport,
 	#instVars : [
 		'fields'
 	],
@@ -34,7 +34,7 @@ FUFormMagritte >> fields: aFields [
 FUFormMagritte >> getMagritteForm [
 	| fieldDesc |
 	fieldDesc := OrderedCollection new.
-	fieldDesc := self fields collect: [ :f | (FUFieldMagritte new field: f) giveDescription ].
+	fieldDesc := self fields collect: [ :f | (FUFieldMagritte new field: f) fieldDescription ].
 	^ fieldDesc
 ]
 
@@ -42,4 +42,18 @@ FUFormMagritte >> getMagritteForm [
 FUFormMagritte >> initialize [
 	super initialize.
 	fields := OrderedCollection new
+]
+
+{ #category : #rendering }
+FUFormMagritte >> renderContentOn: html [
+	| tmp1 |
+	super renderContentOn: html.
+	tmp1 := self asComponent.
+	tmp1
+		addDecoration:
+			(MAFormDecoration 
+				buttons:
+					{(#save -> 'Finish task').
+					(#cancel -> 'Cancel')}).
+	^ tmp1 yourself
 ]

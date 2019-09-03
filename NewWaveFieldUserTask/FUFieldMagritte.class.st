@@ -15,6 +15,8 @@ FUFieldMagritte >> booleanDescription [
 		accessor: #ABooleanMagretteNewWave;
 		label: field name;
 		priority: counter;
+		componentClass: MATextInputComponent;
+		comment: '';
 		beRequired;
 		yourself
 ]
@@ -36,6 +38,8 @@ FUFieldMagritte >> dateDescription [
 		accessor: #ADateMagretteNewWave;
 		label: field name;
 		priority: counter;
+		componentClass: MADateInputComponent; 
+		comment: '';
 		beRequired;
 		addCondition: [ :value | (Date fromString: value) <= Date today];
 		yourself
@@ -48,6 +52,8 @@ FUFieldMagritte >> emailDescription [
 		accessor: #AEmailMagretteNewWave;
 		label: field name;
 		priority: counter;
+		componentClass: MATextInputComponent;
+		comment: '';
 		addCondition: [ :value | value matches: '#*@#*.#*' ]
 		labelled: 'Please enter a valid email';
 		beRequired;
@@ -66,7 +72,7 @@ FUFieldMagritte >> field: aField [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> fieldDescription [
-	^ self giveDescription magritteDescription 
+	^ self giveDescription 
 ]
 
 { #category : #'as yet unclassified' }
@@ -95,6 +101,8 @@ FUFieldMagritte >> numberDescription [
 		accessor: #ANumberMagretteNewWave;
 		label: field name;
 		priority: counter;
+		comment: '';
+		componentClass: MATextInputComponent;
 		beRequired;
 		yourself
 ]
@@ -106,6 +114,8 @@ FUFieldMagritte >> phoneDescription [
 		accessor: #APhoneMagretteNewWave;
 		label: field name;
 		priority: counter;
+		comment: '';
+		componentClass: MATextInputComponent;
 		addCondition: [ :value | value matches: '^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$' ]
 		labelled: 'Please enter a valid phone number';
 		beRequired;
@@ -119,7 +129,9 @@ FUFieldMagritte >> singleOptionDescription [
 		accessor: #ASingleOptionMagretteNewWave;
 		label: field name;
 		priority: counter;
+		comment: '';
 		options: field formValues;
+		componentClass: MASingleSelectionComponent;
 		beSorted;
 		beRequired;
 		yourself
@@ -132,6 +144,8 @@ FUFieldMagritte >> stringDescription [
 		accessor: #AStringMagretteNewWave;
 		label: field name;
 		priority: counter;
+		comment: '';
+		componentClass: MATextInputComponent;
 		beRequired;
 		yourself
 ]
