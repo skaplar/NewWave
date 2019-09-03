@@ -72,12 +72,12 @@ FUFieldMagritte >> field: aField [
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> fieldDescription [
+	<magritteDescription>
 	^ self giveDescription 
 ]
 
 { #category : #'as yet unclassified' }
 FUFieldMagritte >> giveDescription [
-	<magritteDescription>
 	field type caseOf: {
   		'boolean' -> [^ self booleanDescription].
   		'string' ->  [ ^ self stringDescription].

@@ -20,6 +20,42 @@ FUTask class >> status: aStatus [
 		yourself
 ]
 
+{ #category : #'acessing-magritte' }
+FUTask >> descriptionAnnouncer [
+	<magritteDescription>
+	^ MAStringDescription new 
+		label: 'Announcer';
+		priority: 200;
+		accessor: #announcer
+]
+
+{ #category : #'acessing-magritte' }
+FUTask >> descriptionResult [
+	<magritteDescription>
+	^ MAStringDescription new 
+		label: 'Result';
+		priority: 400;
+		accessor: #result
+]
+
+{ #category : #'acessing-magritte' }
+FUTask >> descriptionStatus [
+	<magritteDescription>
+	^ MAStringDescription new 
+		label: 'status';
+		priority: 100;
+		accessor: #status
+]
+
+{ #category : #'acessing-magritte' }
+FUTask >> descriptionValue [
+	<magritteDescription>
+	^ MAStringDescription new 
+		label: 'Value';
+		priority: 300;
+		accessor: #value
+]
+
 { #category : #initialization }
 FUTask >> initialize [
 	super initialize.

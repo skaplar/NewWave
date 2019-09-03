@@ -33,8 +33,8 @@ FUSignInComponent >> component: aComponent [
 
 { #category : #operations }
 FUSignInComponent >> goToAllTasksView: aUser [ 
-	"self call: (FUAllUserTasksComponent new tasks: aUser tasks )"
-	self call: (FUDoTaskComponent new)
+	self call: (FUAllUserTasksComponent new "tasks: aUser tasks" )
+	"self call: (FUDoTaskComponent new)"
 ]
 
 { #category : #testing }

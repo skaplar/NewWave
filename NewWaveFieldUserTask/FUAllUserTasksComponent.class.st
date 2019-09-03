@@ -2,7 +2,7 @@ Class {
 	#name : #FUAllUserTasksComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
-		'tasks',
+		'report',
 		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
@@ -28,8 +28,7 @@ FUAllUserTasksComponent >> component: aComponent [
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
 	super initialize.
-	tasks := OrderedCollection new
-
+	self report: (FUTaskReport from: (self session currentlyLoggedUser tasks)).
 ]
 
 { #category : #rendering }
@@ -57,7 +56,7 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
-					self renderAllTasks: html ].
+					html render: self report ].
 				]
 			].
 	html tbsColumn
@@ -67,11 +66,11 @@ FUAllUserTasksComponent >> renderContentOn: html [
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> tasks [
-	^ tasks
+FUAllUserTasksComponent >> report [
+	^ report
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> tasks: aTasks [
-	tasks := aTasks
+FUAllUserTasksComponent >> report: arg1 [
+	report := arg1
 ]
