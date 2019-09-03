@@ -28,7 +28,7 @@ FUTaskReport class >> from: tasks [
 
 { #category : #'as yet unclassified' }
 FUTaskReport >> doTask: task [
-	self call: (self renderDoTaskForm: task)
+	self call: (FUDoTaskComponent new task: task).
 ]
 
 { #category : #'as yet unclassified' }

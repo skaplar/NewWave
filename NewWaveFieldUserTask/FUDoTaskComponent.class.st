@@ -3,10 +3,18 @@ Class {
 	#superclass : #FUScreenComponent,
 	#instVars : [
 		'task',
-		'taskForm'
+		'report',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
+
+{ #category : #'instance creation' }
+FUDoTaskComponent class >> from: aComponent [
+	^ self new
+	component: aComponent;
+	yourself
+]
 
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> allFieldsGood [
@@ -44,6 +52,16 @@ FUDoTaskComponent >> children [
 	
 ]
 
+{ #category : #accessing }
+FUDoTaskComponent >> component [
+	^ component
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> component: aComponent [
+	component := aComponent 
+]
+
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> goBack [
 	self call: (FUAllUserTasksComponent new tasks: self session currentlyLoggedUser tasks)
@@ -51,9 +69,9 @@ FUDoTaskComponent >> goBack [
 
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
-	| desc |
 	super initialize.
-	self taskForm: (FUFormMagritte from: (self session currentlyLoggedUser tasks at: 1)).
+	self task: (self session currentlyLoggedUser tasks at: 1).
+	self report: (FUFormPropertiesReport from: self task formProperties)
 ]
 
 { #category : #rendering }
@@ -77,6 +95,7 @@ FUDoTaskComponent >> renderContentOn: html [
 	html tbsContainer: [
 		html heading: 'Please, fill up a form:'.
 		html horizontalRule].
+	html render: self report.
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
@@ -89,8 +108,6 @@ FUDoTaskComponent >> renderContentOn: html [
 			html tbsModalBody: 
 				[html tbsForm: [
 					"self renderTaskForm: html."
-					self halt.
-					html render: self taskForm.
 					html tbsModalFooter: [ 
 						self renderAcceptButton: html.
 						]
@@ -113,24 +130,23 @@ FUDoTaskComponent >> renderTaskForm: html [
 ]
 
 { #category : #accessing }
+FUDoTaskComponent >> report [
+	^ report
+]
+
+{ #category : #accessing }
+FUDoTaskComponent >> report: aReport [
+	report := aReport
+]
+
+{ #category : #accessing }
 FUDoTaskComponent >> task [
 	^ task
 ]
 
 { #category : #accessing }
 FUDoTaskComponent >> task: aTask [
-	task := aTask.	
-	taskForm := (FUFormMagritte new fields: self task formProperties) asComponent 
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> taskForm [
-	^ taskForm 
-]
-
-{ #category : #accessing }
-FUDoTaskComponent >> taskForm: aTaskForm [
-	taskForm := aTaskForm 
+	task := aTask
 ]
 
 { #category : #'as yet unclassified' }

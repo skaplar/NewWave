@@ -29,6 +29,15 @@ FUTask >> descriptionAnnouncer [
 		accessor: #announcer
 ]
 
+{ #category : #'as yet unclassified' }
+FUTask >> descriptionContainer [
+	<magritteContainer>
+	| tmp2 |
+	tmp2 := super descriptionContainer.
+	tmp2 componentRenderer: MATableRenderer.
+	^ tmp2 yourself
+]
+
 { #category : #'acessing-magritte' }
 FUTask >> descriptionResult [
 	<magritteDescription>
@@ -60,6 +69,7 @@ FUTask >> descriptionValue [
 FUTask >> initialize [
 	super initialize.
 	status := 'waiting' " -done- is a value when task is NO more waiting/activ"
+	
 ]
 
 { #category : #testing }
