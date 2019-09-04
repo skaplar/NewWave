@@ -2,10 +2,21 @@ Class {
 	#name : #FUSession,
 	#superclass : #WASession,
 	#instVars : [
-		'currentlyLoggedUser'
+		'currentlyLoggedUser',
+		'currentTask'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
+
+{ #category : #accessing }
+FUSession >> currentTask [
+	^ currentTask
+]
+
+{ #category : #accessing }
+FUSession >> currentTask: aCurrentTask [
+	currentTask := aCurrentTask
+]
 
 { #category : #accessing }
 FUSession >> currentlyLoggedUser [

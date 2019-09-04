@@ -15,7 +15,7 @@ FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> from: aFormProperties [
-	| form editing|
+	| form editing |
 	form := (self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne)).
 	form formProperties: aFormProperties.
 	editing := MACommandColumn new.
@@ -58,6 +58,5 @@ FUFormPropertiesReport >> renderEditForm: aFormProperty [
 				buttons:
 					{(#save -> 'OK').
 					(#cancel -> 'Cancel')}).
-	self halt.
 	^ form yourself
 ]

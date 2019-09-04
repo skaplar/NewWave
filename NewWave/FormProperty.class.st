@@ -22,9 +22,9 @@ FormProperty >> booleanDescription [
 		accessor: #type;
 		label: self name;
 		value: self name;
-		priority: 0;
+		priority: 50;
 		componentClass: MATextInputComponent;
-		comment: '';
+		comment: (self name, ' not valid');
 		beRequired;
 		yourself
 ]
@@ -35,9 +35,9 @@ FormProperty >> dateDescription [
 	^ MADateDescription new 
 		accessor: #type;
 		label: self name;
-		priority: 0;
+		priority: 10;
 		componentClass: MADateInputComponent; 
-		comment: '';
+		comment: (self name, ' not valid');
 		beRequired;
 		addCondition: [ :value | value > Date today ];
 		yourself
@@ -66,7 +66,7 @@ FormProperty >> emailDescription [
 		label: self name;
 		priority: 0;
 		componentClass: MATextInputComponent;
-		comment: '';
+		comment: (self name, ' not valid');
 		addCondition: [ :value | value matches: '#*@#*.#*' ]
 		labelled: 'Please enter a valid email';
 		beRequired;
@@ -114,8 +114,8 @@ FormProperty >> numberDescription [
 	^ MANumberDescription new 
 		accessor: #type;
 		label: self name;
-		priority: 0;
-		comment: 'number not valid';
+		priority: 10;
+		comment: (self name, ' not valid');
 		componentClass: MATextInputComponent;
 		beRequired;
 		yourself
@@ -128,7 +128,7 @@ FormProperty >> phoneDescription [
 		accessor: #type;
 		label: self name;
 		priority: 0;
-		comment: '';
+		comment: (self name, ' not valid');
 		componentClass: MATextInputComponent;
 		addCondition: [ :value | value matches: '^(?:0|\(?\+33\)?\s?|0033\s?)[1-79](?:[\.\-\s]?\d\d){4}$' ]
 		labelled: 'Please enter a valid phone number';
@@ -143,7 +143,7 @@ FormProperty >> singleOptionDescription [
 		accessor: #type;
 		label: self name;
 		priority: 0;
-		comment: '';
+		comment: (self name, ' not valid');
 		options: self formValues;
 		componentClass: MASingleSelectionComponent;
 		beSorted;
@@ -158,7 +158,7 @@ FormProperty >> stringDescription [
 		accessor: #name;
 		label: self name;
 		priority: 0;
-		comment: '';
+		comment: (self name, ' not valid');
 		componentClass: MATextInputComponent;
 		beRequired;
 		yourself

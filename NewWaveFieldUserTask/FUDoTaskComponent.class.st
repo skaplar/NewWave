@@ -70,7 +70,7 @@ FUDoTaskComponent >> goBack [
 { #category : #initialization }
 FUDoTaskComponent >> initialize [
 	super initialize.
-	self task: (self session currentlyLoggedUser tasks at: 1).
+	self task: (self session currentTask).
 	self report: (FUFormPropertiesReport from: self task formProperties)
 ]
 

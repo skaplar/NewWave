@@ -2,7 +2,6 @@ Class {
 	#name : #FUTaskReport,
 	#superclass : #MAReport,
 	#instVars : [
-		'report',
 		'tasks'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
@@ -28,7 +27,9 @@ FUTaskReport class >> from: tasks [
 
 { #category : #'as yet unclassified' }
 FUTaskReport >> doTask: aTask [
+	self session currentTask: aTask.
 	self call: (FUDoTaskComponent new task: aTask).
+	"self call: (FUFormPropertiesReport from: aTask formProperties )"
 	
 	
 ]

@@ -25,7 +25,7 @@ FUTask >> descriptionAnnouncer [
 	<magritteDescription>
 	^ MAStringDescription new 
 		label: 'Announcer';
-		priority: 200;
+		priority: 10;
 		accessor: #announcer
 ]
 
@@ -39,11 +39,20 @@ FUTask >> descriptionContainer [
 ]
 
 { #category : #'acessing-magritte' }
+FUTask >> descriptionFormProperties [ 
+	<magritteDescription>
+	^ MAContainer new
+		label: 'form';
+		priority: 100;
+		accessor: #formProperties
+]
+
+{ #category : #'acessing-magritte' }
 FUTask >> descriptionResult [
 	<magritteDescription>
 	^ MAStringDescription new 
 		label: 'Result';
-		priority: 400;
+		priority: 20;
 		accessor: #result
 ]
 
@@ -52,7 +61,7 @@ FUTask >> descriptionStatus [
 	<magritteDescription>
 	^ MAStringDescription new 
 		label: 'status';
-		priority: 100;
+		priority: 110;
 		accessor: #status
 ]
 
@@ -61,7 +70,7 @@ FUTask >> descriptionValue [
 	<magritteDescription>
 	^ MAStringDescription new 
 		label: 'Value';
-		priority: 300;
+		priority: 30;
 		accessor: #value
 ]
 

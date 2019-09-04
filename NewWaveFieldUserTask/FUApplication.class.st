@@ -17,11 +17,11 @@ p1 := FormProperty new.
 p1 name: 'firstName'.
 p1 type: 'string'.
 p1 variable: 'Pera'.
-"
+
 p2 := FormProperty new.
 p2 name: 'lastName'.
 p2 type: 'string'.
-p2 variable: 'Peric'."
+p2 variable: 'Peric'.
 
 p5 := FormProperty new.
 p5 name: 'gender'.
@@ -53,7 +53,7 @@ p4 variable: '175.5'.
 
 self current
 	addUser: ((FUUser username: 'user1' password: (SHA256 hashMessage: 'user1')) 
-		addTask: (((FUTask status: 'waiting') value: 'test'; result: 'test result') addProperty: p1; 			"addProperty: p2;" addProperty: p3; addProperty: p4; addProperty: p5; addProperty: p6; addProperty: p7);
+		addTask: (((FUTask status: 'waiting') value: 'test'; result: 'test result') addProperty: p1; 			addProperty: p2; addProperty: p3; addProperty: p4; addProperty: p5; addProperty: p6; addProperty: p7);
 		addTask: (((FUTask status: 'waiting') value: 'test2'; result: 'test2 result') addProperty: p3; 			addProperty: p4) );
 	addUser: ((FUUser username: 'user2' password: (SHA256 hashMessage: 'user2')  ) 
 		addTask: (((FUTask status: 'done') value: 'test3'; result: 'test3 result') addProperty: p1; 			addProperty: p2);

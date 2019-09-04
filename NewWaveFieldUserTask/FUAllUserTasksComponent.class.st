@@ -2,7 +2,8 @@ Class {
 	#name : #FUAllUserTasksComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
-		'report'
+		'report',
+		'component'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
@@ -12,6 +13,16 @@ FUAllUserTasksComponent class >> from: aComponent [
 	^ self new
 	component: aComponent;
 	yourself
+]
+
+{ #category : #accessing }
+FUAllUserTasksComponent >> component [
+	^ component 
+]
+
+{ #category : #accessing }
+FUAllUserTasksComponent >> component: aComponent [
+	component := aComponent 
 ]
 
 { #category : #initialization }
