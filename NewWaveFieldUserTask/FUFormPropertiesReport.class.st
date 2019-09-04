@@ -2,7 +2,6 @@ Class {
 	#name : #FUFormPropertiesReport,
 	#superclass : #MAReport,
 	#instVars : [
-		'report',
 		'formProperties'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
@@ -11,18 +10,27 @@ Class {
 { #category : #'as yet unclassified' }
 FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
 	^ aProperty magritteDescription
+		select: [ :t | #(#variable #name ) includes: t accessor selector ] 
 ]
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> from: aFormProperties [
-	| tmp1 tmp3 |
-	tmp1 := self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne).
-	tmp1 formProperties: aFormProperties.
-	tmp3 := MACommandColumn new.
-	tmp3
-		addCommandOn: tmp1 selector: #finishTask: text: 'Finish task'.
-	tmp1 addColumn: tmp3 yourself.
-	^ tmp1
+	| form editing|
+	form := (self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne)).
+	form formProperties: aFormProperties.
+	editing := MACommandColumn new.
+	editing
+		addCommandOn: form selector: #edit: text: '+';
+		yourself.
+	form addColumn: editing yourself.
+	^ form 
+]
+
+{ #category : #'as yet unclassified' }
+FUFormPropertiesReport >> edit: aFormProperty [
+	| componentForm |
+	componentForm := self call: (self renderEditForm: aFormProperty ).
+	componentForm ifNotNil: [ ]
 ]
 
 { #category : #accessing }
@@ -38,4 +46,18 @@ FUFormPropertiesReport >> formProperties: aFormProperties [
 { #category : #rendering }
 FUFormPropertiesReport >> renderContentOn: html [
 	super renderContentOn: html
+]
+
+{ #category : #'as yet unclassified' }
+FUFormPropertiesReport >> renderEditForm: aFormProperty [
+	| form |
+	form := aFormProperty asComponent.
+	form
+		addDecoration:
+			(MAFormDecoration
+				buttons:
+					{(#save -> 'OK').
+					(#cancel -> 'Cancel')}).
+	self halt.
+	^ form yourself
 ]

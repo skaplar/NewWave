@@ -27,8 +27,10 @@ FUTaskReport class >> from: tasks [
 ]
 
 { #category : #'as yet unclassified' }
-FUTaskReport >> doTask: task [
-	self call: (FUDoTaskComponent new task: task).
+FUTaskReport >> doTask: aTask [
+	self call: (FUDoTaskComponent new task: aTask).
+	
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -41,15 +43,6 @@ FUTaskReport >> refreshReport [
 { #category : #rendering }
 FUTaskReport >> renderContentOn: html [
 	super renderContentOn: html
-]
-
-{ #category : #rendering }
-FUTaskReport >> renderDoTaskForm: task [
-	| tmp2 |
-	tmp2 := task formProperties asComponent.
-	tmp2 addDecoration: (MAFormDecoration buttons: {(#cancel -> 'Back')}).
-	tmp2 addDecoration: (MAFormDecoration buttons: {(#save -> 'Finish task')}).
-	^ tmp2 yourself
 ]
 
 { #category : #accessing }

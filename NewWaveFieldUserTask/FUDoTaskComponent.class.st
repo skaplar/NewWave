@@ -92,10 +92,6 @@ FUDoTaskComponent >> renderAcceptButton: html [
 { #category : #rendering }
 FUDoTaskComponent >> renderContentOn: html [
 	super renderContentOn: html.	
-	html tbsContainer: [
-		html heading: 'Please, fill up a form:'.
-		html horizontalRule].
-	html render: self report.
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
@@ -107,14 +103,13 @@ FUDoTaskComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: 
 				[html tbsForm: [
-					"self renderTaskForm: html."
+					html render: self report.
 					html tbsModalFooter: [ 
 						self renderAcceptButton: html.
 						]
 					]
 				].
-				
-				].
+			].
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;

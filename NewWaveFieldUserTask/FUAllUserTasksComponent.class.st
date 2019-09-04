@@ -2,8 +2,7 @@ Class {
 	#name : #FUAllUserTasksComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
-		'report',
-		'component'
+		'report'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
@@ -13,16 +12,6 @@ FUAllUserTasksComponent class >> from: aComponent [
 	^ self new
 	component: aComponent;
 	yourself
-]
-
-{ #category : #accessing }
-FUAllUserTasksComponent >> component [
-	^ component
-]
-
-{ #category : #accessing }
-FUAllUserTasksComponent >> component: aComponent [
-	component := aComponent 
 ]
 
 { #category : #initialization }
@@ -43,7 +32,7 @@ FUAllUserTasksComponent >> renderAllTasks: html [
 FUAllUserTasksComponent >> renderContentOn: html [
 	super renderContentOn: html.
 	html tbsContainer: [
-		html heading: 'Your tasks are:'.
+		html heading: 'Choose task and do it:'.
 		html horizontalRule].
 	html tbsColumn
 		extraSmallSize: 0;

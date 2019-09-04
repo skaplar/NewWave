@@ -10,27 +10,6 @@ Class {
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
-{ #category : #'instance creation' }
-FUSignInComponent class >> from: aComponent [
-	^ self new
-	component: aComponent;
-	yourself
-
-]
-
-{ #category : #accessing }
-FUSignInComponent >> component [
-	^ component
-
-]
-
-{ #category : #accessing }
-FUSignInComponent >> component: aComponent [
-	component := aComponent 
-
-
-]
-
 { #category : #operations }
 FUSignInComponent >> goToAllTasksView: aUser [ 
 	self call: (FUAllUserTasksComponent new "tasks: aUser tasks" )
