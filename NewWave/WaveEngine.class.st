@@ -156,8 +156,10 @@ WaveEngine >> startEngine [
 
 { #category : #accessing }
 WaveEngine >> stopEngine [
-	scheduler stop.
+	"scheduler stop."
 	server stop.
+	"I am force stopping all the workers in the engine."
+	mainExecutor workers valuesDo: [ :d | d stop ].
 ]
 
 { #category : #accessing }
