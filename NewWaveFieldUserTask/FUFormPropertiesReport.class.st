@@ -43,9 +43,30 @@ FUFormPropertiesReport >> formProperties: aFormProperties [
 	formProperties := aFormProperties
 ]
 
+{ #category : #'as yet unclassified' }
+FUFormPropertiesReport >> goBack [
+	self call: (FUTaskReport from: self session currentlyLoggedUser tasks )
+]
+
+{ #category : #rendering }
+FUFormPropertiesReport >> renderButtonFinish: html [
+	html tbsSubmitButton 
+		tbsPullRight;
+		beSuccess;
+		callback: [ self validateForm ];
+		value: 'Finish task'.
+	html tbsSubmitButton
+		tbsPullRight;
+		beSuccess;
+		callback: [ self goBack ];
+		value: 'Cancel'.
+	
+]
+
 { #category : #rendering }
 FUFormPropertiesReport >> renderContentOn: html [
-	super renderContentOn: html
+	super renderContentOn: html.
+	self renderButtonFinish: html.
 ]
 
 { #category : #'as yet unclassified' }
@@ -59,4 +80,10 @@ FUFormPropertiesReport >> renderEditForm: aFormProperty [
 					{(#save -> 'OK').
 					(#cancel -> 'Cancel')}).
 	^ form yourself
+]
+
+{ #category : #'as yet unclassified' }
+FUFormPropertiesReport >> validateForm [
+	self session currentTask status: 'done'. 
+	self goBack 
 ]
