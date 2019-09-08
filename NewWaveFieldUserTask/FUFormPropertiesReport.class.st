@@ -7,23 +7,43 @@ Class {
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
 	^ aProperty magritteDescription
-		select: [ :t | #(#variable #name ) includes: t accessor selector ] 
+		select: [ :t | #(#variable) includes: t accessor selector ] 
 ]
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> from: aFormProperties [
-	| form editing |
-	form := (self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne)).
-	form formProperties: aFormProperties.
-	editing := MACommandColumn new.
-	editing
-		addCommandOn: form selector: #edit: text: '+';
-		yourself.
-	form addColumn: editing yourself.
-	^ form 
+	| form props children|
+	form := MAContainerComponent new.
+	form setChildren: (self getDictionaryFromProps: aFormProperties).
+	form setDescription: MAPriorityContainer new.
+	self halt.
+	^ form yourself  
+	
+"	form := (aFormProperties at:1) asComponent.
+	self halt.
+	props := self getDictionaryFromProps: aFormProperties.
+	form setChildren: nil.
+	form setChildren: props.
+	self halt.
+	^ form yourself"
+]
+
+{ #category : #'as yet unclassified' }
+FUFormPropertiesReport class >> getDictionaryFromProps: aFormProperties [
+	| dict counter temp|
+	dict := Dictionary new.
+			counter := 1.
+	aFormProperties isNil 
+		ifFalse: [ 
+			aFormProperties do: [ :prop | 
+				temp := prop magritteDescription  .
+				dict at: counter put: temp .  
+				counter := counter+1]
+			 ].
+	^ dict 
 ]
 
 { #category : #'as yet unclassified' }

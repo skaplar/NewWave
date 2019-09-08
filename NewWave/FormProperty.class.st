@@ -19,9 +19,8 @@ FormProperty >> addFormValue: aValue [
 FormProperty >> booleanDescription [
 
 	^ MABooleanDescription new 
-		accessor: #type;
+		accessor: #FormProperty;
 		label: self name;
-		value: self name;
 		priority: 50;
 		componentClass: MATextInputComponent;
 		comment: (self name, ' not valid');
@@ -33,7 +32,7 @@ FormProperty >> booleanDescription [
 FormProperty >> dateDescription [
 	
 	^ MADateDescription new 
-		accessor: #type;
+		accessor: #variable;
 		label: self name;
 		priority: 10;
 		componentClass: MADateInputComponent; 
@@ -45,11 +44,11 @@ FormProperty >> dateDescription [
 
 { #category : #'acessing-magritte' }
 FormProperty >> descriptionName [
-	<magritteDescription>
+"	<magritteDescription>
 	^ MAStringDescription new 
 		accessor: #variable;
 		label: self name;
-		priority: 100
+		priority: 100"
 ]
 
 { #category : #'acessing-magritte' }
@@ -62,7 +61,7 @@ FormProperty >> descriptionVariable [
 FormProperty >> emailDescription [
 	
 	^ MAStringDescription new 
-		accessor: #type;
+		accessor: #variable;
 		label: self name;
 		priority: 0;
 		componentClass: MATextInputComponent;
@@ -91,6 +90,11 @@ FormProperty >> formValues [
 	^ formValues
 ]
 
+{ #category : #'as yet unclassified' }
+FormProperty >> getMagritteDescription [
+	^ self findDescription 
+]
+
 { #category : #initialization }
 FormProperty >> initialize [ 
 	super initialize.
@@ -112,7 +116,7 @@ FormProperty >> name: aName [
 FormProperty >> numberDescription [
 
 	^ MANumberDescription new 
-		accessor: #type;
+		accessor: #variable;
 		label: self name;
 		priority: 10;
 		comment: (self name, ' not valid');
@@ -125,7 +129,7 @@ FormProperty >> numberDescription [
 FormProperty >> phoneDescription [ 
 	
 	^ MAStringDescription new 
-		accessor: #type;
+		accessor: #variable;
 		label: self name;
 		priority: 0;
 		comment: (self name, ' not valid');
@@ -140,7 +144,7 @@ FormProperty >> phoneDescription [
 FormProperty >> singleOptionDescription [
 
 	^ MASingleOptionDescription new 
-		accessor: #type;
+		accessor: #variable;
 		label: self name;
 		priority: 0;
 		comment: (self name, ' not valid');
@@ -155,7 +159,7 @@ FormProperty >> singleOptionDescription [
 FormProperty >> stringDescription [
 
 	^ MAStringDescription new 
-		accessor: #name;
+		accessor: #variable;
 		label: self name;
 		priority: 0;
 		comment: (self name, ' not valid');
