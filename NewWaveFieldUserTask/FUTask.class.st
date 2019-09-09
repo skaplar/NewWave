@@ -20,60 +20,6 @@ FUTask class >> status: aStatus [
 		yourself
 ]
 
-{ #category : #'acessing-magritte' }
-FUTask >> descriptionAnnouncer [
-	<magritteDescription>
-	^ MAStringDescription new 
-		label: 'Announcer';
-		priority: 10;
-		accessor: #announcer
-]
-
-{ #category : #'as yet unclassified' }
-FUTask >> descriptionContainer [
-	<magritteContainer>
-	| tmp2 |
-	tmp2 := super descriptionContainer.
-	tmp2 componentRenderer: MATableRenderer.
-	^ tmp2 yourself
-]
-
-{ #category : #'acessing-magritte' }
-FUTask >> descriptionFormProperties [ 
-	<magritteDescription>
-	^ MAContainer new
-		label: 'form';
-		priority: 100;
-		accessor: #formProperties
-]
-
-{ #category : #'acessing-magritte' }
-FUTask >> descriptionResult [
-	<magritteDescription>
-	^ MAStringDescription new 
-		label: 'Result';
-		priority: 20;
-		accessor: #result
-]
-
-{ #category : #'acessing-magritte' }
-FUTask >> descriptionStatus [
-	<magritteDescription>
-	^ MAStringDescription new 
-		label: 'status';
-		priority: 110;
-		accessor: #status
-]
-
-{ #category : #'acessing-magritte' }
-FUTask >> descriptionValue [
-	<magritteDescription>
-	^ MAStringDescription new 
-		label: 'Value';
-		priority: 30;
-		accessor: #value
-]
-
 { #category : #initialization }
 FUTask >> initialize [
 	super initialize.

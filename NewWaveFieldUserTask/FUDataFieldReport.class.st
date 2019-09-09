@@ -1,5 +1,5 @@
 Class {
-	#name : #FUFormPropertiesReport,
+	#name : #FUDataFieldReport,
 	#superclass : #MAReport,
 	#instVars : [
 		'formProperties'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
+FUDataFieldReport class >> filteredDescriptionsFrom: aProperty [
 	^ aProperty magritteDescription   
 		select: [ :t | #(#variable) includes: t accessor selector ] 
 		"^ aProperty magritteDescription
@@ -16,26 +16,17 @@ FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
 ]
 
 { #category : #'instance creation' }
-FUFormPropertiesReport class >> from: aFormProperties [
-	| form fields |
-	fields := self getDictionaryFromProps: aFormProperties.
-	form := self rows: fields description: (self filteredDescriptionsFrom: fields anyOne).
-	form formProperties: aFormProperties. "
-	form setDescription: MAPriorityContainer new.
-	form setChildren: (self getDictionaryFromProps: aFormProperties)."
-	^ form yourself  
+FUDataFieldReport class >> from: aFormProperties [
+	| form |
 	
-	"form := aFormProperties asComponent.
+	form := self rows: aFormProperties.
+	form formProperties: aFormProperties. 
 	self halt.
-	props := self getDictionaryFromProps: aFormProperties.
-	form setChildren: nil.
-	form setChildren: props.
-	self halt.
-	^ form yourself"
+	^ form yourself
 ]
 
 { #category : #'as yet unclassified' }
-FUFormPropertiesReport class >> getDictionaryFromProps: aFormProperties [
+FUDataFieldReport class >> getDictionaryFromProps: aFormProperties [
 	| dict counter temp|
 	dict := Dictionary new.
 			counter := 1.
@@ -50,29 +41,29 @@ FUFormPropertiesReport class >> getDictionaryFromProps: aFormProperties [
 ]
 
 { #category : #'as yet unclassified' }
-FUFormPropertiesReport >> edit: aFormProperty [
+FUDataFieldReport >> edit: aFormProperty [
 	| componentForm |
 	componentForm := self call: (self renderEditForm: aFormProperty ).
 	componentForm ifNotNil: [ ]
 ]
 
 { #category : #accessing }
-FUFormPropertiesReport >> formProperties [
+FUDataFieldReport >> formProperties [
 	^ formProperties
 ]
 
 { #category : #accessing }
-FUFormPropertiesReport >> formProperties: aFormProperties [
+FUDataFieldReport >> formProperties: aFormProperties [
 	formProperties := aFormProperties
 ]
 
 { #category : #'as yet unclassified' }
-FUFormPropertiesReport >> goBack [
+FUDataFieldReport >> goBack [
 	self call: (FUTaskReport from: self session currentlyLoggedUser tasks )
 ]
 
 { #category : #rendering }
-FUFormPropertiesReport >> renderButtonFinish: html [
+FUDataFieldReport >> renderButtonFinish: html [
 	html tbsSubmitButton 
 		tbsPullRight;
 		beSuccess;
@@ -87,14 +78,15 @@ FUFormPropertiesReport >> renderButtonFinish: html [
 ]
 
 { #category : #rendering }
-FUFormPropertiesReport >> renderContentOn: html [
+FUDataFieldReport >> renderContentOn: html [
 	super renderContentOn: html.
-	"self renderRows: html."
+	self halt.
+	self renderRows: html.
 	self renderButtonFinish: html.
 ]
 
 { #category : #'as yet unclassified' }
-FUFormPropertiesReport >> renderEditForm: aFormProperty [
+FUDataFieldReport >> renderEditForm: aFormProperty [
 	| form |
 	form := aFormProperty asComponent.
 	form
@@ -107,16 +99,15 @@ FUFormPropertiesReport >> renderEditForm: aFormProperty [
 ]
 
 { #category : #rendering }
-FUFormPropertiesReport >> renderRows: html [
+FUDataFieldReport >> renderRows: html [
 	|counter|
+	self halt.
 	counter := 1.
-	self rows do: [ :row | 
-		html render: (formProperties at: counter) asComponent. 
-		counter := counter + 1 ]
+	self formProperties do: [ :field | html render: (field asComponent)]
 ]
 
 { #category : #'as yet unclassified' }
-FUFormPropertiesReport >> validateForm [
+FUDataFieldReport >> validateForm [
 	self session currentTask status: 'done'. 
 	self goBack 
 ]

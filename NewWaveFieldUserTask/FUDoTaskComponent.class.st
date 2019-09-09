@@ -71,7 +71,7 @@ FUDoTaskComponent >> goBack [
 FUDoTaskComponent >> initialize [
 	super initialize.
 	self task: (self session currentTask).
-	self report: (FUFormPropertiesReport from: self task formProperties).
+	self report: (FUDataFieldReport from: self task formProperties).
 ]
 
 { #category : #rendering }

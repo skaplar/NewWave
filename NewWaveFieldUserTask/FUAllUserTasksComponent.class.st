@@ -28,7 +28,7 @@ FUAllUserTasksComponent >> component: aComponent [
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
 	super initialize.
-	self report: (FUTaskReport from: (self session currentlyLoggedUser tasks)).
+	self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))
 ]
 
 { #category : #rendering }

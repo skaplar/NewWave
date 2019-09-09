@@ -19,10 +19,9 @@ FormProperty >> addFormValue: aValue [
 FormProperty >> booleanDescription [
 
 	^ MABooleanDescription new 
-		accessor: #FormProperty;
+		accessor: #variable;
 		label: self name;
 		priority: 50;
-		componentClass: MATextInputComponent;
 		comment: (self name, ' not valid');
 		beRequired;
 		yourself
@@ -38,21 +37,6 @@ FormProperty >> dateDescription [
 		beRequired;
 		addCondition: [ :value | value > Date today ];
 		yourself
-]
-
-{ #category : #'acessing-magritte' }
-FormProperty >> descriptionName [
-"	<magritteDescription>
-	^ MAStringDescription new 
-		accessor: #variable;
-		label: self name;
-		priority: 100"
-]
-
-{ #category : #'acessing-magritte' }
-FormProperty >> descriptionVariable [
-	<magritteDescription>
-	^ self findDescription 
 ]
 
 { #category : #'as yet unclassified' }

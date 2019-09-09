@@ -10,7 +10,7 @@ Class {
 { #category : #'as yet unclassified' }
 FUTaskReport class >> filteredDescriptionsFrom: aTask [
 	^ aTask magritteDescription
-		select: [ :t | #(#value #announcer #result #status) includes: t accessor selector ]
+		select: [ :t | #(#taskID #details) includes: t accessor selector ]
 ]
 
 { #category : #'instance creation' }
@@ -29,7 +29,8 @@ FUTaskReport class >> from: tasks [
 FUTaskReport >> doTask: aTask [
 	self session currentTask: aTask.
 	"self call: (FUDoTaskComponent new task: aTask)."
-	self call: (FUFormPropertiesReport from: aTask formProperties)
+	self halt.
+	self call: (FUDataFieldReport from: aTask dataFields)
 	
 ]
 
