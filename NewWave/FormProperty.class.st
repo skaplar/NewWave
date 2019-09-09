@@ -149,7 +149,6 @@ FormProperty >> singleOptionDescription [
 		priority: 0;
 		comment: (self name, ' not valid');
 		options: self formValues;
-		componentClass: MASingleSelectionComponent;
 		beSorted;
 		beRequired;
 		yourself

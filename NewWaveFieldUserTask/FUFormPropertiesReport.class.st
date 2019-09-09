@@ -9,20 +9,23 @@ Class {
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
-	^ aProperty magritteDescription
-		select: [ :t | #(#variable) includes: t accessor selector ] 
+	^ aProperty asComponent   
+		"select: [ :t | #(#variable) includes: t accessor selector ] "
+		"^ aProperty magritteDescription
+		select: [ :t | #(#variable) includes: t accessor selector ] "
 ]
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> from: aFormProperties [
-	| form props children|
-	form := MAContainerComponent new.
-	form setChildren: (self getDictionaryFromProps: aFormProperties).
+	| form fields |
+	fields := self getDictionaryFromProps: aFormProperties.
+	form := self rows: fields description: (self filteredDescriptionsFrom: fields anyOne).
+	form formProperties: aFormProperties. "
 	form setDescription: MAPriorityContainer new.
-	self halt.
+	form setChildren: (self getDictionaryFromProps: aFormProperties)."
 	^ form yourself  
 	
-"	form := (aFormProperties at:1) asComponent.
+	"form := aFormProperties asComponent.
 	self halt.
 	props := self getDictionaryFromProps: aFormProperties.
 	form setChildren: nil.
@@ -86,6 +89,7 @@ FUFormPropertiesReport >> renderButtonFinish: html [
 { #category : #rendering }
 FUFormPropertiesReport >> renderContentOn: html [
 	super renderContentOn: html.
+	"self renderRows: html."
 	self renderButtonFinish: html.
 ]
 
@@ -100,6 +104,13 @@ FUFormPropertiesReport >> renderEditForm: aFormProperty [
 					{(#save -> 'OK').
 					(#cancel -> 'Cancel')}).
 	^ form yourself
+]
+
+{ #category : #rendering }
+FUFormPropertiesReport >> renderRows: html [
+	|counter|
+	counter := 1.
+	self rows do: [ :row | html render: (formProperties at: counter) asComponent. counter := counter + 1 ]
 ]
 
 { #category : #'as yet unclassified' }

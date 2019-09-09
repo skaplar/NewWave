@@ -29,8 +29,7 @@ FUTaskReport class >> from: tasks [
 FUTaskReport >> doTask: aTask [
 	self session currentTask: aTask.
 	"self call: (FUDoTaskComponent new task: aTask)."
-	self call: (FUFormPropertiesReport from: aTask formProperties )
-	
+	self call: (FUFormPropertiesReport from: aTask formProperties)
 	
 ]
 
