@@ -9,8 +9,8 @@ Class {
 
 { #category : #'instance creation' }
 FUFormPropertiesReport class >> filteredDescriptionsFrom: aProperty [
-	^ aProperty asComponent   
-		"select: [ :t | #(#variable) includes: t accessor selector ] "
+	^ aProperty magritteDescription   
+		select: [ :t | #(#variable) includes: t accessor selector ] 
 		"^ aProperty magritteDescription
 		select: [ :t | #(#variable) includes: t accessor selector ] "
 ]
@@ -110,7 +110,9 @@ FUFormPropertiesReport >> renderEditForm: aFormProperty [
 FUFormPropertiesReport >> renderRows: html [
 	|counter|
 	counter := 1.
-	self rows do: [ :row | html render: (formProperties at: counter) asComponent. counter := counter + 1 ]
+	self rows do: [ :row | 
+		html render: (formProperties at: counter) asComponent. 
+		counter := counter + 1 ]
 ]
 
 { #category : #'as yet unclassified' }

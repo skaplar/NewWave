@@ -30,12 +30,10 @@ FormProperty >> booleanDescription [
 
 { #category : #'as yet unclassified' }
 FormProperty >> dateDescription [
-	
 	^ MADateDescription new 
 		accessor: #variable;
 		label: self name;
 		priority: 10;
-		componentClass: MADateInputComponent; 
 		comment: (self name, ' not valid');
 		beRequired;
 		addCondition: [ :value | value > Date today ];
