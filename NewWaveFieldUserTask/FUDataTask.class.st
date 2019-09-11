@@ -39,7 +39,7 @@ FUDataTask >> descriptionDetails [
 	<magritteDescription>
 	^ MAStringDescription new 
 		accessor: #details;
-		label: 'Details';
+		label: 'Details'; 
 		priority: 200;
 		yourself
 ]

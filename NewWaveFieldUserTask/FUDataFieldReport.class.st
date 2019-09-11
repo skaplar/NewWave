@@ -21,7 +21,6 @@ FUDataFieldReport class >> from: aFormProperties [
 	
 	form := self rows: aFormProperties.
 	form formProperties: aFormProperties. 
-	self halt.
 	^ form yourself
 ]
 
@@ -80,7 +79,6 @@ FUDataFieldReport >> renderButtonFinish: html [
 { #category : #rendering }
 FUDataFieldReport >> renderContentOn: html [
 	super renderContentOn: html.
-	self halt.
 	self renderRows: html.
 	self renderButtonFinish: html.
 ]
@@ -101,7 +99,6 @@ FUDataFieldReport >> renderEditForm: aFormProperty [
 { #category : #rendering }
 FUDataFieldReport >> renderRows: html [
 	|counter|
-	self halt.
 	counter := 1.
 	self formProperties do: [ :field | html render: (field asComponent)]
 ]

@@ -29,7 +29,6 @@ FUTaskReport class >> from: tasks [
 FUTaskReport >> doTask: aTask [
 	self session currentTask: aTask.
 	"self call: (FUDoTaskComponent new task: aTask)."
-	self halt.
 	self call: (FUDataFieldReport from: aTask dataFields)
 	
 ]
