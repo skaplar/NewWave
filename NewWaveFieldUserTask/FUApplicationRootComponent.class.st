@@ -2,7 +2,8 @@ Class {
 	#name : #FUApplicationRootComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'main'
+		'main',
+		'server'
 	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
@@ -35,7 +36,8 @@ FUApplicationRootComponent >> children [
 { #category : #initialization }
 FUApplicationRootComponent >> initialize [
 	super initialize.
-	main := FUSignInComponent new
+	main := FUSignInComponent new.
+	server := FUDataServer serveOn: 8082
 ]
 
 { #category : #accessing }
@@ -46,6 +48,16 @@ FUApplicationRootComponent >> main: aComponent [
 { #category : #rendering }
 FUApplicationRootComponent >> renderContentOn: html [
 	html render: main
+]
+
+{ #category : #accessing }
+FUApplicationRootComponent >> server [ 
+	^ server
+]
+
+{ #category : #accessing }
+FUApplicationRootComponent >> server: aServer [
+	server := aServer
 ]
 
 { #category : #updating }

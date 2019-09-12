@@ -15,6 +15,12 @@ FUDataTask >> addDataField: aField [
 	self dataFields add: aField
 ]
 
+{ #category : #adding }
+FUDataTask >> addDataFields: aFields [
+	aFields do: [ :each | self dataFields add: each ]
+	
+]
+
 { #category : #accessing }
 FUDataTask >> dataFields [
 	^ dataFields
@@ -39,7 +45,7 @@ FUDataTask >> descriptionDetails [
 	<magritteDescription>
 	^ MAStringDescription new 
 		accessor: #details;
-		label: 'Details'; 
+		label: 'Details';
 		priority: 200;
 		yourself
 ]

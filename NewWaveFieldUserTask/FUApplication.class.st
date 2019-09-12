@@ -99,6 +99,17 @@ FUApplication class >> reset [
 ]
 
 { #category : #adding }
+FUApplication >> addTask: aTask [
+	| aUser |
+	aUser := self findUser: (aTask userID).
+	aUser isNil 
+		ifTrue: [ ^ 'BAD REQUEST' ].
+	aUser addTask: aTask.
+	^ 'OK'
+	
+]
+
+{ #category : #adding }
 FUApplication >> addUser: anUser [
 	self users at: (anUser username asString) put: anUser. 
 ]
@@ -114,6 +125,13 @@ FUApplication >> createUserWithUsername: aUsername andPassword: aPassword [
 	^ newUser 
 		
 	
+]
+
+{ #category : #'as yet unclassified' }
+FUApplication >> findUser: aUserID [
+	| user |
+	user := users at: aUserID ifAbsent: nil.
+	^ user
 ]
 
 { #category : #operations }
