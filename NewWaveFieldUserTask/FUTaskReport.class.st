@@ -27,10 +27,31 @@ FUTaskReport class >> from: tasks [
 
 { #category : #'as yet unclassified' }
 FUTaskReport >> doTask: aTask [
+	|dataFields|
 	self session currentTask: aTask.
-	"self call: (FUDoTaskComponent new task: aTask)."
-	self call: (FUDataFieldReport from: aTask dataFields)
+	"self call: (FUDoTaskComponent new task: aTask).
+	self call: (FUDataFieldReport from: aTask dataFields)"
+	aTask dataFields do: [ :f | self call: (self renderField: f) ].
+	"dataFields := self call: (self renderEditForm: aTask dataFields)."
+	dataFields ifNotNil: [  ]
 	
+	
+]
+
+{ #category : #'as yet unclassified' }
+FUTaskReport >> getDictionaryFromProps: aFormProperties [
+	| dict counter temp|
+	dict := Dictionary new.
+			counter := 1.
+	aFormProperties isNil 
+		ifFalse: [ 
+			aFormProperties do: [ :prop | 
+				temp := (prop asComponent).
+				temp := ((temp children) at: 1) magritteDescription .
+				dict at: counter put: temp .  
+				counter := counter+1]
+			 ].
+	^ dict 
 ]
 
 { #category : #'as yet unclassified' }
@@ -43,6 +64,35 @@ FUTaskReport >> refreshReport [
 { #category : #rendering }
 FUTaskReport >> renderContentOn: html [
 	super renderContentOn: html
+]
+
+{ #category : #rendering }
+FUTaskReport >> renderEditForm: aDataFields [
+	| form for1|
+	for1 := (aDataFields at:1 )asComponent .
+	form := MAContainerComponent new.
+	form setDescription: MAPriorityContainer new.
+	form setChildren: (self getDictionaryFromProps: aDataFields).
+	form
+		addDecoration:
+			(MAFormDecoration
+				buttons:
+					{(#save -> 'OK').
+					(#cancel -> 'Cancel')}).
+	^ form   
+]
+
+{ #category : #rendering }
+FUTaskReport >> renderField: aDataField [
+	| form |
+	form := aDataField asComponent.
+	form
+		addDecoration:
+			(MAFormDecoration
+				buttons:
+					{(#save -> 'OK').
+					(#cancel -> 'Cancel')}).
+	^ form   
 ]
 
 { #category : #accessing }

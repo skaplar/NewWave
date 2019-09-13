@@ -9,19 +9,24 @@ Class {
 
 { #category : #'instance creation' }
 FUDataFieldReport class >> filteredDescriptionsFrom: aProperty [
-	^ aProperty magritteDescription   
-		select: [ :t | #(#variable) includes: t accessor selector ] 
+	^ aProperty magritteDescription       
+		select: [ :t | #(#result) includes: t accessor selector ]  
 		"^ aProperty magritteDescription
 		select: [ :t | #(#variable) includes: t accessor selector ] "
 ]
 
 { #category : #'instance creation' }
 FUDataFieldReport class >> from: aFormProperties [
-	| form |
-	
-	form := self rows: aFormProperties.
-	form formProperties: aFormProperties. 
-	^ form yourself
+
+	| form editing|
+	form := (self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne)).
+	form formProperties: aFormProperties.
+	editing := MACommandColumn new.
+	editing
+		addCommandOn: form selector: #edit: text: '+';
+		yourself.
+	form addColumn: editing yourself.
+	^ form  
 ]
 
 { #category : #'as yet unclassified' }
@@ -32,7 +37,7 @@ FUDataFieldReport class >> getDictionaryFromProps: aFormProperties [
 	aFormProperties isNil 
 		ifFalse: [ 
 			aFormProperties do: [ :prop | 
-				temp := prop magritteDescription  .
+				temp := prop asComponent.
 				dict at: counter put: temp .  
 				counter := counter+1]
 			 ].
@@ -79,7 +84,6 @@ FUDataFieldReport >> renderButtonFinish: html [
 { #category : #rendering }
 FUDataFieldReport >> renderContentOn: html [
 	super renderContentOn: html.
-	self renderRows: html.
 	self renderButtonFinish: html.
 ]
 
@@ -98,12 +102,33 @@ FUDataFieldReport >> renderEditForm: aFormProperty [
 
 { #category : #rendering }
 FUDataFieldReport >> renderRows: html [
-	|counter|
-	counter := 1.
-	self formProperties do: [ :field | html render: (field asComponent)]
+	self rows do: [ :row | html render: row asComponent ].
+]
+
+{ #category : #'rendering-table' }
+FUDataFieldReport >> renderTableBodyOn: html [ 
+	self visible isEmpty 
+		ifTrue: [ 
+			html tableRow
+				class: 'empty';
+				with: [ 
+					html tableData
+						colSpan: self visibleColumns size;
+						with: self tableEmpty ] ]
+		ifFalse: [
+			self visible keysAndValuesDo: [ :index :row | 
+				html tableRow
+					class: (self rowStyleForNumber: index);
+					with: [ "html render: (row asComponent) 
+						"self visibleColumns do: [ :col | 
+							col 
+								renderCell: row 
+								index: index
+								on: html ] ] ] ]
 ]
 
 { #category : #'as yet unclassified' }
 FUDataFieldReport >> validateForm [
+self halt.
 	self goBack 
 ]
