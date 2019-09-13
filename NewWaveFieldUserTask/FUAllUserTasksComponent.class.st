@@ -27,8 +27,12 @@ FUAllUserTasksComponent >> component: aComponent [
 
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
+|taksskss|
 	super initialize.
-	self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))
+	taksskss := self session currentlyLoggedUser tasks.
+	taksskss isEmpty 
+	ifFalse: [ 
+			self report: (FUTaskReport from: (self session currentlyLoggedUser tasks)) ].
 ]
 
 { #category : #rendering }

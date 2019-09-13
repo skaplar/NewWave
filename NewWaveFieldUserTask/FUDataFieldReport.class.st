@@ -105,6 +105,5 @@ FUDataFieldReport >> renderRows: html [
 
 { #category : #'as yet unclassified' }
 FUDataFieldReport >> validateForm [
-	self session currentTask status: 'done'. 
 	self goBack 
 ]

@@ -35,7 +35,7 @@ FUDataServer >> createDataFields: json [
 
 { #category : #'as yet unclassified' }
 FUDataServer >> createDataForm: aRequest [
-   | json dataTask str|
+   | json dataTask |
    json := JSJsonParser parse: aRequest entity.
    dataTask := (FUDataTask new
          taskID: (json at: 'taskID');
@@ -44,6 +44,17 @@ FUDataServer >> createDataForm: aRequest [
          addDataFields: (self createDataFields: (json at: 'dataFields'));
          yourself).
 	^ FUApplication current addTask: dataTask
+]
+
+{ #category : #'as yet unclassified' }
+FUDataServer >> createUser: aRequest [
+   | json aUser|
+   json := JSJsonParser parse: aRequest entity.
+   aUser := (FUUser new
+         username: (json at: 'username');
+         password: (SHA256 hashMessage: (json at: 'password')); 
+         yourself).
+	^ FUApplication current addUser: aUser
 ]
 
 { #category : #'as yet unclassified' }
@@ -76,9 +87,9 @@ FUDataServer >> registerErrorHandlers [
 { #category : #'as yet unclassified' }
 FUDataServer >> registerRoutes [
 	teapot
-		GET: '/' -> "'<h1>It works!!!!</h1>';output: #html;
-		GET: '/dataTest' ->" (Send message: #dataTest: to: self); output: #json;
-		POST: '/newTask' -> (Send message: #createDataForm: to: self).
+		GET: '/' -> (Send message: #dataTest: to: self); output: #json;
+		POST: '/newTask' -> (Send message: #createDataForm: to: self);
+		POST: '/newUser' -> (Send message: #createUser: to: self).
 ]
 
 { #category : #accessing }

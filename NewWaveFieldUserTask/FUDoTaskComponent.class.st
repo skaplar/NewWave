@@ -147,5 +147,5 @@ FUDoTaskComponent >> task: aTask [
 { #category : #'as yet unclassified' }
 FUDoTaskComponent >> validateForm [
 	self allFieldsGood
-		ifTrue: [ self task status: 'done'. self goBack ] 
+		ifTrue: [ self goBack ] 
 ]

@@ -112,6 +112,7 @@ FUApplication >> addTask: aTask [
 { #category : #adding }
 FUApplication >> addUser: anUser [
 	self users at: (anUser username asString) put: anUser. 
+	^ 'OK'
 ]
 
 { #category : #'as yet unclassified' }
