@@ -111,11 +111,8 @@ NewWaveServer >> readEvents: aRequest [
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
-	"n ifEmpty: [ ^ NeoJSONWriter toStringPretty: { #result -> 'empty'.} ]."
 	prvi := n first. 
-	"^ prvi value."
 	^ prvi value.
-		
 ]
 
 { #category : #initialization }
