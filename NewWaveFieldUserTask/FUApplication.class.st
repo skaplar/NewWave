@@ -35,8 +35,8 @@ df3 label: 'Gender'.
 df3 type: 'singleOption'.
 df3 fieldID: 'gender_ji3b254054'.
 df3 defaultValue: 'Male'.
-df3 addOptionValue: 'Male'.
-df3 addOptionValue: 'Female'.
+ordCol := OrderedCollection new add: 'Male'; add: 'Female'.
+df3 optionValues: ordCol.
 df3 result: ''.
 
 df4 := FUDataField new.

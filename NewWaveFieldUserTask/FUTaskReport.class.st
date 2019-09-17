@@ -29,13 +29,11 @@ FUTaskReport class >> from: tasks [
 FUTaskReport >> doTask: aTask [
 	|dataFields|
 	self session currentTask: aTask.
-	self call: (FUDataFieldReport from: aTask dataFields)
-	
-	"self call: (FUDoTaskComponent new task: aTask)."
-	
-	"aTask dataFields do: [ :f | self call: (self renderField: f) ].
-	dataFields := self call: (self renderEditForm: aTask dataFields).
-	dataFields ifNotNil: [  ]"
+	"self call: (FUDoTaskComponent new task: aTask).
+	self call: (FUDataFieldReport from: aTask dataFields)"
+	aTask dataFields do: [ :f | self call: (self renderField: f) ].
+	"dataFields := self call: (self renderEditForm: aTask dataFields)."
+	dataFields ifNotNil: [  ]
 	
 	
 ]
@@ -88,7 +86,6 @@ FUTaskReport >> renderEditForm: aDataFields [
 FUTaskReport >> renderField: aDataField [
 	| form |
 	form := aDataField asComponent.
-	form addValidation.
 	form
 		addDecoration:
 			(MAFormDecoration
