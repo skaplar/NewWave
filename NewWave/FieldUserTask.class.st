@@ -5,10 +5,20 @@ Class {
 		'value',
 		'announcer',
 		'result',
-		'formProperties'
+		'formProperties',
+		'name'
 	],
 	#category : #'NewWave-Core'
 }
+
+{ #category : #accessing }
+FieldUserTask class >> neoJsonMapping: mapper [
+	"For inheritance mapping to work, the schema/classname must be self,
+	but the instance variables have to be enumerated manually per class"
+	
+	mapper for: self do: [ :mapping |
+		mapping mapInstVars: #(name formProperties) ] 
+]
 
 { #category : #initialization }
 FieldUserTask >> addProperty: aProperty [
@@ -28,7 +38,7 @@ FieldUserTask >> complete [
 
 { #category : #initialization }
 FieldUserTask >> ctype [
-	^ #CustomTask
+	^ #FieldUserTask
 ]
 
 { #category : #initialization }
@@ -41,6 +51,16 @@ FieldUserTask >> initialize [
 	super initialize.
 	announcer := Announcer new.
 	formProperties := OrderedCollection new.
+]
+
+{ #category : #accessing }
+FieldUserTask >> name [
+	^ name
+]
+
+{ #category : #accessing }
+FieldUserTask >> name: anObject [
+	name := anObject
 ]
 
 { #category : #initialization }

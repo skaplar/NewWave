@@ -89,6 +89,14 @@ NodeVizHandler >> gates [
  ^ gates
 ]
 
+{ #category : #'as yet unclassified' }
+NodeVizHandler >> gtViewWorkflowIn: composite [
+	<gtInspectorPresentationOrder: 9>
+	^ composite roassal2 
+		title: 'Workflow';
+		initializeView: [ self view ]
+]
+
 { #category : #initialization }
 NodeVizHandler >> initialize [ 
 	super initialize.
