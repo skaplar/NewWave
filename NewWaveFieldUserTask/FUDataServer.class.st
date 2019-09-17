@@ -5,7 +5,7 @@ Class {
 		'port',
 		'teapot'
 	],
-	#category : #'NewWaveFieldUserTask-Backend'
+	#category : #'NewWaveFieldUserTask-Server'
 }
 
 { #category : #'as yet unclassified' }

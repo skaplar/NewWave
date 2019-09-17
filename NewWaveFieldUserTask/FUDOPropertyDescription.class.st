@@ -11,6 +11,14 @@ Class {
 }
 
 { #category : #accessing }
+FUDOPropertyDescription class >> neoJsonMapping: mapper [ 
+	"For inheritance mapping to work, the schema/classname must be self,
+	but the instance variables have to be enumerated manually per class"
+	mapper for: self do: [ :mapping |
+		mapping mapInstVars: #(varName varType varValue maDescription) ] 
+]
+
+{ #category : #accessing }
 FUDOPropertyDescription >> maDescription [
 	^ maDescription
 ]
@@ -18,14 +26,6 @@ FUDOPropertyDescription >> maDescription [
 { #category : #accessing }
 FUDOPropertyDescription >> maDescription: anObject [
 	maDescription := anObject
-]
-
-{ #category : #accessing }
-FUDOPropertyDescription >> neoJsonMapping: mapper [ 
-	"For inheritance mapping to work, the schema/classname must be self,
-	but the instance variables have to be enumerated manually per class"
-	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(varName varType varValue maDescription) ] 
 ]
 
 { #category : #accessing }
