@@ -21,11 +21,12 @@ FUDataFieldReport class >> from: aFormProperties [
 	| form editing|
 	form := (self rows: aFormProperties description: (self filteredDescriptionsFrom: aFormProperties anyOne)).
 	form formProperties: aFormProperties.
-	editing := MACommandColumn new.
+	
+	"editing := MACommandColumn new.
 	editing
 		addCommandOn: form selector: #edit: text: '+';
 		yourself.
-	form addColumn: editing yourself.
+	form addColumn: editing yourself."
 	^ form  
 ]
 
@@ -84,6 +85,7 @@ FUDataFieldReport >> renderButtonFinish: html [
 { #category : #rendering }
 FUDataFieldReport >> renderContentOn: html [
 	super renderContentOn: html.
+	self renderRows: html.
 	self renderButtonFinish: html.
 ]
 

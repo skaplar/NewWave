@@ -12,6 +12,12 @@ Class {
 	#category : #NewWaveFieldUserTask
 }
 
+{ #category : #adding }
+FUDataField >> addOptionValue: aValue [
+	optionValues ifNil: [ optionValues := OrderedCollection new ].
+	optionValues add: aValue
+]
+
 { #category : #'as yet unclassified' }
 FUDataField >> booleanDescription [
 	^ MABooleanDescription new 
