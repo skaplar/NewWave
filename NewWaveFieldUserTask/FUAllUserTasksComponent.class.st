@@ -28,16 +28,18 @@ FUAllUserTasksComponent >> component: aComponent [
 
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> getMADescription [
-	|aa obj form |
-	aa := Adresa new ulica: 'uu'; broj: '1'.
-	obj := FUDOMagritteExporter dataObject: self task.
-	form := obj createMaContainer asComponentOn: obj do.
-	^ form  
-]
-
-{ #category : #'as yet unclassified' }
-FUAllUserTasksComponent >> getMADescription: aTask [
-	^ (FUDOMagritteExporter dataObject: aTask) createMaContainer asComponentOn: aTask do
+	|ent obj form |
+	ent := FUDOMagritteContainerCreator dataObject: self task.
+	obj := ent createEntity.
+	obj := FUDOMagritteContainerCreator dataObject: obj.
+	form := ent createMaContainer asComponentOn: obj do.
+	self task: obj.
+"	form addDecoration:
+			(MAFormDecoration
+				buttons:
+					{(#save -> 'Finish task').
+					(#cancel -> 'Cancel')})."
+	^ form addValidation  
 ]
 
 { #category : #initialization }
@@ -50,6 +52,21 @@ FUAllUserTasksComponent >> initialize [
 		ifFalse: [ 
 			"self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))"
 			self task: taksskss  ].
+]
+
+{ #category : #rendering }
+FUAllUserTasksComponent >> renderAcceptButton: html [
+	html tbsSubmitButton 
+		tbsPullRight;
+		beSuccess;
+		callback: [ self sendResult ];
+		value: 'Finish task'.
+	html tbsSubmitButton
+		tbsPullRight;
+		beSuccess;
+		callback: [ self goBack ];
+		value: 'Cancel'.
+	
 ]
 
 { #category : #rendering }
@@ -77,7 +94,8 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
-					html render: self getMADescription  ].
+					html render: self getMADescription.					
+						self renderAcceptButton: html. ].
 				]
 			].
 	html tbsColumn
@@ -94,6 +112,11 @@ FUAllUserTasksComponent >> report [
 { #category : #accessing }
 FUAllUserTasksComponent >> report: arg1 [
 	report := arg1
+]
+
+{ #category : #'as yet unclassified' }
+FUAllUserTasksComponent >> sendResult [
+	self halt.
 ]
 
 { #category : #accessing }

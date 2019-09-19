@@ -11,28 +11,29 @@ Class {
 	#category : #'NewWave-Server'
 }
 
-{ #category : #'as yet unclassified' }
-NewWaveServer class >> serveOn: portNumber [ 
+{ #category : #'instance creation' }
+NewWaveServer class >> serveOn: portNumber [
 	^ self new  
 		initializePort: portNumber;
 		start
 ]
 
-{ #category : #'as yet unclassified' }
-NewWaveServer class >> serveOn: portNumber waveEngine: aWaveEngine [ 
+{ #category : #'instance creation' }
+NewWaveServer class >> serveOn: portNumber waveEngine: aWaveEngine [
 	^ self new  
 		initializePort: portNumber;
 		engine: aWaveEngine; 
 		start
 ]
 
-{ #category : #adding }
-NewWaveServer >> addEvent: aRequest [ 
+{ #category : #routes }
+NewWaveServer >> addEvent: aRequest [
 	engine engineAnnouncer announce: (WaveAnnouncer with: 'Izvrsen').
 	^ 'Izvrsen'
+		
 ]
 
-{ #category : #adding }
+{ #category : #routes }
 NewWaveServer >> addNewEntity: aRequest [
 	| tmp |
 	(aRequest at: 'firstName') logCr.
@@ -42,8 +43,8 @@ NewWaveServer >> addNewEntity: aRequest [
 	^ 'Adding of entity executed'.
 ]
 
-{ #category : #adding }
-NewWaveServer >> addTask: aTask user: aUser [ 
+{ #category : #routes }
+NewWaveServer >> addTask: aTask user: aUser [
 	| tasks |
 	tasks := pendingTasks
 		at: aUser
@@ -63,14 +64,14 @@ NewWaveServer >> element: anObject [
 	element := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 NewWaveServer >> engine [
 	^ engine
 ]
 
-{ #category : #accessing }
-NewWaveServer >> engine: anObject [
-	engine := anObject
+{ #category : #initialization }
+NewWaveServer >> engine: waveEngine [
+	engine := waveEngine
 ]
 
 { #category : #initialization }
@@ -80,7 +81,7 @@ NewWaveServer >> initialize [
 ]
 
 { #category : #initialization }
-NewWaveServer >> initializePort: anInteger [ 
+NewWaveServer >> initializePort: anInteger [
 	teapot := Teapot configure: { 
 		#port -> anInteger.
 		#debugMode -> true.
@@ -93,7 +94,7 @@ NewWaveServer >> initializePort: anInteger [
 		yourself.
 ]
 
-{ #category : #accessing }
+{ #category : #initialization }
 NewWaveServer >> pendingTasks [
 	^ pendingTasks
 ]
@@ -103,8 +104,8 @@ NewWaveServer >> port: anObject [
 	port := anObject
 ]
 
-{ #category : #'as yet unclassified' }
-NewWaveServer >> readEvents: aRequest [ 
+{ #category : #initialization }
+NewWaveServer >> readEvents: aRequest [
 	| json n prvi |
 	"n := engine mainExecutor flowHandler node."
 	"json := String streamContents: [ :stream |
@@ -115,20 +116,23 @@ NewWaveServer >> readEvents: aRequest [
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
+	"n ifEmpty: [ ^ NeoJSONWriter toStringPretty: { #result -> 'empty'.} ]."
 	prvi := n first. 
+	"^ prvi value."
 	^ prvi value.
+		
 ]
 
-{ #category : #'as yet unclassified' }
-NewWaveServer >> registerErrorHandlers [ 
+{ #category : #initialization }
+NewWaveServer >> registerErrorHandlers [
 	teapot
 		exception: TeaNoSuchParam -> (Send message: #missingParam:request: to: self).
 		"exception: BookNotFound -> (Send message: #bookNotFound:request: to: self);
 		exception: Error -> (TeaResponse serverError body: { #code -> 'ERROR' } asDictionary )	"	
 ]
 
-{ #category : #'as yet unclassified' }
-NewWaveServer >> registerRoutes [ 
+{ #category : #initialization }
+NewWaveServer >> registerRoutes [
 	teapot
 		GET: '/' -> '<h1>It works!</h1>';output: #html;
 		GET: '/events' -> (Send message: #readEvents: to: self); output: #json;
@@ -136,20 +140,20 @@ NewWaveServer >> registerRoutes [
 		POST: '/addNewEntity' -> (Send message: #addNewEntity: to: self).
 ]
 
-{ #category : #removing }
-NewWaveServer >> removeTask: aTask user: aUser [ 
+{ #category : #routes }
+NewWaveServer >> removeTask: aTask user: aUser [
 	| tasks |
 	tasks := pendingTasks at: aUser ifAbsent: [ ^ '{"result": "Empty"}'].
 	tasks remove: aTask.
 ]
 
-{ #category : #accessing }
-NewWaveServer >> start [ 
+{ #category : #controlling }
+NewWaveServer >> start [
 	teapot start.
 	^ self.
 ]
 
-{ #category : #accessing }
-NewWaveServer >> stop [ 
+{ #category : #controlling }
+NewWaveServer >> stop [
 	teapot stop.
 ]
