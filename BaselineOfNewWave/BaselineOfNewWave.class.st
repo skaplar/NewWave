@@ -14,6 +14,7 @@ BaselineOfNewWave >> baseline: spec [
 			self taskIt: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
+			self teapot: spec.
 			"Packages"
 			spec
 				package: 'NewWave'.
@@ -54,5 +55,14 @@ BaselineOfNewWave >> taskIt: spec [
 		baseline: 'TaskIt'
 		with: [ 
 			spec repository: 'github://sbragagnolo/taskit:v1.0'
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> teapot: spec [
+	spec 
+		baseline: 'Teapot'
+		with: [ 
+			spec repository: 'github://zeroflag/teapot:master/source'
 		 ]
 ]
