@@ -4,10 +4,29 @@ Class {
 	#instVars : [
 		'name',
 		'dataObjects',
-		'flowElementList'
+		'flowElementList',
+		'initialFlowElement'
 	],
 	#category : #'NewWave-Core'
 }
+
+{ #category : #'as yet unclassified' }
+NewWaveProcess class >> name: aName initialFlowElement: anElement [
+	^ self new 
+		name: aName;
+		initialFlowElement: anElement;
+		yourself
+]
+
+{ #category : #accessing }
+NewWaveProcess >> addDataObject: aDataObject [
+	dataObjects add: aDataObject
+]
+
+{ #category : #accessing }
+NewWaveProcess >> addFlowElement: aFlowElement [
+	flowElementList add: aFlowElement
+]
 
 { #category : #accessing }
 NewWaveProcess >> dataObjects [
@@ -27,6 +46,16 @@ NewWaveProcess >> flowElementList [
 { #category : #accessing }
 NewWaveProcess >> flowElementList: anObject [
 	flowElementList := anObject
+]
+
+{ #category : #accessing }
+NewWaveProcess >> initialFlowElement [
+	^ initialFlowElement
+]
+
+{ #category : #accessing }
+NewWaveProcess >> initialFlowElement: anObject [
+	initialFlowElement := anObject
 ]
 
 { #category : #initialization }

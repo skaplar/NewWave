@@ -41,7 +41,8 @@ Class {
 		'workList',
 		'activations',
 		'scheduler',
-		'server'
+		'server',
+		'process'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -52,6 +53,16 @@ WaveEngine class >> initialNode: startNode [
 	we := WaveExecutor initialNode: startNode.
 	^ self new 
 		addExecutor: we;
+		yourself.
+]
+
+{ #category : #'as yet unclassified' }
+WaveEngine class >> initialProcess: aProcess [
+	| we | 
+	we := WaveExecutor initialNode: aProcess initialFlowElement.
+	^ self new 
+		addExecutor: we;
+		process: aProcess;
 		yourself.
 ]
 
@@ -136,6 +147,16 @@ WaveEngine >> mainExecutor [
 { #category : #accessing }
 WaveEngine >> mainExecutor: executors [
 	mainExecutor := executors 
+]
+
+{ #category : #accessing }
+WaveEngine >> process [
+	^ process
+]
+
+{ #category : #accessing }
+WaveEngine >> process: anObject [
+	process := anObject
 ]
 
 { #category : #accessing }
