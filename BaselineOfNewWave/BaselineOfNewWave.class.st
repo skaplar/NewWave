@@ -16,7 +16,11 @@ BaselineOfNewWave >> baseline: spec [
 			self scheduler2: spec.
 			"Packages"
 			spec
-				package: 'NewWave'
+				package: 'NewWave'.
+			spec	
+				package: 'NewWave-Server'.
+			spec	
+				package: 'NewWave-Plugin'.
 		]
 ]
 
