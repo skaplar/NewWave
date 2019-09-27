@@ -41,7 +41,7 @@ Class {
 		'workList',
 		'activations',
 		'scheduler',
-		'server'
+		'pluginData'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -99,15 +99,15 @@ WaveEngine >> engineAnnouncer: anAnnouncer [
 ]
 
 { #category : #accessing }
-WaveEngine >> initialize [ 
+WaveEngine >> initialize [
 	super initialize.
 	self joinHandler: (JoinHandler context: self).
 	self subExecutors: OrderedCollection new.
 	self engineAnnouncer: Announcer new.
 	workList := WaveWorkList new.
 	activations := Dictionary new.
+	pluginData := Dictionary new
 	"scheduler := TaskScheduler new."
-	server := NewWaveServer serveOn: 8081 waveEngine: self.
 	"scheduler start."
 ]
 
@@ -144,11 +144,6 @@ WaveEngine >> scheduler [
 ]
 
 { #category : #accessing }
-WaveEngine >> server [ 
-	^ server.
-]
-
-{ #category : #accessing }
 WaveEngine >> startEngine [
 	mainExecutor tryToExecuteNext.
 	mainExecutor waveAnnouncer announce: StartAnnouncer new.
@@ -157,7 +152,7 @@ WaveEngine >> startEngine [
 { #category : #accessing }
 WaveEngine >> stopEngine [
 	"scheduler stop."
-	server stop.
+	pluginData do: [ :plugin | plugin stop ].
 	"I am force stopping all the workers in the engine."
 	mainExecutor workers valuesDo: [ :d | d stop ].
 ]
