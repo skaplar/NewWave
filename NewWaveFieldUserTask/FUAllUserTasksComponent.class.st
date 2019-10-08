@@ -28,12 +28,12 @@ FUAllUserTasksComponent >> component: aComponent [
 
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> getMADescription [
-	|aa obj form |
-	aa := Adresa new ulica: 'uu'; broj: '1'.
-	obj := FUDOMagritteExporter dataObject: self task.
-	form := obj createMaContainer asComponentOn: obj do.
+	| obj |
+	obj := FUDOMagritteContainerCreator dataObject: self task.
+	obj := obj createEntity.
+	obj := obj asComponent addValidatedForm.
 	self halt.
-	^ form  
+	^ obj 
 ]
 
 { #category : #'as yet unclassified' }
@@ -93,7 +93,7 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
-					html render: self getMADescription  ].
+					html render: self getMADescription].
 				]
 			].
 	html tbsColumn

@@ -23,7 +23,8 @@ FUDOMagritteExporter >> collectInstVars [
 FUDOMagritteExporter >> createMaContainer [ 
 	| maContainer |
 	maContainer := MAPriorityContainer new.
-	maContainer propertyAt: #label put: do class name. 
+	maContainer propertyAt: #label put: do className1. 
+	self halt.
 	maContainer addAll: self createMaDescriptions.
 	^ maContainer
 ]
@@ -31,13 +32,13 @@ FUDOMagritteExporter >> createMaContainer [
 { #category : #'as yet unclassified' }
 FUDOMagritteExporter >> createMaDescriptions [ 
 	| madesc |
-	^ self eximplify collect: [ :each |
+	madesc := FUDODescriptionSelector new.
+	^ self do properties collect: [ :each |
 		| el |
-		madesc := FUDODescriptionSelector new.
 		el := madesc descriptionDictionary at: each varType.
 		el
-			accessor: each varName;
-			label: each varValue;
+			accessor: (each varName) asSymbol;
+			label: each varName;
 			priority: 10.
 	].
 ]
@@ -53,7 +54,7 @@ FUDOMagritteExporter >> do: anObject [
 ]
 
 { #category : #'as yet unclassified' }
-FUDOMagritteExporter >> eximplify [ 
+FUDOMagritteExporter >> eximplify [
 	^ self collectInstVars collect: [ :each | 
 		| desc |
 		desc := FUDOPropertyDescription new.

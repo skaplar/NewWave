@@ -5,8 +5,13 @@ Class {
 		'ulica',
 		'broj'
 	],
-	#category : #'NewWaveFieldUserTask-Proba'
+	#category : #'NewWaveFieldUserTask-Entities'
 }
+
+{ #category : #'as yet unclassified' }
+Adresa >> addMethod [
+Transcript show: 'Hi, Nina!'
+]
 
 { #category : #accessing }
 Adresa >> broj [
@@ -18,9 +23,29 @@ Adresa >> broj: anObject [
 	broj := anObject
 ]
 
+{ #category : #'as yet unclassified' }
+Adresa >> descriptionBroj [
+  <magritteDescription>
+	^ MANumberDescription new 
+		accessor: #broj;
+		label: 'broj';
+		priority: 10;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Adresa >> descriptionUlica [
+  <magritteDescription>
+	^ MAStringDescription new 
+		accessor: #ulica;
+		label: 'ulica';
+		priority: 10;
+		yourself
+]
+
 { #category : #initialization }
-Adresa >> initialize [
-	super initialize 
+Adresa >> initialize [ 
+	super initialize.
 ]
 
 { #category : #accessing }

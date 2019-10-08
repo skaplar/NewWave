@@ -18,8 +18,9 @@ FUGetTaskServer >> getTask: aUser [
 { #category : #'as yet unclassified' }
 FUGetTaskServer >> getTaskTest: aUser [
 	|adresica json aa imp mag|
-	adresica := Adresa new ulica: 'Radnicka'; broj: '3'."<-nepotrebno"
-
+	adresica := Adresa new.
+	adresica ulica: 'Radnicka'.
+	adresica broj: 3."<-nepotrebno"
 	json := (FUDOJSONExporter dataObject: adresica) exportDOToJSON."<-nepotrebno"
 	imp := FUDOJSONImporter new importFromJSON: json."<-pretvara json koji je dobio u FUDOClassDescription objekat"
 	^ imp

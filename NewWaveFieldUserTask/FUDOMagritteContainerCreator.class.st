@@ -15,8 +15,29 @@ FUDOMagritteContainerCreator class >> dataObject: do [
 ]
 
 { #category : #adding }
+FUDOMagritteContainerCreator >> addMagritteMethods: newClass var: el [
+  | methodTemplate methodSource madesc |
+	madesc := self getMADictionary.
+  methodTemplate := 'description{1}
+  <magritteDescription>
+	^ {2} new 
+		accessor: #{3};
+		label: ''{4}'';
+		priority: 10;
+		yourself'.   
+  methodSource := methodTemplate format:  {el varName capitalized}, 
+		{madesc at: el varType}, 
+		{el varName},
+		{el varName}.
+  newClass class compile: methodSource.
+]
+
+{ #category : #adding }
 FUDOMagritteContainerCreator >> addValues: anInstanceOfEntity [ 
-	do properties do: [ :el | anInstanceOfEntity instVarNamed: el varName put: el varValue ].
+	do properties do: [ :el | 
+		anInstanceOfEntity instVarNamed: el varName put: el varValue. 
+		self addMagritteMethods: anInstanceOfEntity var: el.
+		].
 	^ anInstanceOfEntity.
 ]
 
@@ -68,6 +89,17 @@ FUDOMagritteContainerCreator >> generateInstanceVariables [
 	temp := String new.
 	do properties do: [ :el | temp := temp, el varName asString, ' ' ].
 	^ temp
+]
+
+{ #category : #'as yet unclassified' }
+FUDOMagritteContainerCreator >> getMADictionary [
+	| dict |
+	dict := Dictionary new.
+	dict at: 'ByteString' put: 'MAStringDescription'.
+	dict at: 'SmallInteger' put: 'MANumberDescription'.
+	dict at: 'Date' put: 'MADateDescription'.
+	dict at: 'Boolean' put: 'MABooleanDescription'.	
+	^dict
 ]
 
 { #category : #initialization }
