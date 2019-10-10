@@ -31,8 +31,9 @@ FUAllUserTasksComponent >> getMADescription [
 	| obj |
 	obj := FUDOMagritteContainerCreator dataObject: self task.
 	obj := obj createEntity.
-	self task: obj asComponent .
-	^ self task
+	obj := obj asComponent addValidatedForm.
+	self halt.
+	^ obj 
 ]
 
 { #category : #'as yet unclassified' }
@@ -92,8 +93,7 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
-					html render: self getMADescription.
-					self renderAcceptButton: html].
+					html render: self getMADescription].
 				]
 			].
 	html tbsColumn
