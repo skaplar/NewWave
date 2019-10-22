@@ -49,6 +49,6 @@ BaselineOfNewWave >> taskIt: spec [
 	spec 
 		baseline: 'TaskIt'
 		with: [ 
-			spec repository: 'github://sbragagnolo/taskit:v1.0'
+			spec repository: 'github://sbragagnolo/taskit:dev-1.1'
 		 ]
 ]
