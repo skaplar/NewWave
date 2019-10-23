@@ -14,10 +14,20 @@ BaselineOfNewWave >> baseline: spec [
 			self taskIt: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
+			self neoJson: spec.
 			"Packages"
 			spec
 				package: 'NewWave'
 		]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> neoJson: spec [
+	spec 
+		baseline: 'NeoJSON' 
+		with: [ 
+			spec repository: 'github://svenvc/NeoJSON/repository' 
+		].
 ]
 
 { #category : #accessing }
