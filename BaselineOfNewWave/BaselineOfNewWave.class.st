@@ -30,6 +30,15 @@ BaselineOfNewWave >> baseline: spec [
 ]
 
 { #category : #accessing }
+BaselineOfNewWave >> neoJson: spec [
+	spec 
+		baseline: 'NeoJSON' 
+		with: [ 
+			spec repository: 'github://svenvc/NeoJSON/repository' 
+		].
+]
+
+{ #category : #accessing }
 BaselineOfNewWave >> projectClass [ 
 	^ MetacelloCypressBaselineProject
 ]
@@ -58,7 +67,7 @@ BaselineOfNewWave >> taskIt: spec [
 	spec 
 		baseline: 'TaskIt'
 		with: [ 
-			spec repository: 'github://sbragagnolo/taskit:v1.0'
+			spec repository: 'github://sbragagnolo/taskit:v1.0.2'
 		 ]
 ]
 
