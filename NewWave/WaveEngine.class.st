@@ -41,8 +41,8 @@ Class {
 		'workList',
 		'activations',
 		'scheduler',
-		'server',
-		'process'
+		'process',
+		'pluginData'
 	],
 	#category : #'NewWave-Engine'
 }
