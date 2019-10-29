@@ -9,7 +9,8 @@ Class {
 
 { #category : #'as yet unclassified' }
 StartEventBehavior >> performExecution: elemToExecute executor: wave [
-	wave waveAnnouncer subscribe: StartAnnouncer 
+	wave waveAnnouncer 
+		when: StartAnnouncer 
 		do: [ 
 			| worker |
 			worker := TKTWorker new.
