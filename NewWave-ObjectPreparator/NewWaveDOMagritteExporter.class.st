@@ -33,7 +33,7 @@ NewWaveDOMagritteExporter class >> dataObject: do [
 
 { #category : #accessing }
 NewWaveDOMagritteExporter >> collectInstVars [
-	^ do class instanceVariables
+	^ do class instVarNames
 ]
 
 { #category : #initialization }

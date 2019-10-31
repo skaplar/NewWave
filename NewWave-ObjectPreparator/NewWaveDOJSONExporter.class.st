@@ -16,7 +16,7 @@ NewWaveDOJSONExporter class >> dataObject: do [
 
 { #category : #accessing }
 NewWaveDOJSONExporter >> collectInstVars [
-	^ do class instanceVariables
+	^ do class instVarNames
 ]
 
 { #category : #initialization }
