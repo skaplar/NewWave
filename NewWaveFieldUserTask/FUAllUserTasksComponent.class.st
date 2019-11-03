@@ -31,8 +31,9 @@ FUAllUserTasksComponent >> getMADescription [
 	| obj |
 	obj := FUDOMagritteContainerCreator dataObject: self task.
 	obj := obj createEntity.
-	self task: obj asComponent .
-	^ self task
+	obj := obj asComponent.
+	self task: obj.
+	^ obj 
 ]
 
 { #category : #'as yet unclassified' }
@@ -93,13 +94,13 @@ FUAllUserTasksComponent >> renderContentOn: html [
 			html tbsModalBody: [
 				html tbsForm: [	
 					html render: self getMADescription.
-					self renderAcceptButton: html].
+					self renderAcceptButton: html ].
 				]
 			].
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
-		mediumSize: 2. 
+		mediumSize: 2.  
 ]
 
 { #category : #accessing }
@@ -115,6 +116,9 @@ FUAllUserTasksComponent >> report: arg1 [
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> sendResult [
 	| newValue json |
+	self halt.
+	self task validate 
+		ifFalse: [ ^nil ]."show validation message"
 	newValue := self task save model.
 	json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON.
 	FUCommitTaskServer new commitTask: json.
