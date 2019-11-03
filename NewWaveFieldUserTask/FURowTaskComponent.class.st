@@ -32,14 +32,13 @@ FURowTaskComponent >> component: aComponent [
 
 { #category : #'as yet unclassified' }
 FURowTaskComponent >> goToDoTask [
-	self call: (FUDoTaskComponent new task: self task)
+	"generating form should be here - some day in future"
 	
 ]
 
 { #category : #initialization }
 FURowTaskComponent >> initialize [
-	super initialize.
-	task := FUTask new
+	super initialize
 ]
 
 { #category : #rendering }

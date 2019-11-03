@@ -36,11 +36,6 @@ FUAllUserTasksComponent >> getMADescription [
 	^ obj 
 ]
 
-{ #category : #'as yet unclassified' }
-FUAllUserTasksComponent >> getMADescription: aTask [
-	^ (FUDOMagritteExporter dataObject: aTask) createMaContainer asComponentOn: aTask do
-]
-
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
 |taksskss|
@@ -116,7 +111,6 @@ FUAllUserTasksComponent >> report: arg1 [
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> sendResult [
 	| newValue json |
-	self halt.
 	self task validate 
 		ifFalse: [ ^nil ]."show validation message"
 	newValue := self task save model.

@@ -37,7 +37,6 @@ FUApplicationRootComponent >> children [
 FUApplicationRootComponent >> initialize [
 	super initialize.
 	main := FUSignInComponent new.
-	server := FUDataServer serveOn: 8082
 ]
 
 { #category : #accessing }
