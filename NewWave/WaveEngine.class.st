@@ -41,7 +41,8 @@ Class {
 		'workList',
 		'activations',
 		'scheduler',
-		'server'
+		'process',
+		'pluginData'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -55,6 +56,16 @@ WaveEngine class >> initialNode: startNode [
 		yourself.
 ]
 
+{ #category : #'as yet unclassified' }
+WaveEngine class >> initialProcess: aProcess [
+	| we | 
+	we := WaveExecutor initialNode: aProcess initialFlowElement.
+	^ self new 
+		addExecutor: we;
+		process: aProcess;
+		yourself.
+]
+
 { #category : #accessing }
 WaveEngine >> activations [
 	^ activations
@@ -65,19 +76,20 @@ WaveEngine >> addExecutor: anExecutor [
 	self mainExecutor: anExecutor.
 	self mainExecutor engine: self.
 	"parameter iz announcera mi je seekvenca "
-	engineAnnouncer subscribe: JoinEventAnnouncer 
-	do: [ 
-			:ann | | tmpExecutor rez | 
+	engineAnnouncer
+		when: JoinEventAnnouncer
+		do: [ :ann | 
+			| tmpExecutor rez |
 			tmpExecutor := joinHandler addSequenceToExecutors: ann parameter.
 			rez := joinHandler checkIsExecutorCompleted: tmpExecutor.
-			rez ifTrue: [ | an |
-				an := tmpExecutor returnNodeAfterJoin.
-				mainExecutor flowHandler node: an. 
-				mainExecutor tryToExecuteNext: tmpExecutor joinNode.
-			].
-			('Ending-SUB-Worker process is ', ann executor worker process identityHash asString) logCr.
-			ann executor worker stop.
-	].
+			rez
+				ifTrue: [ | an |
+					an := tmpExecutor returnNodeAfterJoin.
+					mainExecutor flowHandler node: an.
+					mainExecutor tryToExecuteNext: tmpExecutor joinNode ].
+			('Ending-SUB-Worker process is '
+				, ann executor worker process identityHash asString) logCr.
+			ann executor worker stop ]
 ]
 
 { #category : #accessing }
@@ -99,15 +111,15 @@ WaveEngine >> engineAnnouncer: anAnnouncer [
 ]
 
 { #category : #accessing }
-WaveEngine >> initialize [ 
+WaveEngine >> initialize [
 	super initialize.
 	self joinHandler: (JoinHandler context: self).
 	self subExecutors: OrderedCollection new.
 	self engineAnnouncer: Announcer new.
 	workList := WaveWorkList new.
 	activations := Dictionary new.
+	pluginData := Dictionary new
 	"scheduler := TaskScheduler new."
-	server := NewWaveServer serveOn: 8081 waveEngine: self.
 	"scheduler start."
 ]
 
@@ -139,13 +151,18 @@ WaveEngine >> mainExecutor: executors [
 ]
 
 { #category : #accessing }
-WaveEngine >> scheduler [
-	^ scheduler
+WaveEngine >> process [
+	^ process
 ]
 
 { #category : #accessing }
-WaveEngine >> server [ 
-	^ server.
+WaveEngine >> process: anObject [
+	process := anObject
+]
+
+{ #category : #accessing }
+WaveEngine >> scheduler [
+	^ scheduler
 ]
 
 { #category : #accessing }
@@ -157,7 +174,7 @@ WaveEngine >> startEngine [
 { #category : #accessing }
 WaveEngine >> stopEngine [
 	"scheduler stop."
-	server stop.
+	pluginData do: [ :plugin | plugin stop ].
 	"I am force stopping all the workers in the engine."
 	mainExecutor workers valuesDo: [ :d | d stop ].
 ]

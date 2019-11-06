@@ -3,7 +3,8 @@ Class {
 	#superclass : #Node,
 	#instVars : [
 		'elements',
-		'boundaryEvents'
+		'boundaryEvents',
+		'dataOutputAssociations'
 	],
 	#category : #'NewWave-Core'
 }
@@ -33,10 +34,21 @@ BaseActivity >> ctype [
 	^ #BaseActivity
 ]
 
+{ #category : #accessing }
+BaseActivity >> dataOutputAssociations [
+	^ dataOutputAssociations
+]
+
+{ #category : #accessing }
+BaseActivity >> dataOutputAssociations: anObject [
+	dataOutputAssociations := anObject
+]
+
 { #category : #initialization }
 BaseActivity >> initialize [
 
 	super initialize.
 	elements := OrderedCollection new.
 	boundaryEvents := OrderedCollection new.
+	dataOutputAssociations := OrderedCollection new.
 ]

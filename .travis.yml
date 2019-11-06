@@ -1,0 +1,9 @@
+language: smalltalk
+sudo: required
+
+os:
+  - linux
+
+smalltalk:
+  - Pharo64-7.0
+  - Pharo64-8.0

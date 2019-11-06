@@ -9,15 +9,16 @@ Class {
 
 { #category : #'as yet unclassified' }
 StartEventBehavior >> performExecution: elemToExecute executor: wave [
-	wave waveAnnouncer subscribe: StartAnnouncer 
-		do: [ 
-			| worker |
+	wave waveAnnouncer
+		when: StartAnnouncer
+		do: [ | worker |
 			worker := TKTWorker new.
 			worker start.
-			('Starting worker on process ', Processor activeProcess identityHash asString) logCr.
-			('Worker process is ', worker process identityHash asString ) logCr.
+			('Starting worker on process '
+				, Processor activeProcess identityHash asString) traceCr.
+			('Worker process is ' , worker process identityHash asString)
+				traceCr.
 			wave workers at: worker name put: worker.
 			wave flowHandler workerid: worker name.
-			wave tryToExecuteNext: elemToExecute.
-		]
+			wave tryToExecuteNext: elemToExecute ]
 ]
