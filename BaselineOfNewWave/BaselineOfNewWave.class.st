@@ -17,10 +17,12 @@ BaselineOfNewWave >> baseline: spec [
 			self seaside: spec.
 			self bootstrap: spec.
 			self magritte: spec.
+			self neoJson: spec.
+			self zinc: spec.
 
 			"Packages"
 			spec package: 'NewWave' with: [spec requires: #(TaskIt Scheduler)].
-			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core Magritte Seaside3 Bootstrap)].
+			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap)].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
@@ -109,5 +111,14 @@ BaselineOfNewWave >> teapot: spec [
 		baseline: 'Teapot'
 		with: [ 
 			spec repository: 'github://zeroflag/teapot:master/source'
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> zinc: spec [
+	spec 
+		baseline: 'ZincHTTPComponents'
+		with: [ 
+			spec repository: 'github://svenvc/zinc:master/repository'
 		 ]
 ]
