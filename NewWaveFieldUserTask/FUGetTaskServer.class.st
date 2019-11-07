@@ -6,13 +6,10 @@ Class {
 
 { #category : #'as yet unclassified' }
 FUGetTaskServer >> getTask: aUser [
-	| resp |
-	resp := ZnClient new
-  		url: 'http://localhost:8088/'; "port needs to be changed"
-		"formAt: 'username' put: aUser;"
-   		get;
-   		response.
-	^ resp entity string 
+	| entity obj |
+	entity := (ZnEasy get: 'http://localhost:8081/events') entity string.
+	obj := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: entity).
+	^ obj. 
 ]
 
 { #category : #'as yet unclassified' }
@@ -23,7 +20,11 @@ FUGetTaskServer >> getTaskTest: aUser [
 	adresica broj: 3."<-nepotrebno"
 	json := (FUDOJSONExporter dataObject: adresica) exportDOToJSON."<-nepotrebno"
 	imp := FUDOJSONImporter new importFromJSON: json."<-pretvara json koji je dobio u FUDOClassDescription objekat"
-	^ imp
+	"^ imp."
+	aa := (ZnEasy get: 'http://localhost:8081/events') entity string.
+	imp := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: aa).
+	^ imp.
+	
 ]
 
 { #category : #initialization }

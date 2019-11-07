@@ -15,8 +15,8 @@ FUDOJSONExporter class >> dataObject: do [
 ]
 
 { #category : #'as yet unclassified' }
-FUDOJSONExporter >> collectInstVars [ 
-	^ do class instanceVariables
+FUDOJSONExporter >> collectInstVars [
+	^ do class instVarNames
 ]
 
 { #category : #'as yet unclassified' }

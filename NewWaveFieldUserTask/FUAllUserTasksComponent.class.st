@@ -29,10 +29,10 @@ FUAllUserTasksComponent >> component: aComponent [
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> getMADescription [
 	| obj |
-	obj := FUDOMagritteContainerCreator dataObject: self task.
+	obj := NewWaveMagritteContainerCreator dataObject: self task.
 	obj := obj createEntity.
 	obj := obj asComponent.
-	self task: obj.
+	"self task: obj. why?"
 	^ obj 
 ]
 
@@ -41,7 +41,7 @@ FUAllUserTasksComponent >> initialize [
 |taksskss|
 	super initialize.
 	"taksskss := self session currentlyLoggedUser tasks."
-	taksskss := FUGetTaskServer new getTaskTest: (self session currentlyLoggedUser username).
+	taksskss := FUGetTaskServer new getTask: (self session currentlyLoggedUser username).
 	taksskss isNil
 		ifFalse: [ 
 			"self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))"

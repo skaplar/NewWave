@@ -25,15 +25,36 @@ NewWaveMagritteContainerCreator class >> dataObject: do [
 ]
 
 { #category : #initialization }
-NewWaveMagritteContainerCreator >> addValues: anInstanceOfEntity [
-	do properties do: [ :el | anInstanceOfEntity instVarNamed: el varName put: el varValue ].
+NewWaveMagritteContainerCreator >> addMagritteMethods: newClass var: el [
+  | methodTemplate methodSource madesc |
+	madesc := self getMADictionary.
+  methodTemplate := 'description{1}
+  <magritteDescription>
+	^ {2} new 
+		accessor: #{3};
+		label: ''{4}'';
+		priority: 10;
+		yourself'.   
+  methodSource := methodTemplate format:  {el varName capitalized}, 
+		{madesc at: el varType}, 
+		{el varName},
+		{el varName}.
+  newClass class compile: methodSource.
+]
+
+{ #category : #initialization }
+NewWaveMagritteContainerCreator >> addValues: anInstanceOfEntity [ 
+	do properties do: [ :el | 
+		anInstanceOfEntity instVarNamed: el varName put: el varValue. 
+		self addMagritteMethods: anInstanceOfEntity var: el.
+		].
 	^ anInstanceOfEntity.
 ]
 
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> createEntity [
 | newClass x |
-	newClass := Object subclass: do className1 instanceVariableNames: self generateInstanceVariables classVariableNames: '' package: 'NewWaveWebApp'.
+	newClass := Object subclass: do className1 instanceVariableNames: self generateInstanceVariables classVariableNames: '' package: 'NewWaveFieldUserTask-Entities'.
 	"x := newClass new."
 	^ self addValues: newClass new.
 	"^ newClass."
@@ -78,6 +99,17 @@ NewWaveMagritteContainerCreator >> generateInstanceVariables [
 	temp := String new.
 	do properties do: [ :el | temp := temp, el varName asString, ' ' ].
 	^ temp
+]
+
+{ #category : #initialization }
+NewWaveMagritteContainerCreator >> getMADictionary [
+	| dict |
+	dict := Dictionary new.
+	dict at: 'ByteString' put: 'MAStringDescription'.
+	dict at: 'SmallInteger' put: 'MANumberDescription'.
+	dict at: 'Date' put: 'MADateDescription'.
+	dict at: 'Boolean' put: 'MABooleanDescription'.	
+	^dict
 ]
 
 { #category : #initialization }

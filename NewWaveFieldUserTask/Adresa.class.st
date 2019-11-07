@@ -5,8 +5,17 @@ Class {
 		'ulica',
 		'broj'
 	],
-	#category : #'NewWaveFieldUserTask-Proba'
+	#category : #NewWaveFieldUserTask
 }
+
+{ #category : #examples }
+Adresa class >> example1 [ 
+| addr |
+addr := self new.
+addr broj: 'Test Street'.
+addr ulica: 'Test Place'.
+^ addr.
+]
 
 { #category : #accessing }
 Adresa >> broj [
@@ -16,6 +25,26 @@ Adresa >> broj [
 { #category : #accessing }
 Adresa >> broj: anObject [
 	broj := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Adresa >> descriptionBroj [
+  <magritteDescription>
+	^ MAStringDescription new 
+		accessor: #broj;
+		label: 'broj';
+		priority: 10;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Adresa >> descriptionUlica [
+  <magritteDescription>
+	^ MAStringDescription new 
+		accessor: #ulica;
+		label: 'ulica';
+		priority: 10;
+		yourself
 ]
 
 { #category : #initialization }

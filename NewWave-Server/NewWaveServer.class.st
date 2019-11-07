@@ -106,12 +106,14 @@ NewWaveServer >> port: anObject [
 
 { #category : #initialization }
 NewWaveServer >> readEvents: aRequest [
-	| n prvi |
+	| n prvi exp |
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
-	prvi := n first. 
-	^ prvi value.
+	prvi := n first.
+	exp := NewWaveDOJSONExporter dataObject: prvi value.
+	^ exp exportDOToJSON.  
+	"^ prvi value."
 ]
 
 { #category : #initialization }
