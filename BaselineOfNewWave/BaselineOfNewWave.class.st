@@ -14,6 +14,7 @@ BaselineOfNewWave >> baseline: spec [
 			self teapot: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
+			self roassal: spec.
 			self seaside: spec.
 			self bootstrap: spec.
 			self magritte: spec.
@@ -24,6 +25,9 @@ BaselineOfNewWave >> baseline: spec [
 			spec package: 'NewWave' with: [spec requires: #(TaskIt Scheduler)].
 			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server')].
 			spec
+				package: 'NewWave-Roassal'
+				with: [ spec requires: #(NewWave Roassal2) ].
+			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
 			spec package: 'NewWave-Plugin'.
@@ -31,6 +35,7 @@ BaselineOfNewWave >> baseline: spec [
 			spec group: 'Core' with: #(NewWave).
 			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
+			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec
 				group: 'All'
 				with: #(Core TeapotServer 'NewWave-Plugin' WebTask) ]
@@ -67,6 +72,15 @@ BaselineOfNewWave >> neoJson: spec [
 { #category : #accessing }
 BaselineOfNewWave >> projectClass [ 
 	^ MetacelloCypressBaselineProject
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> roassal: spec [
+	spec 
+		baseline: 'Roassal2'
+		with: [ 
+			spec repository: 'github://ObjectProfile/Roassal2/src'
+		 ]
 ]
 
 { #category : #accessing }

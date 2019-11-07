@@ -8,7 +8,7 @@ Class {
 		'gates',
 		'view'
 	],
-	#category : #'NewWave-Visualization'
+	#category : #'NewWave-Roassal'
 }
 
 { #category : #initialization }
