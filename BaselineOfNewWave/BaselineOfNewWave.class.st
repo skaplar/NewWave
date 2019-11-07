@@ -29,10 +29,11 @@ BaselineOfNewWave >> baseline: spec [
 			spec package: 'NewWave-Plugin'.
 			"Groups"
 			spec group: 'Core' with: #(NewWave).
+			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin') ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask) ]
 ]
 
 { #category : #accessing }
