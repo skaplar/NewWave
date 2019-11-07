@@ -14,19 +14,26 @@ BaselineOfNewWave >> baseline: spec [
 			self teapot: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
+			self seaside: spec.
+			self bootstrap: spec.
+			self magritte: spec.
+			self neoJson: spec.
+			self zinc: spec.
 
 			"Packages"
 			spec package: 'NewWave' with: [spec requires: #(TaskIt Scheduler)].
+			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server')].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
 			spec package: 'NewWave-Plugin'.
 			"Groups"
 			spec group: 'Core' with: #(NewWave).
+			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin') ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask) ]
 ]
 
 { #category : #accessing }
@@ -43,8 +50,9 @@ BaselineOfNewWave >> magritte: spec [
 	spec 
 		baseline: 'Magritte'
 		with: [ 
-			spec repository: 'github://magritte-metamodel/magritte:v3.5.4' 
-		 ]
+			spec 
+				loads: #( Seaside );
+				repository: 'github://magritte-metamodel/magritte:master/source' ]
 ]
 
 { #category : #accessing }
@@ -83,7 +91,7 @@ BaselineOfNewWave >> scheduler: spec [
 { #category : #accessing }
 BaselineOfNewWave >> seaside: spec [
 	spec 
-		baseline: 'Seaside'
+		baseline: 'Seaside3'
 		with: [ 
 			spec repository: 'github://SeasideSt/Seaside:master/repository'
 		 ]
@@ -104,5 +112,14 @@ BaselineOfNewWave >> teapot: spec [
 		baseline: 'Teapot'
 		with: [ 
 			spec repository: 'github://zeroflag/teapot:master/source'
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> zinc: spec [
+	spec 
+		baseline: 'ZincHTTPComponents'
+		with: [ 
+			spec repository: 'github://svenvc/zinc:master/repository'
 		 ]
 ]
