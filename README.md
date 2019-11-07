@@ -218,3 +218,13 @@ Metacello new
   repository: 'github://skaplar/NewWave:master';
   load.
 ```
+
+
+# NewWaveFieldUserTask
+Web Application for Workflow engine written in Pharo
+This application should represent a web app that is an extention to a NewWave framework.
+
+This app should be started in Playground with command:
+
+    FUApplicationRootComponent initialize.
+    FUApplication createDemo.

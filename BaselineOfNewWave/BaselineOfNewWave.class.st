@@ -15,9 +15,15 @@ BaselineOfNewWave >> baseline: spec [
 			"self scheduler: spec."
 			self scheduler2: spec.
 			self roassal: spec.
+			self seaside: spec.
+			self bootstrap: spec.
+			self magritte: spec.
+			self neoJson: spec.
+			self zinc: spec.
 
 			"Packages"
 			spec package: 'NewWave' with: [spec requires: #(TaskIt Scheduler)].
+			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server')].
 			spec
 				package: 'NewWave-Roassal'
 				with: [ spec requires: #(NewWave Roassal2) ].
@@ -27,11 +33,31 @@ BaselineOfNewWave >> baseline: spec [
 			spec package: 'NewWave-Plugin'.
 			"Groups"
 			spec group: 'Core' with: #(NewWave).
+			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin') ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask) ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> bootstrap: spec [
+	spec 
+		baseline: 'Bootstrap'
+		with: [ 
+			spec repository: 'github://astares/Seaside-Bootstrap:master/src' 
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> magritte: spec [
+	spec 
+		baseline: 'Magritte'
+		with: [ 
+			spec 
+				loads: #( Seaside );
+				repository: 'github://magritte-metamodel/magritte:master/source' ]
 ]
 
 { #category : #accessing }
@@ -77,6 +103,15 @@ BaselineOfNewWave >> scheduler: spec [
 ]
 
 { #category : #accessing }
+BaselineOfNewWave >> seaside: spec [
+	spec 
+		baseline: 'Seaside3'
+		with: [ 
+			spec repository: 'github://SeasideSt/Seaside:master/repository'
+		 ]
+]
+
+{ #category : #accessing }
 BaselineOfNewWave >> taskIt: spec [
 	spec 
 		baseline: 'TaskIt'
@@ -91,5 +126,14 @@ BaselineOfNewWave >> teapot: spec [
 		baseline: 'Teapot'
 		with: [ 
 			spec repository: 'github://zeroflag/teapot:master/source'
+		 ]
+]
+
+{ #category : #accessing }
+BaselineOfNewWave >> zinc: spec [
+	spec 
+		baseline: 'ZincHTTPComponents'
+		with: [ 
+			spec repository: 'github://svenvc/zinc:master/repository'
 		 ]
 ]

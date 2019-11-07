@@ -99,6 +99,11 @@ NewWaveServer >> pendingTasks [
 	^ pendingTasks
 ]
 
+{ #category : #accessing }
+NewWaveServer >> port: anObject [
+	port := anObject
+]
+
 { #category : #initialization }
 NewWaveServer >> readEvents: aRequest [
 	| n prvi |
