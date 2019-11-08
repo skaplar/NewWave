@@ -16,24 +16,23 @@ FUAllUserTasksComponent class >> from: aComponent [
 	yourself
 ]
 
+{ #category : #'as yet unclassified' }
+FUAllUserTasksComponent >> buildComponent [
+	| taskObject |
+	taskObject := (NewWaveMagritteContainerCreator dataObject: self task) createEntity.
+	^ taskObject asComponent.
+
+]
+
 { #category : #accessing }
 FUAllUserTasksComponent >> component [
-	^ component 
+	^ component ifNil: [ 
+		component := self buildComponent ]
 ]
 
 { #category : #accessing }
 FUAllUserTasksComponent >> component: aComponent [
 	component := aComponent 
-]
-
-{ #category : #'as yet unclassified' }
-FUAllUserTasksComponent >> getMADescription [
-	| obj |
-	obj := NewWaveMagritteContainerCreator dataObject: self task.
-	obj := obj createEntity.
-	obj := obj asComponent.
-	"self task: obj. why?"
-	^ obj 
 ]
 
 { #category : #initialization }
@@ -88,7 +87,7 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
-					html render: self getMADescription.
+					html render: self component.
 					self renderAcceptButton: html ].
 				]
 			].
@@ -111,9 +110,9 @@ FUAllUserTasksComponent >> report: arg1 [
 { #category : #'as yet unclassified' }
 FUAllUserTasksComponent >> sendResult [
 	| newValue json |
-	self task validate 
+	self component validate 
 		ifFalse: [ ^nil ]."show validation message"
-	newValue := self task save model.
+	newValue := self component save model.
 	json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON.
 	FUCommitTaskServer new commitTask: json.
 ]

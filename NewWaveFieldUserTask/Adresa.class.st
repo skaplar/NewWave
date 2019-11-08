@@ -5,7 +5,7 @@ Class {
 		'ulica',
 		'broj'
 	],
-	#category : #NewWaveFieldUserTask
+	#category : #'NewWaveFieldUserTask-Entities'
 }
 
 { #category : #examples }
