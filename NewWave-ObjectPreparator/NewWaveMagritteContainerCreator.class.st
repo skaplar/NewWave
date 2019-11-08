@@ -12,7 +12,7 @@ Class {
 	#name : #NewWaveMagritteContainerCreator,
 	#superclass : #Object,
 	#instVars : [
-		'do'
+		'dataObject'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -20,7 +20,7 @@ Class {
 { #category : #'as yet unclassified' }
 NewWaveMagritteContainerCreator class >> dataObject: do [
 	^ self new
-	do: do;
+	dataObject: do;
 	yourself
 ]
 
@@ -44,7 +44,7 @@ NewWaveMagritteContainerCreator >> addMagritteMethods: newClass var: el [
 
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> addValues: anInstanceOfEntity [ 
-	do properties do: [ :el | 
+	dataObject properties do: [ :el | 
 		anInstanceOfEntity instVarNamed: el varName put: el varValue. 
 		self addMagritteMethods: anInstanceOfEntity var: el.
 		].
@@ -54,7 +54,7 @@ NewWaveMagritteContainerCreator >> addValues: anInstanceOfEntity [
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> createEntity [
 | newClass x |
-	newClass := Object subclass: do className1 instanceVariableNames: self generateInstanceVariables classVariableNames: '' package: 'NewWaveFieldUserTask-Entities'.
+	newClass := Object subclass: dataObject className1 instanceVariableNames: self generateInstanceVariables classVariableNames: '' package: 'NewWaveFieldUserTask-Entities'.
 	"x := newClass new."
 	^ self addValues: newClass new.
 	"^ newClass."
@@ -64,7 +64,7 @@ NewWaveMagritteContainerCreator >> createEntity [
 NewWaveMagritteContainerCreator >> createMaContainer [
 	| maContainer |
 	maContainer := MAPriorityContainer new.
-	maContainer propertyAt: #label put: do className1. 
+	maContainer propertyAt: #label put: dataObject className1. 
 	maContainer addAll: self createMaDescriptions.
 	^ maContainer
 ]
@@ -72,7 +72,7 @@ NewWaveMagritteContainerCreator >> createMaContainer [
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> createMaDescriptions [
 	| madesc |
-	^ do properties collect: [ :each |
+	^ dataObject properties collect: [ :each |
 		| el |
 		madesc := NewWaveDODescriptionSelector new.
 		el := madesc descriptionDictionary at: each varType.
@@ -84,20 +84,20 @@ NewWaveMagritteContainerCreator >> createMaDescriptions [
 ]
 
 { #category : #accessing }
-NewWaveMagritteContainerCreator >> do [
-	^ do
+NewWaveMagritteContainerCreator >> dataObject: anObject [
+	dataObject := anObject
 ]
 
 { #category : #accessing }
-NewWaveMagritteContainerCreator >> do: anObject [
-	do := anObject
+NewWaveMagritteContainerCreator >> do [
+	^ dataObject
 ]
 
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> generateInstanceVariables [
 	| temp |
 	temp := String new.
-	do properties do: [ :el | temp := temp, el varName asString, ' ' ].
+	dataObject properties do: [ :el | temp := temp, el varName asString, ' ' ].
 	^ temp
 ]
 
