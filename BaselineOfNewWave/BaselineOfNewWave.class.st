@@ -77,7 +77,7 @@ BaselineOfNewWave >> projectClass [
 { #category : #accessing }
 BaselineOfNewWave >> roassal: spec [
 	spec 
-		baseline: 'Roassal2'
+		baseline: 'Roassal3'
 		with: [ 
 			spec repository: 'github://ObjectProfile/Roassal3/src'
 		 ]
