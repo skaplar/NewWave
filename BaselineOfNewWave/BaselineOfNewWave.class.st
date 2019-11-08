@@ -79,7 +79,7 @@ BaselineOfNewWave >> roassal: spec [
 	spec 
 		baseline: 'Roassal2'
 		with: [ 
-			spec repository: 'github://ObjectProfile/Roassal2/src'
+			spec repository: 'github://ObjectProfile/Roassal3/src'
 		 ]
 ]
 
