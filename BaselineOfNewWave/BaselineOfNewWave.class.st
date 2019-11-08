@@ -26,7 +26,7 @@ BaselineOfNewWave >> baseline: spec [
 			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server')].
 			spec
 				package: 'NewWave-Roassal'
-				with: [ spec requires: #(NewWave Roassal2) ].
+				with: [ spec requires: #(NewWave Roassal3) ].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
