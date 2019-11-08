@@ -27,12 +27,12 @@ self createView.
 NodeVizHandler >> createView [
 
 	| v eventShapes taskShapes gateShapes elements elements2 elements3 lineShape |
-	v := RTView new.
-	eventShapes := (RTEllipse new size: 100; color: Color red trans) + RTLabel.
-	taskShapes := (RTRoundedBox new size: 100; color: Color orange trans; borderRadius: 15) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50)) + RTLabel.
+	v := RSView new.
+	eventShapes := (RSShapeBuilder ellipse size: 100; color: Color red trans) "+ RSShape label".
+	taskShapes := (RSShapeBuilder rectangle size: 100; color: Color orange trans; yourself"; borderRadius: 15") "+ RSShape label".
+	gateShapes := (RSShapeBuilder polygon points: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) "+ RSShape label".
+	gateShapes := (RSShapeBuilder polygon points: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) "+ RSShape label".
+	gateShapes := (RSShapeBuilder polygon points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50)) "+ RSShape label".
 	
 	gateShapes color: Color blue trans.
 	
@@ -44,21 +44,21 @@ NodeVizHandler >> createView [
 	v addAll: elements2.
 	v addAll: elements3.
 	
-	elements @ RTPopup @ RTDraggable.
-	elements2 @ RTPopup @ RTDraggable.
-	elements3 @ RTPopup @ RTDraggable.
+	elements "@ RTPopup @ RTDraggable".
+	elements2 "@ RTPopup @ RTDraggable".
+	elements3" @ RTPopup @ RTDraggable".
 	
-	lineShape := (RTLine new
-				attachPoint: RTShorterDistanceAttachPoint new;
-				color: Color veryDarkGray)
-			+
+	lineShape := (RSShapeBuilder arrow
+				"attachPoint: RSAttachPoint centered;
+				color: Color veryDarkGray")
+			"+
 					(RTSimpleArrowHead new
 						attachPoint: RTShorterDistanceAttachPoint new;
-						color: Color veryDarkGray).
+						color: Color veryDarkGray)".
 	
 
-	RTEdgeBuilder new
-		view: v;
+	TSEdgeBuilder new
+		canvas: v canvas;
 		objects: nodes;
 		shape: lineShape;
 		connectFrom: #yourself 
@@ -75,7 +75,7 @@ NodeVizHandler >> createView [
 		].
 		
 
-	RTHorizontalTreeLayout on: v elements.
+	TSHorizontalTreeLayout on: v elements.
 	view := v
 ]
 
@@ -103,7 +103,7 @@ NodeVizHandler >> initialize [
 	tasks := OrderedCollection new.
 	gates := OrderedCollection new.
 	events := OrderedCollection new.
-	view := RTView new.
+	view := RSView new.
 ]
 
 { #category : #initialization }
