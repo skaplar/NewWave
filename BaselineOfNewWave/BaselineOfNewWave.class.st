@@ -22,15 +22,23 @@ BaselineOfNewWave >> baseline: spec [
 			self zinc: spec.
 
 			"Packages"
-			spec package: 'NewWave' with: [spec requires: #(TaskIt Scheduler)].
-			spec package: 'NewWaveFieldUserTask' with: [spec requires: #(Core ZincHTTPComponents NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server')].
+			spec 
+				package: 'NewWave' 
+				with: [ spec requires: #(TaskIt Scheduler) ].
+			spec package: 'NewWave-Plugin'.
+			spec 
+				package: 'NewWave-ObjectPreparator' 
+				with: [ spec requires: #(NewWave) ].
+			spec 
+				package: 'NewWaveFieldUserTask' 
+				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
 				with: [ spec requires: #(NewWave Roassal2) ].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
-			spec package: 'NewWave-Plugin'.
+				
 			"Groups"
 			spec group: 'Core' with: #(NewWave).
 			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
@@ -38,7 +46,7 @@ BaselineOfNewWave >> baseline: spec [
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin' WebTask) ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ]
 ]
 
 { #category : #accessing }
