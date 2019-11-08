@@ -25,58 +25,49 @@ self createView.
 
 { #category : #initialization }
 NodeVizHandler >> createView [
-
-	| v eventShapes taskShapes gateShapes elements elements2 elements3 lineShape |
-	v := RSView new.
-	eventShapes := (RSShapeBuilder ellipse size: 100; color: Color red trans) "+ RSShape label".
-	taskShapes := (RSShapeBuilder rectangle size: 100; color: Color orange trans; yourself"; borderRadius: 15") "+ RSShape label".
-	gateShapes := (RSShapeBuilder polygon points: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) "+ RSShape label".
-	gateShapes := (RSShapeBuilder polygon points: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) "+ RSShape label".
-	gateShapes := (RSShapeBuilder polygon points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50)) "+ RSShape label".
+	| c |
+	c := RSCanvas new.
 	
-	gateShapes color: Color blue trans.
+	events do: [ :event | | e |
+		e := TSEllipse new 
+		size: 100; 
+		color: Color red trans;
+		model: event;
+		yourself.
+		e @ TSLabeled @ TSDraggable @ TSPopup.
+		c add: e ].
 	
-	elements := taskShapes elementsOn: tasks.
-	elements2 := gateShapes elementsOn: gates.
-	elements3 := eventShapes elementsOn: events.
-	
-	v addAll: elements.
-	v addAll: elements2.
-	v addAll: elements3.
-	
-	elements "@ RTPopup @ RTDraggable".
-	elements2 "@ RTPopup @ RTDraggable".
-	elements3" @ RTPopup @ RTDraggable".
-	
-	lineShape := (RSShapeBuilder arrow
-				"attachPoint: RSAttachPoint centered;
-				color: Color veryDarkGray")
-			"+
-					(RTSimpleArrowHead new
-						attachPoint: RTShorterDistanceAttachPoint new;
-						color: Color veryDarkGray)".
-	
-
-	TSEdgeBuilder new
-		canvas: v canvas;
-		objects: nodes;
-		shape: lineShape;
-		connectFrom: #yourself 
-		toAll: [  
-		:e |
-			e logCr.
-			nodes := OrderedCollection new. 
-			e outgoingFlows ifNotEmpty: [ 
-				e outgoingFlows do: [ :h | 
-					nodes add: h targetRef  ].
-				nodes.
-			].
-		
+	tasks do: [ :task | | e |
+		e := TSBox new 
+			size: 100;
+			color: Color orange trans;
+			cornerRadius: 15;
+			model: task;
+			yourself.
+		e @ TSLabeled @ TSPopup @ TSDraggable.
+		c add: e.
 		].
+
+	gates do: [ :gate | | e |
+		e := TSPolygon new
+			points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
+			color: Color blue trans;
+			yourself.
+		e @ TSLabeled @ TSPopup @ TSDraggable.
+		c add: e ].
+			
+	TSEdgeBuilder arrowedLine
+		canvas: c;
+		objects: nodes;
+		withBorderAttachPoint;
+		connectFrom: #yourself 
+		toAll: [ :e |
+			e logCr.
+			e outgoingFlows collect: #targetRef ].
 		
 
-	TSHorizontalTreeLayout on: v elements.
-	view := v
+	TSHorizontalTreeLayout on: c nodes.
+	view := c @ TSControlsCanvas 
 ]
 
 { #category : #initialization }
