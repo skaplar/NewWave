@@ -29,34 +29,34 @@ NodeVizHandler >> createView [
 	c := RSCanvas new.
 	
 	events do: [ :event | | e |
-		e := TSEllipse new 
+		e := RSEllipse new 
 		size: 100; 
 		color: Color red trans;
 		model: event;
 		yourself.
-		e @ TSLabeled @ TSDraggable @ TSPopup.
+		e @ RSLabeled @ RSDraggable @ RSPopup.
 		c add: e ].
 	
 	tasks do: [ :task | | e |
-		e := TSBox new 
+		e := RSBox new 
 			size: 100;
 			color: Color orange trans;
 			cornerRadius: 15;
 			model: task;
 			yourself.
-		e @ TSLabeled @ TSPopup @ TSDraggable.
+		e @ RSLabeled @ RSPopup @ RSDraggable.
 		c add: e.
 		].
 
 	gates do: [ :gate | | e |
-		e := TSPolygon new
+		e := RSPolygon new
 			points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
 			color: Color blue trans;
 			yourself.
-		e @ TSLabeled @ TSPopup @ TSDraggable.
+		e @ RSLabeled @ RSPopup @ RSDraggable.
 		c add: e ].
 			
-	TSEdgeBuilder arrowedLine
+	RSEdgeBuilder arrowedLine
 		canvas: c;
 		objects: nodes;
 		withBorderAttachPoint;
@@ -66,8 +66,8 @@ NodeVizHandler >> createView [
 			e outgoingFlows collect: #targetRef ].
 		
 
-	TSHorizontalTreeLayout on: c nodes.
-	view := c @ TSControlsCanvas 
+	RSHorizontalTreeLayout on: c nodes.
+	view := c @ RSControlsCanvas 
 ]
 
 { #category : #initialization }
