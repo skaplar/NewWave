@@ -6,10 +6,15 @@ Class {
 		'events',
 		'tasks',
 		'gates',
-		'view'
+		'canvas'
 	],
 	#category : #'NewWave-Roassal'
 }
+
+{ #category : #initialization }
+NodeVizHandler >> canvas [
+	^ canvas
+]
 
 { #category : #initialization }
 NodeVizHandler >> createOc [
@@ -67,7 +72,7 @@ NodeVizHandler >> createView [
 		
 
 	RSHorizontalTreeLayout on: c nodes.
-	view := c @ RSControlsCanvas 
+	canvas := c @ RSControlsCanvas 
 ]
 
 { #category : #initialization }
@@ -94,7 +99,7 @@ NodeVizHandler >> initialize [
 	tasks := OrderedCollection new.
 	gates := OrderedCollection new.
 	events := OrderedCollection new.
-	view := RSView new.
+	canvas := RSCanvas new.
 ]
 
 { #category : #initialization }
@@ -114,5 +119,5 @@ NodeVizHandler >> tasks [
 
 { #category : #initialization }
 NodeVizHandler >> view [
-	^ view
+	^ self canvas
 ]
