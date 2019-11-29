@@ -1,3 +1,6 @@
+"
+I am a class that is used to execute CustomTask.
+"
 Class {
 	#name : #CustomTaskEventBehavior,
 	#superclass : #ActivityEventBehavior,

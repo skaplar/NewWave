@@ -1,3 +1,12 @@
+"
+I am an Event, that should signalize something happened in the engine. The most common ones are Start and End events. 
+
+    Instance Variables
+	eventDefinitions:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #Event,
 	#superclass : #Node,

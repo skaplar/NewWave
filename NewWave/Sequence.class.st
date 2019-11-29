@@ -1,3 +1,18 @@
+"
+I am a sequence in the Workflow. I contain two nodes (source and target), and I am used in forming the workflow.
+
+    Instance Variables
+	condition:		<Object>
+	incoming:		<Object>
+	outgoing:		<Object>
+	sourceRef:		<Object>
+	srcFetched:		<Object>
+	targetFetched:		<Object>
+	targetRef:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #Sequence,
 	#superclass : #Element,

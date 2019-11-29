@@ -1,3 +1,12 @@
+"
+I am the most simple task in the workflow. You can set my value to anything, and engine while executing it will try to get it.
+
+    Instance Variables
+	value:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #BaseTask,
 	#superclass : #BaseActivity,

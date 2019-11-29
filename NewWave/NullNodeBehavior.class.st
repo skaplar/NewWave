@@ -1,3 +1,9 @@
+"
+I am the node to be executed when there are no more nodes (end node).
+
+
+    Implementation Points
+"
 Class {
 	#name : #NullNodeBehavior,
 	#superclass : #EventBehavior,

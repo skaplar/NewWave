@@ -1,3 +1,12 @@
+"
+I am a Gateway, and I'm here to support different types of Gateways. As a gateway I can contain multiple inputs and/or outputs.
+
+    Instance Variables
+	element:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #Gateway,
 	#superclass : #Node,

@@ -1,3 +1,14 @@
+"
+I am a node in the workflow. I can be a Task, a Gate, Event, etc.. and I am the one that should be executed. 
+I contain the list of incoming flows, and outcoming flows of other nodes.
+
+    Instance Variables
+	incomingFlows:		<Object>
+	outgoingFlows:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #Node,
 	#superclass : #Element,

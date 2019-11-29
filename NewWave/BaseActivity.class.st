@@ -1,3 +1,14 @@
+"
+I am the base activity, mostly used for subclassing. However I can contain elements, data associations and boundary events.
+
+    Instance Variables
+	boundaryEvents:		<Object>
+	dataOutputAssociations:		<Object>
+	elements:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #BaseActivity,
 	#superclass : #Node,

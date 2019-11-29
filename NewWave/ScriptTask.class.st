@@ -1,3 +1,12 @@
+"
+I am a ScriptTask. You can set my script: with square brackets [  ], and engine will execute it.
+
+    Instance Variables
+	script:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #ScriptTask,
 	#superclass : #BaseTask,

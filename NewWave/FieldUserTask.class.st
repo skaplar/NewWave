@@ -1,3 +1,16 @@
+"
+I am a FieldUser task. I am composed using fields (FormProperty-ies). I have a list of properties and can be creatied using different types of form proprties. 
+
+    Instance Variables
+	announcer:		<Object>
+	formProperties:		<Object>
+	name:		<Object>
+	result:		<Object>
+	value:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #FieldUserTask,
 	#superclass : #BaseActivity,

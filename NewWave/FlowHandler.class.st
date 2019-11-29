@@ -1,3 +1,15 @@
+"
+I am the class that is used to handle flow of the elements. I work with nodes and sequences.
+
+    Instance Variables
+	currSeq:		<Object>
+	node:		<Object>
+	sequences:		<Object>
+	workerid:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #FlowHandler,
 	#superclass : #Object,
