@@ -34,7 +34,7 @@ BaselineOfNewWave >> baseline: spec [
 				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
-				with: [ spec requires: #(NewWave Roassal2) ].
+				with: [ spec requires: #(NewWave Roassal3) ].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
@@ -85,9 +85,9 @@ BaselineOfNewWave >> projectClass [
 { #category : #accessing }
 BaselineOfNewWave >> roassal: spec [
 	spec 
-		baseline: 'Roassal2'
+		baseline: 'Roassal3'
 		with: [ 
-			spec repository: 'github://ObjectProfile/Roassal2/src'
+			spec repository: 'github://ObjectProfile/Roassal3/src'
 		 ]
 ]
 

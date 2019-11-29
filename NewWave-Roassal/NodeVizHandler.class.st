@@ -6,10 +6,15 @@ Class {
 		'events',
 		'tasks',
 		'gates',
-		'view'
+		'canvas'
 	],
 	#category : #'NewWave-Roassal'
 }
+
+{ #category : #initialization }
+NodeVizHandler >> canvas [
+	^ canvas
+]
 
 { #category : #initialization }
 NodeVizHandler >> createOc [
@@ -25,58 +30,49 @@ self createView.
 
 { #category : #initialization }
 NodeVizHandler >> createView [
-
-	| v eventShapes taskShapes gateShapes elements elements2 elements3 lineShape |
-	v := RTView new.
-	eventShapes := (RTEllipse new size: 100; color: Color red trans) + RTLabel.
-	taskShapes := (RTRoundedBox new size: 100; color: Color orange trans; borderRadius: 15) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 200 @ 0 with: 300 @ 100 with: 200 @ 200 with: 100 @ 100)) + RTLabel.
-	gateShapes := (RTPolygon new vertices: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50)) + RTLabel.
+	| c |
+	c := RSCanvas new.
 	
-	gateShapes color: Color blue trans.
+	events do: [ :event | | e |
+		e := RSEllipse new 
+		size: 100; 
+		color: Color red trans;
+		model: event;
+		yourself.
+		e @ RSLabeled @ RSDraggable @ RSPopup.
+		c add: e ].
 	
-	elements := taskShapes elementsOn: tasks.
-	elements2 := gateShapes elementsOn: gates.
-	elements3 := eventShapes elementsOn: events.
-	
-	v addAll: elements.
-	v addAll: elements2.
-	v addAll: elements3.
-	
-	elements @ RTPopup @ RTDraggable.
-	elements2 @ RTPopup @ RTDraggable.
-	elements3 @ RTPopup @ RTDraggable.
-	
-	lineShape := (RTLine new
-				attachPoint: RTShorterDistanceAttachPoint new;
-				color: Color veryDarkGray)
-			+
-					(RTSimpleArrowHead new
-						attachPoint: RTShorterDistanceAttachPoint new;
-						color: Color veryDarkGray).
-	
-
-	RTEdgeBuilder new
-		view: v;
-		objects: nodes;
-		shape: lineShape;
-		connectFrom: #yourself 
-		toAll: [  
-		:e |
-			e logCr.
-			nodes := OrderedCollection new. 
-			e outgoingFlows ifNotEmpty: [ 
-				e outgoingFlows do: [ :h | 
-					nodes add: h targetRef  ].
-				nodes.
-			].
-		
+	tasks do: [ :task | | e |
+		e := RSBox new 
+			size: 100;
+			color: Color orange trans;
+			cornerRadius: 15;
+			model: task;
+			yourself.
+		e @ RSLabeled @ RSPopup @ RSDraggable.
+		c add: e.
 		].
+
+	gates do: [ :gate | | e |
+		e := RSPolygon new
+			points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
+			color: Color blue trans;
+			yourself.
+		e @ RSLabeled @ RSPopup @ RSDraggable.
+		c add: e ].
+			
+	RSEdgeBuilder arrowedLine
+		canvas: c;
+		objects: nodes;
+		withBorderAttachPoint;
+		connectFrom: #yourself 
+		toAll: [ :e |
+			e logCr.
+			e outgoingFlows collect: #targetRef ].
 		
 
-	RTHorizontalTreeLayout on: v elements.
-	view := v
+	RSHorizontalTreeLayout on: c nodes.
+	canvas := c @ RSControlsCanvas 
 ]
 
 { #category : #initialization }
@@ -103,7 +99,7 @@ NodeVizHandler >> initialize [
 	tasks := OrderedCollection new.
 	gates := OrderedCollection new.
 	events := OrderedCollection new.
-	view := RTView new.
+	canvas := RSCanvas new.
 ]
 
 { #category : #initialization }
@@ -123,5 +119,5 @@ NodeVizHandler >> tasks [
 
 { #category : #initialization }
 NodeVizHandler >> view [
-	^ view
+	^ self canvas
 ]
