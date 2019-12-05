@@ -36,11 +36,16 @@ NewWaveServer >> addEvent: aRequest [
 { #category : #routes }
 NewWaveServer >> addNewEntity: aRequest [
 	| tmp |
-	(aRequest at: 'firstName') logCr.
-	(aRequest at: 'lastName') logCr.
-	tmp := NeoJSONWriter toString: aRequest entity fields.
+	"(aRequest at: 'firstName') logCr.
+	(aRequest at: 'lastName') logCr."
+	"tmp := NeoJSONWriter toString: aRequest entity fields."
+	"tmp := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: aRequest entity string)."
+	tmp := NewWaveDOJSONImporter new importFromJSON: (aRequest entity string).
+	tmp traceCr.
 	engine engineAnnouncer announce: (WaveAnnouncer with: tmp).
-	^ 'Adding of entity executed'.
+	^ 'Adding of entity executed'
+	
+	
 ]
 
 { #category : #routes }

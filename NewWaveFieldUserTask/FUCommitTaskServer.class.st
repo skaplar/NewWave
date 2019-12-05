@@ -7,13 +7,18 @@ Class {
 { #category : #'as yet unclassified' }
 FUCommitTaskServer >> commitTask: json [
 	| resp |
-	resp := ZnClient new
+	"resp := ZnClient new
 		systemPolicy;
   		forJsonREST;
-  		url: 'http://localhost:8088/'; "port needs to be changed"
+  		url: 'http://localhost:8088/'; 
    		contents: json;
    		post.
-	^ resp  
+	^ resp  "
+	resp := ZnClient new
+  		url: 'http://localhost:8081/addNewEntity'; 
+   		contents: json;
+   		post.
+	^ resp.
 	
 ]
 
