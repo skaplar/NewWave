@@ -25,6 +25,16 @@ BaseActivity >> addBoundaryEvent: aBoundaryEvent [
 	boundaryEvents add: aBoundaryEvent 
 ]
 
+{ #category : #accessing }
+BaseActivity >> addDataOutputAssociation: dataObject [
+	"In order to connect the task with the data object, data association should be created. This metod 	receives dataObject, which is used to create the DataAssociation. sourceRef is task to which the 	dataObject belongs."
+			
+	| dataAssociation |
+	dataAssociation := DataAssociation sourceRef: self targetRef: dataObject.
+	dataOutputAssociations add: dataAssociation. 
+	
+]
+
 { #category : #initialization }
 BaseActivity >> addElement: anElement [
 	elements add: anElement
@@ -48,11 +58,6 @@ BaseActivity >> ctype [
 { #category : #accessing }
 BaseActivity >> dataOutputAssociations [
 	^ dataOutputAssociations
-]
-
-{ #category : #accessing }
-BaseActivity >> dataOutputAssociations: anObject [
-	dataOutputAssociations := anObject
 ]
 
 { #category : #initialization }
