@@ -28,10 +28,11 @@ BaseActivity >> addBoundaryEvent: aBoundaryEvent [
 { #category : #accessing }
 BaseActivity >> addDataOutputAssociation: dataObject [
 	"In order to connect the task with the data object, data association should be created. This metod 	receives dataObject, which is used to create the DataAssociation. sourceRef is task to which the 	dataObject belongs."
-			
-	| dataAssociation |
+	
+	"| dataAssociation |
 	dataAssociation := DataAssociation sourceRef: self targetRef: dataObject.
-	dataOutputAssociations add: dataAssociation. 
+	dataOutputAssociations add: dataAssociation."
+	dataOutputAssociations add: dataObject.
 	
 ]
 
@@ -60,6 +61,18 @@ BaseActivity >> dataOutputAssociations [
 	^ dataOutputAssociations
 ]
 
+{ #category : #accessing }
+BaseActivity >> elements [
+	^ elements
+]
+
+{ #category : #accessing }
+BaseActivity >> findDataObject: anElement [
+	| dataObject |
+	dataObject := dataOutputAssociations detect: [ :each | each itemDef structureRef id = anElement id ].
+	^ dataObject.
+]
+
 { #category : #initialization }
 BaseActivity >> initialize [
 
@@ -67,4 +80,14 @@ BaseActivity >> initialize [
 	elements := OrderedCollection new.
 	boundaryEvents := OrderedCollection new.
 	dataOutputAssociations := OrderedCollection new.
+]
+
+{ #category : #accessing }
+BaseActivity >> nextDataObject [
+	"Here I want to get all the dataObjects that are not in the elements Collection.
+	targetRef is the DataObject. each is a DataAssociation"
+	| assoc |
+	"assoc := dataOutputAssociations detect: [ :each | (elements includes: each targetRef) not ifTrue: [ ^ each targetRef itemDef structureRef  ] ifFalse: [ ^ nil ]]."
+	assoc := dataOutputAssociations detect: [ :each | (elements includes: each) not ].
+	^ assoc itemDef structureRef.
 ]

@@ -35,17 +35,34 @@ NewWaveServer >> addEvent: aRequest [
 
 { #category : #routes }
 NewWaveServer >> addNewEntity: aRequest [
-	| tmp |
-	"(aRequest at: 'firstName') logCr.
-	(aRequest at: 'lastName') logCr."
+	| tmp entity |
+	tmp := NewWaveDOJSONImporter new
+		importFromJSON: aRequest entity string.
+	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
+	engine engineAnnouncer announce: (WaveAnnouncer with: entity).
+	^ 'Adding of entity executed'
+]
+
+{ #category : #routes }
+NewWaveServer >> addNewEntityMultipleDataObjects: aRequest [
+	| tmp entity |
+	"This is not used, internal purposes only!"
+	
 	"tmp := NeoJSONWriter toString: aRequest entity fields."
 	"tmp := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: aRequest entity string)."
-	tmp := NewWaveDOJSONImporter new importFromJSON: (aRequest entity string).
-	tmp traceCr.
-	engine engineAnnouncer announce: (WaveAnnouncer with: tmp).
+	"Ovo je bilo kad sam pokusavao parcijalno da zavrsim zadatke... Odnosno kad sam citao dataObjekte sa servera, jedan po jedan, sada ce da ide promena da se salju svi dataobjekti odjednom..."
+	tmp := NewWaveDOJSONImporter new
+		importFromJSON: aRequest entity string.
+	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
+	pendingTasks
+		at: 'default'
+		ifPresent: [ :task | 
+			task first addElement: (task first findDataObject: entity).
+			task first elements size = task first dataOutputAssociations size ifTrue: [ 
+				engine engineAnnouncer announce: (WaveAnnouncer with: tmp).
+			].
+		].
 	^ 'Adding of entity executed'
-	
-	
 ]
 
 { #category : #routes }
@@ -116,7 +133,9 @@ NewWaveServer >> readEvents: aRequest [
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
 	prvi := n first.
-	exp := NewWaveDOJSONExporter dataObject: prvi value.
+	"exp := NewWaveDOJSONExporter dataObject: prvi nextDataObject."
+	" Dodati podrsku za vise data objekata!"
+	exp := NewWaveDOJSONExporter dataObject: prvi dataOutputAssociations first itemDef structureRef.
 	^ exp exportDOToJSON.  
 	"^ prvi value."
 ]

@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'ulica',
-		'broj'
+		'broj',
+		'id'
 	],
 	#category : #'NewWaveFieldUserTask-Entities'
 }
@@ -12,8 +13,19 @@ Class {
 Adresa class >> example1 [ 
 | addr |
 addr := self new.
+addr id: '1'.
 addr broj: 'Test Street'.
 addr ulica: 'Test Place'.
+^ addr.
+]
+
+{ #category : #examples }
+Adresa class >> example2 [
+| addr |
+addr := self new.
+addr id: '2'.
+addr broj: 'Osamdeset'.
+addr ulica: 'Galac'.
 ^ addr.
 ]
 
@@ -38,6 +50,16 @@ Adresa >> descriptionBroj [
 ]
 
 { #category : #'as yet unclassified' }
+Adresa >> descriptionId [
+  <magritteDescription>
+	^ MAStringDescription new 
+		accessor: #id;
+		label: 'id';
+		priority: 10;
+		yourself
+]
+
+{ #category : #'as yet unclassified' }
 Adresa >> descriptionUlica [
   <magritteDescription>
 	^ MAStringDescription new 
@@ -45,6 +67,16 @@ Adresa >> descriptionUlica [
 		label: 'ulica';
 		priority: 10;
 		yourself
+]
+
+{ #category : #accessing }
+Adresa >> id [
+	^ id
+]
+
+{ #category : #accessing }
+Adresa >> id: anObject [
+	id := anObject
 ]
 
 { #category : #initialization }
