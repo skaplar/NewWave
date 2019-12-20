@@ -5,11 +5,11 @@ Class {
 }
 
 { #category : #accessing }
-IntermediateCatchEventBehavior >> performExecution: elemToExecute executor: wave [
+IntermediateCatchEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	elemToExecute eventDefinitions do: [ :each |
-		wave engine scheduler 
+		waveExecutor engine scheduler 
 		do: [ 
-			wave tryToExecuteNext: elemToExecute. 
+			waveExecutor tryToExecuteNext: elemToExecute. 
 		] 
 		at: each timeDate 
 		every: each every.

@@ -5,14 +5,14 @@ Class {
 }
 
 { #category : #accessing }
-UserTaskEventBehavior >> performExecution: elemToExecute executor: wave [
-	super performExecution: elemToExecute  executor: wave.
+UserTaskEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
+	super performExecution: elemToExecute  executor: waveExecutor.
 	'ovaj' logCr.
 	elemToExecute announcer 
 		when: WaveAnnouncer
 		do: [ :a |
 			a parameter logCr. 
-			wave taskResult: a parameter. 
-			wave tryToExecuteNext: elemToExecute.].
+			waveExecutor taskResult: a parameter. 
+			waveExecutor tryToExecuteNext: elemToExecute.].
 	elemToExecute value.
 ]

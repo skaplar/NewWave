@@ -10,6 +10,14 @@ Class {
 }
 
 { #category : #accessing }
+Element class >> description: aDesc id: anId [
+	^ self new
+		description: aDesc;
+		id: anId;
+		yourself
+]
+
+{ #category : #accessing }
 Element class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"

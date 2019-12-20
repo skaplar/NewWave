@@ -9,6 +9,11 @@ Class {
 	#category : #'NewWave-Engine'
 }
 
+{ #category : #accessing }
+WaveEngineWrapper >> addProcessEngine: aProcess name: aName [
+	processDict at: aName put: (WaveEngine initialProcess: aProcess).
+]
+
 { #category : #initialization }
 WaveEngineWrapper >> initialize [
 
@@ -46,7 +51,9 @@ WaveEngineWrapper >> startAll [
 WaveEngineWrapper >> startOneProcessEngine: aKey [
 	| processEngine |
 	processEngine := processDict at: aKey ifAbsent: [ 'Can''t find process engine' ].
-	processEngine start.
+	processEngine startTeapotServer.
+	processEngine startEngine.
+	"processEngine start."
 ]
 
 { #category : #accessing }
@@ -58,5 +65,7 @@ WaveEngineWrapper >> stopAll [
 WaveEngineWrapper >> stopOneProcessEngine: aKey [
 	| processEngine |
 	processEngine := processDict at: aKey ifAbsent: [ 'Can''t find process engine' ].
-	processEngine stop.
+	"processEngine stop."
+	processEngine stopEngine.
+	
 ]

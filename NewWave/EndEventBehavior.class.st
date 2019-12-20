@@ -8,21 +8,21 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-EndEventBehavior >> performExecution: elemToExecute executor: wave [
+EndEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	"Here I should clean up everything related to this execution."
 
 	"wave flowHandler node: nil."
 
 	('Ending worker on process '
 		, Processor activeProcess identityHash asString) traceCr.
-	('Worker process is ' , wave worker process identityHash asString)
+	('Worker process is ' , waveExecutor worker process identityHash asString)
 		traceCr.
 	"wave workList addToCompleted: (wave activationForNode: elemToExecute)."
 	"wave engine workList completed asString logCr.
 	wave engine workList running asString logCr."
 
 	" Kad se zaustavi glavni executor zaustavi i task scheduler"
-	wave engine mainExecutor = wave
+	waveExecutor engine mainExecutor = waveExecutor
 		ifTrue: [ "wave engine scheduler stop." ].
-	wave worker stop
+	waveExecutor worker stop
 ]

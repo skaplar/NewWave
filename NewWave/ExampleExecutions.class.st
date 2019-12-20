@@ -14,6 +14,38 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcess [
+	
+	| se t1 adresa1 do ee process|
+
+	se := StartEvent new.
+	se description: 'Start'.
+
+	t1 := CustomTask new.
+	t1 description: 'B'.
+
+	adresa1 := Adresa example1.
+
+	do := DataObject new.
+	do itemDef structureRef: adresa1. 
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: do itemDef structureRef.
+
+	ee := EndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NewWaveProcess name: 'Process 1' initialFlowElement: se.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions >> startExample1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
 	| se ee t1 t2 t3 we split1 engine|

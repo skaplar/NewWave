@@ -36,7 +36,7 @@ Class {
 		'taskResult',
 		'flowHandler',
 		'workers',
-		'engine'
+		'processHandler'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -74,17 +74,7 @@ WaveExecutor >> activationForNode: aNode [
 
 { #category : #running }
 WaveExecutor >> activations [
-	^ engine activations
-]
-
-{ #category : #accessing }
-WaveExecutor >> engine [
-	^ engine
-]
-
-{ #category : #accessing }
-WaveExecutor >> engine: anEngine [
-	engine := anEngine
+	^ processHandler activations
 ]
 
 { #category : #running }
@@ -126,6 +116,16 @@ WaveExecutor >> newActivationForNode: aNode [
 	activation := self activations at: aNode put: (WaveActivation node: aNode executor: self).
 	"engine logNewActivation: activation on: self forNode: aNode."
 	^ activation.
+]
+
+{ #category : #accessing }
+WaveExecutor >> processHandler [
+	^ processHandler
+]
+
+{ #category : #accessing }
+WaveExecutor >> processHandler: anEngine [
+	processHandler := anEngine
 ]
 
 { #category : #'as yet unclassified' }
@@ -186,7 +186,7 @@ WaveExecutor >> waveAnnouncer: anObject [
 
 { #category : #running }
 WaveExecutor >> workList [
-	^ engine workList
+	^ processHandler workList
 ]
 
 { #category : #accessing }

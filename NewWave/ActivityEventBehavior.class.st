@@ -11,6 +11,6 @@ Class {
 }
 
 { #category : #accessing }
-ActivityEventBehavior >> performExecution: elemToExecute executor: wave [ 
-	elemToExecute boundaryEvents do: [ :each | wave execute: each ].
+ActivityEventBehavior >> performExecution: elemToExecute executor: waveExecutor [ 
+	elemToExecute boundaryEvents do: [ :each | waveExecutor execute: each ].
 ]

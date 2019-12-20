@@ -8,8 +8,8 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-StartEventBehavior >> performExecution: elemToExecute executor: wave [
-	wave waveAnnouncer
+StartEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
+	waveExecutor waveAnnouncer
 		when: StartAnnouncer
 		do: [ | worker |
 			worker := TKTWorker new.
@@ -18,7 +18,7 @@ StartEventBehavior >> performExecution: elemToExecute executor: wave [
 				, Processor activeProcess identityHash asString) traceCr.
 			('Worker process is ' , worker process identityHash asString)
 				traceCr.
-			wave workers at: worker name put: worker.
-			wave flowHandler workerid: worker name.
-			wave tryToExecuteNext: elemToExecute ]
+			waveExecutor workers at: worker name put: worker.
+			waveExecutor flowHandler workerid: worker name.
+			waveExecutor tryToExecuteNext: elemToExecute ]
 ]

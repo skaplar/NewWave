@@ -8,10 +8,10 @@ Class {
 }
 
 { #category : #accessing }
-ParallelJoinBehavior >> performExecution: elemToExecute executor: wave [
+ParallelJoinBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	| sequence |
-	sequence := wave flowHandler sequences at: (wave flowHandler sequences size -1).
-	wave engine engineAnnouncer announce: (JoinEventAnnouncer with: sequence executor: wave).
+	sequence := waveExecutor flowHandler sequences at: (waveExecutor flowHandler sequences size -1).
+	waveExecutor engine engineAnnouncer announce: (JoinEventAnnouncer with: sequence executor: waveExecutor).
 	"wave waveAnnouncer announce: JoinEventAnnouncer new."
 	
 	
