@@ -86,7 +86,7 @@ NWProcessHandler >> activations [
 { #category : #accessing }
 NWProcessHandler >> addExecutor: anExecutor [
 	self mainExecutor: anExecutor.
-	self mainExecutor engine: self.
+	self mainExecutor processHandler: self.
 	"parameter iz announcera mi je seekvenca "
 	engineAnnouncer
 		when: JoinEventAnnouncer
@@ -100,14 +100,14 @@ NWProcessHandler >> addExecutor: anExecutor [
 					mainExecutor flowHandler node: an.
 					mainExecutor tryToExecuteNext: tmpExecutor joinNode ].
 			('Ending-SUB-Worker process is '
-				, ann executor worker process identityHash asString) logCr.
+				, ann executor worker process identityHash asString) traceCr.
 			ann executor worker stop ]
 ]
 
 { #category : #accessing }
 NWProcessHandler >> addSubExecutor: anInitialSequence [
 	| se |
-	se := SubExecutor initialSequence: anInitialSequence engine: self.
+	se := SubExecutor initialSequence: anInitialSequence processHandler: self.
 	se startSubExecutor.
 	subExecutors add: se.
 ]
@@ -183,6 +183,12 @@ NWProcessHandler >> process: anObject [
 NWProcessHandler >> startEngine [
 	mainExecutor tryToExecuteNext.
 	mainExecutor waveAnnouncer announce: StartAnnouncer new.
+]
+
+{ #category : #accessing }
+NWProcessHandler >> stopEngine [
+	"I am force stopping all the workers in the engine."
+	mainExecutor workers valuesDo: [ :d | d stop ].
 ]
 
 { #category : #accessing }

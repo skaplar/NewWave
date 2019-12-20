@@ -11,7 +11,7 @@ Class {
 ParallelJoinBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	| sequence |
 	sequence := waveExecutor flowHandler sequences at: (waveExecutor flowHandler sequences size -1).
-	waveExecutor engine engineAnnouncer announce: (JoinEventAnnouncer with: sequence executor: waveExecutor).
+	waveExecutor processHandler engineAnnouncer announce: (JoinEventAnnouncer with: sequence executor: waveExecutor).
 	"wave waveAnnouncer announce: JoinEventAnnouncer new."
 	
 	

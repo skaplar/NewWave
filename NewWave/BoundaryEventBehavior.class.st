@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #accessing }
-BoundaryEventBehavior >> performExecution: elemToExecute executor: wave [
+BoundaryEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	'Executuje se boundary' logCr.
 	"elemToExecute eventDefinitions do: [ :each |
 		wave engine scheduler doOnce: ['Uradi nesto ' logCr. wave tryToExecuteNext: elemToExecute.]
@@ -15,11 +15,11 @@ BoundaryEventBehavior >> performExecution: elemToExecute executor: wave [
     		at: (DateAndTime now + 10 seconds)."
 		
 	elemToExecute eventDefinitions do: [ :each |
-		wave engine scheduler 
+		waveExecutor processHandler scheduler 
 		do: [ 
-			wave engine addSubExecutor: elemToExecute outgoingFlows first.
+			waveExecutor processHandler addSubExecutor: elemToExecute outgoingFlows first.
 			" Razmisli o ovome jos malo, u sustini za sada samo otkazujem executor sa koga je stiglo."
-			elemToExecute cancelActivity ifTrue: [ wave worker stop ]. 
+			elemToExecute cancelActivity ifTrue: [ waveExecutor worker stop ]. 
 		] 
 		at: each timeDate 
 		every: each every.

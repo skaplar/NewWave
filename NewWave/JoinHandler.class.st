@@ -55,9 +55,12 @@ JoinHandler >> addSequenceToExecutors: aSequence [
 { #category : #accessing }
 JoinHandler >> checkIsExecutorCompleted: jExecutor [
 	"This is where I check if the executor has finished its part. All sequences have come together."
-	jExecutor checkIsFinished 
-		ifTrue: [ 'Executor Completed' logCr. ^ true ] 
-		ifFalse: [ 'Executor Not completed' logCr. ^ false ].
+
+	jExecutor checkIsFinished
+		ifTrue: [ 'Executor Completed' traceCr.
+			^ true ]
+		ifFalse: [ 'Executor Not completed' traceCr.
+			^ false ]
 ]
 
 { #category : #accessing }

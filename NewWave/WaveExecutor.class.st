@@ -52,13 +52,13 @@ WaveExecutor class >> initialNode: node [
 ]
 
 { #category : #'as yet unclassified' }
-WaveExecutor class >> initialNode: node engine: aEngine [
+WaveExecutor class >> initialNode: node processHandler: aProcessHandler [
 	| fh |
 	fh := FlowHandler new.
 	fh node: node.
 	^ self new 
 		flowHandler: fh;
-		engine: aEngine;
+		processHandler: aProcessHandler;
 		yourself
 ]
 

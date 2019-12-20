@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 IntermediateCatchEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	elemToExecute eventDefinitions do: [ :each |
-		waveExecutor engine scheduler 
+		waveExecutor processHandler engine scheduler 
 		do: [ 
 			waveExecutor tryToExecuteNext: elemToExecute. 
 		] 

@@ -9,13 +9,13 @@ FieldUserTaskEventBehavior >> performExecution: elemToExecute executor: waveExec
 	super performExecution: elemToExecute executor: waveExecutor.
 	"Ovo treba recimo dopuniti da ode na endpoint i onda tu da se preuzme, pokupi itd..."
 	"wave engine server element: elemToExecute."
-	waveExecutor engine server addTask: elemToExecute user: 'default'. 
-	waveExecutor engine engineAnnouncer 
+	waveExecutor processHandler server addTask: elemToExecute user: 'default'. 
+	waveExecutor processHandler engineAnnouncer 
 		when: WaveAnnouncer
 		do: [ :a | 
 			a parameter logCr. 
 			waveExecutor taskResult: a parameter. 
-			waveExecutor engine server removeTask: elemToExecute user: 'default'.
+			waveExecutor processHandler server removeTask: elemToExecute user: 'default'.
 			waveExecutor tryToExecuteNext: elemToExecute.
 	].
 	elemToExecute value.
