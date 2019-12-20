@@ -9,7 +9,7 @@ Class {
 
 { #category : #tests }
 WaveExecutorActivationTest >> setUp [
-	| se ee t1 we seq seq2 fh engine |
+	| se ee t1 we seq seq2 fh engine process |
 	super setUp.
 		
 	se := StartEvent new.
@@ -29,15 +29,10 @@ WaveExecutorActivationTest >> setUp [
 	t1 addIncoming: seq addOutgoing: seq2.
 	ee addIncomingFlow: seq2.
 	
-	fh := FlowHandler new.
-	fh node: se.
-	
-	we := WaveExecutor new.
-	we flowHandler: fh.
-	waveExecutor := we.
-	
+	process := NewWaveProcess name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
-	engine addExecutor: we.
+	engine addProcess: process name: 'process1' .
+	waveExecutor := (engine processHandler: 'process1') mainExecutor.
 	
 ]
 

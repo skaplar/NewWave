@@ -88,6 +88,11 @@ WaveEngine >> initialize [
 	"scheduler start."
 ]
 
+{ #category : #finalization }
+WaveEngine >> processHandler: aProcessName [
+	^ processHandlers at: aProcessName.
+]
+
 { #category : #accessing }
 WaveEngine >> scheduler [
 	^ scheduler
