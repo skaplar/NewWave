@@ -13,12 +13,12 @@ CustomTaskEventBehavior >> performExecution: elemToExecute executor: waveExecuto
 	"Ovo treba recimo dopuniti da ode na endpoint i onda tu da se preuzme, pokupi itd..."
 	"wave engine server element: elemToExecute."
 	waveExecutor processHandler engine server addTask: elemToExecute user: 'default'.
-	waveExecutor processHandler engineAnnouncer
+	waveExecutor processHandler engine engineAnnouncer
 		when: WaveAnnouncer
 		do: [ :a | 
 			a parameter traceCr.
 			waveExecutor taskResult: a parameter.
-			waveExecutor processHandler server removeTask: elemToExecute user: 'default'.
+			waveExecutor processHandler engine server removeTask: elemToExecute user: 'default'.
 			waveExecutor tryToExecuteNext: elemToExecute ].
 	elemToExecute value
 ]
