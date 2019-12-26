@@ -85,6 +85,45 @@ ExampleExecutions class >> returnSimpleProcess [
 ]
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnTwoDataObjects [
+
+| oc t1 adresa1 adresa2 do do2 t2 exp |
+	
+oc := OrderedCollection new.
+
+t1 := CustomTask new.
+t1 description: 'A'.
+t1 name: 'Taskerino filipino'.
+
+adresa1 := Adresa example1.
+
+do := DataObject new.
+do itemDef structureRef: adresa1. 
+do valuedDataObject: adresa1.
+
+
+t1 addDataOutputAssociation: do.
+
+t2 := CustomTask new.
+t2 description: 'B'.
+t2 name: 'Taskerino tajlandino'.
+
+adresa2 := Adresa example2.
+
+do2 := DataObject new.
+do2 itemDef structureRef: adresa2. 
+do2 valuedDataObject: adresa2.
+do2 name: 'Adresa22 example22'.
+t2 addDataOutputAssociation: do2.
+
+oc add: t1.
+oc add: t2.
+
+exp := NewWaveArrayDOJSONExporter tasks: oc.
+^ NewWaveArrayDOJSONImporter new importFromJSON: exp exportDOToJSON.
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions >> startExample1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
 	| se ee t1 t2 t3 split1 engine process |

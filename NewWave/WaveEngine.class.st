@@ -94,7 +94,7 @@ WaveEngine >> processHandler: aProcessName [
 ]
 
 { #category : #adding }
-WaveEngine >> restartProcess: aProcessName [
+WaveEngine >> reExecuteProcess: aProcessName [
 	| processHandler process |
 	process := (processHandlers at: aProcessName) process.
 	processHandler := NWProcessHandler initialProcess: process engine: self.

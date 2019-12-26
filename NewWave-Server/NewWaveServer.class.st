@@ -128,6 +128,17 @@ NewWaveServer >> port: anObject [
 ]
 
 { #category : #initialization }
+NewWaveServer >> readAllTasksForUser: aRequest [
+	| n prvi exp |
+	n := pendingTasks at: 'default'.
+	n ifNil: [ ^ 'Non-existing user' ].
+	n ifEmpty: [ ^ 'Empty' ].
+	prvi := n first.
+	exp := NewWaveArrayDOJSONExporter dataObject: prvi dataOutputAssociations first valuedDataObject.
+	^ exp exportDOToJSON.
+]
+
+{ #category : #initialization }
 NewWaveServer >> readEvents: aRequest [
 	| n prvi exp |
 	n := pendingTasks at: 'default'.
@@ -155,7 +166,9 @@ NewWaveServer >> registerRoutes [
 		GET: '/' -> '<h1>It works!</h1>';output: #html;
 		GET: '/events' -> (Send message: #readEvents: to: self); output: #json;
 		GET: '/eventzz' -> (Send message: #addEvent: to: self); output: #json;
-		POST: '/addNewEntity' -> (Send message: #addNewEntity: to: self).
+		POST: '/addNewEntity' -> (Send message: #addNewEntity: to: self);
+		GET: '/alltasks' -> (Send message: #readAllTasksForUser: to: self); output: #json.
+		
 ]
 
 { #category : #routes }

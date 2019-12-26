@@ -15,7 +15,8 @@ Class {
 	#instVars : [
 		'elements',
 		'boundaryEvents',
-		'dataOutputAssociations'
+		'dataOutputAssociations',
+		'name'
 	],
 	#category : #'NewWave-Core'
 }
@@ -80,6 +81,16 @@ BaseActivity >> initialize [
 	elements := OrderedCollection new.
 	boundaryEvents := OrderedCollection new.
 	dataOutputAssociations := OrderedCollection new.
+]
+
+{ #category : #accessing }
+BaseActivity >> name [
+	^ name
+]
+
+{ #category : #accessing }
+BaseActivity >> name: anObject [
+	name := anObject
 ]
 
 { #category : #accessing }

@@ -18,8 +18,7 @@ Class {
 		'value',
 		'announcer',
 		'result',
-		'formProperties',
-		'name'
+		'formProperties'
 	],
 	#category : #'NewWave-Core'
 }
@@ -64,16 +63,6 @@ FieldUserTask >> initialize [
 	super initialize.
 	announcer := Announcer new.
 	formProperties := OrderedCollection new.
-]
-
-{ #category : #accessing }
-FieldUserTask >> name [
-	^ name
-]
-
-{ #category : #accessing }
-FieldUserTask >> name: anObject [
-	name := anObject
 ]
 
 { #category : #initialization }

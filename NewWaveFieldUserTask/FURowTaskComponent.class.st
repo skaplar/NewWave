@@ -58,17 +58,17 @@ FURowTaskComponent >> renderContentOn: html [
 				extraSmallSize: 6;
 				smallSize: 3;
 				mediumSize: 2;
-			with: [ html heading level: 4; with: self value].
+			with: [ html heading level: 4; with: 'Task'].
 		html tbsColumn
 				extraSmallSize: 6;
 				smallSize: 3;
 				mediumSize: 2;
-			with: [ html text: self result. ].
+			with: [ html text: (task taskName). ].
 		html tbsColumn
 				extraSmallSize: 6;
 				smallSize: 4;
 				mediumSize: 3;
-			with: [ html text: self announcer ].
+			with: [ html text: task taskDescription].
 		html tbsColumn
 			with: [ self renderButtonDoTask: html ]
 		 ].	

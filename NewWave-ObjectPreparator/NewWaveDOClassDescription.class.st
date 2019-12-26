@@ -11,7 +11,9 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'className',
-		'properties'
+		'properties',
+		'taskName',
+		'taskDescription'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -21,7 +23,7 @@ NewWaveDOClassDescription class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(className properties) ] 
+		mapping mapInstVars: #(className properties taskName taskDescription) ] 
 ]
 
 { #category : #accessing }
@@ -54,4 +56,24 @@ NewWaveDOClassDescription >> properties [
 { #category : #accessing }
 NewWaveDOClassDescription >> properties: anObject [
 	properties := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskDescription [
+	^ taskDescription
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskDescription: anObject [
+	taskDescription := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskName [
+	^ taskName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskName: anObject [
+	taskName := anObject
 ]
