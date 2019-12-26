@@ -4,7 +4,9 @@ Class {
 	#traits : 'TItemAwareElementTrait',
 	#classTraits : 'TItemAwareElementTrait classTrait',
 	#instVars : [
-		'itemDef'
+		'itemDef',
+		'valuedDataObject',
+		'name'
 	],
 	#category : #'NewWave-Core'
 }
@@ -25,4 +27,24 @@ DataObject >> itemDef [
 { #category : #accessing }
 DataObject >> itemDef: anObject [
 	itemDef := anObject
+]
+
+{ #category : #accessing }
+DataObject >> name [
+	^ name
+]
+
+{ #category : #accessing }
+DataObject >> name: anObject [
+	name := anObject
+]
+
+{ #category : #accessing }
+DataObject >> valuedDataObject [
+	^ valuedDataObject
+]
+
+{ #category : #accessing }
+DataObject >> valuedDataObject: anObject [
+	valuedDataObject := anObject
 ]

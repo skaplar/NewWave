@@ -67,11 +67,12 @@ NewWaveServer >> addNewEntityMultipleDataObjects: aRequest [
 
 { #category : #routes }
 NewWaveServer >> addTask: aTask user: aUser [
-	| tasks |
-	tasks := pendingTasks
+	
+	pendingTasks
 		at: aUser
 		ifPresent: [ 
-			pendingTasks at: aUser add: aTask.
+			:tasks |
+			tasks add: aTask.
 		]
 		ifAbsentPut: [ OrderedCollection with: aTask ].
 ]
@@ -135,7 +136,7 @@ NewWaveServer >> readEvents: aRequest [
 	prvi := n first.
 	"exp := NewWaveDOJSONExporter dataObject: prvi nextDataObject."
 	" Dodati podrsku za vise data objekata!"
-	exp := NewWaveDOJSONExporter dataObject: prvi dataOutputAssociations first itemDef structureRef.
+	exp := NewWaveDOJSONExporter dataObject: prvi dataOutputAssociations first valuedDataObject.
 	^ exp exportDOToJSON.  
 	"^ prvi value."
 ]

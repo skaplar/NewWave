@@ -83,6 +83,13 @@ NWProcessHandler >> activations [
 	^ activations
 ]
 
+{ #category : #adding }
+NWProcessHandler >> addDataObjectFromServer: aDataObject [
+	| toRemove |
+	toRemove := process dataObjects detect: [ :each | each valuedDataObject id = aDataObject id ] ifNone: [ nil ].
+	toRemove valuedDataObject: aDataObject.
+]
+
 { #category : #accessing }
 NWProcessHandler >> addExecutor: anExecutor [
 	self mainExecutor: anExecutor.

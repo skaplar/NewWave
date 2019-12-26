@@ -65,6 +65,8 @@ ExampleExecutions class >> returnSimpleProcess [
 
 	do := DataObject new.
 	do itemDef structureRef: adresa1. 
+	do valuedDataObject: adresa1.
+	do name: 'Adresa example'.
 
 	t1 addDataOutputAssociation: do.
 

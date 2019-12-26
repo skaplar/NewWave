@@ -5,7 +5,8 @@ Class {
 		'name',
 		'dataObjects',
 		'flowElementList',
-		'initialFlowElement'
+		'initialFlowElement',
+		'variables'
 	],
 	#category : #'NewWave-Core'
 }
@@ -64,6 +65,7 @@ NewWaveProcess >> initialize [
 	super initialize.
 	dataObjects := OrderedCollection new.
 	flowElementList := OrderedCollection new.
+	variables := Dictionary new.
 ]
 
 { #category : #accessing }

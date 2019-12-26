@@ -18,6 +18,7 @@ CustomTaskEventBehavior >> performExecution: elemToExecute executor: waveExecuto
 		do: [ :a | 
 			a parameter traceCr.
 			waveExecutor taskResult: a parameter.
+			waveExecutor processHandler addDataObjectFromServer: a parameter.
 			waveExecutor processHandler engine server removeTask: elemToExecute user: 'default'.
 			waveExecutor tryToExecuteNext: elemToExecute ].
 	elemToExecute value

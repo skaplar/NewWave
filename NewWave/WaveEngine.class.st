@@ -93,6 +93,23 @@ WaveEngine >> processHandler: aProcessName [
 	^ processHandlers at: aProcessName.
 ]
 
+{ #category : #adding }
+WaveEngine >> restartProcess: aProcessName [
+	| processHandler process |
+	process := (processHandlers at: aProcessName) process.
+	processHandler := NWProcessHandler initialProcess: process engine: self.
+	processHandlers at: aProcessName put: processHandler. 
+	processHandler startEngine.
+]
+
+{ #category : #adding }
+WaveEngine >> restartProcess: aProcessName newProcess: proc1 [
+	| processHandler |
+	processHandler := NWProcessHandler initialProcess: proc1 engine: self.
+	processHandlers at: aProcessName put: processHandler. 
+	processHandler startEngine.
+]
+
 { #category : #accessing }
 WaveEngine >> scheduler [
 	^ scheduler
