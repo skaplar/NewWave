@@ -7,7 +7,7 @@ Class {
 { #category : #initialization }
 BehaviorHandlerTest >> testExclusiveGateway [
 	| bh se |
-	bh := BehaviorHandler new.
+	bh := NWBehaviorHandler new.
 	se := bh behaviors at: #ExclusiveGateway.
 	self assert: se className equals: 'ExclusiveGatewayBehavior'.
 ]
@@ -15,23 +15,23 @@ BehaviorHandlerTest >> testExclusiveGateway [
 { #category : #initialization }
 BehaviorHandlerTest >> testInitialize [
 	| bh se |
-	bh := BehaviorHandler new.
-	se := bh behaviors at: #StartEvent.
+	bh := NWBehaviorHandler new.
+	se := bh behaviors at: #NWStartEvent.
 	self assert: se className equals: 'StartEventBehavior'.
 ]
 
 { #category : #initialization }
 BehaviorHandlerTest >> testTaskEndEvent [
 	| bh se |
-	bh := BehaviorHandler new.
-	se := bh behaviors at: #EndEvent.
+	bh := NWBehaviorHandler new.
+	se := bh behaviors at: #NWEndEvent.
 	self assert: se className equals: 'EndEventBehavior'.
 ]
 
 { #category : #initialization }
 BehaviorHandlerTest >> testTaskEvent [
 	| bh se |
-	bh := BehaviorHandler new.
-	se := bh behaviors at: #BaseTask.
+	bh := NWBehaviorHandler new.
+	se := bh behaviors at: #NWBaseTask.
 	self assert: se className equals: 'TaskEventBehavior'.
 ]

@@ -1,6 +1,6 @@
 Class {
 	#name : #ScheduledWaveTask,
-	#superclass : #CustomTask,
+	#superclass : #NWCustomTask,
 	#category : #'NewWave-Model'
 }
 

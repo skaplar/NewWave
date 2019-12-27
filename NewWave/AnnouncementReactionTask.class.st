@@ -1,6 +1,6 @@
 Class {
 	#name : #AnnouncementReactionTask,
-	#superclass : #CustomTask,
+	#superclass : #NWCustomTask,
 	#category : #'NewWave-Model'
 }
 

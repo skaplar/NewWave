@@ -1,6 +1,6 @@
 Class {
 	#name : #FieldsUserTask,
-	#superclass : #FieldUserTask,
+	#superclass : #NWFieldUserTask,
 	#category : #'NewWave-Model'
 }
 
@@ -15,12 +15,12 @@ FieldsUserTask >> initializeProps [
 
 | p1 p2 |
 
-p1 := FormProperty new.
+p1 := NWFormProperty new.
 p1 name: 'firstName'.
 p1 type: 'string'.
 p1 variable: 'Pera'.
 
-p2 := FormProperty new.
+p2 := NWFormProperty new.
 p2 name: 'lastName'.
 p2 type: 'string'.
 p2 variable: 'Peric'.

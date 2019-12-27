@@ -51,7 +51,7 @@ Class {
 { #category : #'as yet unclassified' }
 NWProcessHandler class >> initialNode: startNode [
 	| we | 
-	we := WaveExecutor initialNode: startNode.
+	we := NWExecutor initialNode: startNode.
 	^ self new 
 		addExecutor: we;
 		yourself.
@@ -60,7 +60,7 @@ NWProcessHandler class >> initialNode: startNode [
 { #category : #'as yet unclassified' }
 NWProcessHandler class >> initialProcess: aProcess [
 	| we | 
-	we := WaveExecutor initialNode: aProcess initialFlowElement.
+	we := NWExecutor initialNode: aProcess initialFlowElement.
 	^ self new 
 		addExecutor: we;
 		process: aProcess;
@@ -70,7 +70,7 @@ NWProcessHandler class >> initialProcess: aProcess [
 { #category : #'as yet unclassified' }
 NWProcessHandler class >> initialProcess: aProcess engine: anEngine [
 	| we | 
-	we := WaveExecutor initialNode: aProcess initialFlowElement.
+	we := NWExecutor initialNode: aProcess initialFlowElement.
 	^ self new 
 		addExecutor: we;
 		process: aProcess;
@@ -114,7 +114,7 @@ NWProcessHandler >> addExecutor: anExecutor [
 { #category : #accessing }
 NWProcessHandler >> addSubExecutor: anInitialSequence [
 	| se |
-	se := SubExecutor initialSequence: anInitialSequence processHandler: self.
+	se := NWSubExecutor initialSequence: anInitialSequence processHandler: self.
 	se startSubExecutor.
 	subExecutors add: se.
 ]
@@ -142,10 +142,10 @@ NWProcessHandler >> engineAnnouncer: anAnnouncer [
 { #category : #accessing }
 NWProcessHandler >> initialize [
 	super initialize.
-	self joinHandler: (JoinHandler context: self).
+	self joinHandler: (NWJoinHandler context: self).
 	self subExecutors: OrderedCollection new.
 	self engineAnnouncer: Announcer new.
-	workList := WaveWorkList new.
+	workList := NWWorkList new.
 	activations := Dictionary new.
 ]
 

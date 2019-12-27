@@ -45,7 +45,7 @@ Class {
 { #category : #'as yet unclassified' }
 WaveEngine class >> initialNode: startNode [
 	| we | 
-	we := WaveExecutor initialNode: startNode.
+	we := NWExecutor initialNode: startNode.
 	^ self new 
 		addExecutor: we;
 		yourself.
@@ -54,7 +54,7 @@ WaveEngine class >> initialNode: startNode [
 { #category : #'as yet unclassified' }
 WaveEngine class >> initialProcess: aProcess [
 	| we | 
-	we := WaveExecutor initialNode: aProcess initialFlowElement.
+	we := NWExecutor initialNode: aProcess initialFlowElement.
 	^ self new 
 		addExecutor: we;
 		process: aProcess;

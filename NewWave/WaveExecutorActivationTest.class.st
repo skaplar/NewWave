@@ -12,24 +12,24 @@ WaveExecutorActivationTest >> setUp [
 	| se ee t1 we seq seq2 fh engine process |
 	super setUp.
 		
-	se := StartEvent new.
-	se description: 'StartEvent'.
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
 	
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	
-	ee := EndEvent new.
-	ee description: 'EndEvent'.
+	ee := NWEndEvent new.
+	ee description: #NWEndEvent.
 	
-	seq := Sequence source: se target: t1.
-	seq2 := Sequence source: t1 target: ee.
+	seq := NWSequence source: se target: t1.
+	seq2 := NWSequence source: t1 target: ee.
 	
 	se addOutgoingFlow: seq.
 	t1 addIncoming: seq addOutgoing: seq2.
 	ee addIncomingFlow: seq2.
 	
-	process := NewWaveProcess name: 'process1' initialFlowElement: se.
+	process := NWProcess name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	waveExecutor := (engine processHandler: 'process1') mainExecutor.
@@ -39,10 +39,10 @@ WaveExecutorActivationTest >> setUp [
 { #category : #tests }
 WaveExecutorActivationTest >> testActivationCreation [
 	| se we|
-	se := StartEvent new.
-	se description: 'StartEvent'.
-	we := WaveExecutor initialNode: se.
-	self shouldnt: [ WaveActivation node: se executor: we] raise: Error.
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
+	we := NWExecutor initialNode: se.
+	self shouldnt: [ NWActivation node: se executor: we] raise: Error.
 	
 
 ]

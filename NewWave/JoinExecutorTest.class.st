@@ -9,28 +9,28 @@ JoinExecutorTest >> testAddIncSequence [
 	
 	| t1 t2 t3 seq seq2  pj  je |
 	
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	
-	t2 := BaseTask new.
+	t2 := NWBaseTask new.
 	t2 description: 'C'.
 	t2 value: 300.
 	
-	t3 := BaseTask new.
+	t3 := NWBaseTask new.
 	t3 description: 'D'.
 	t3 value: 400.
 	
-	pj := ParallelJoin new.
-	pj description: 'ParallelJoin'.
+	pj := NWParallelJoin new.
+	pj description: #NWParallelJoin.
 	
-	seq := Sequence source: t1 target: pj.
-	seq2 := Sequence source: t2 target: pj.
+	seq := NWSequence source: t1 target: pj.
+	seq2 := NWSequence source: t2 target: pj.
 	
 	pj addIncomingFlow: seq.
 	pj addIncomingFlow: seq2.
 	
-	je := JoinExecutor new.
+	je := NWJoinExecutor new.
 	je joinNode: pj.
 	
 	je addIncSequence: seq.
@@ -45,28 +45,28 @@ JoinExecutorTest >> testCheckIsFinished [
 	
 	| t1 t2 t3 seq seq2  pj  je |
 	
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	
-	t2 := BaseTask new.
+	t2 := NWBaseTask new.
 	t2 description: 'C'.
 	t2 value: 300.
 	
-	t3 := BaseTask new.
+	t3 := NWBaseTask new.
 	t3 description: 'D'.
 	t3 value: 400.
 	
-	pj := ParallelJoin new.
-	pj description: 'ParallelJoin'.
+	pj := NWParallelJoin new.
+	pj description: #NWParallelJoin.
 	
-	seq := Sequence source: t1 target: pj.
-	seq2 := Sequence source: t2 target: pj.
+	seq := NWSequence source: t1 target: pj.
+	seq2 := NWSequence source: t2 target: pj.
 	
 	pj addIncomingFlow: seq.
 	pj addIncomingFlow: seq2.
 	
-	je := JoinExecutor new.
+	je := NWJoinExecutor new.
 	je joinNode: pj.
 	
 	je addIncSequence: seq.
@@ -80,30 +80,30 @@ JoinExecutorTest >> testreturnNodeAfterJoin [
 	
 	| t1 t2 t3 seq seq2  pj  je  seq3|
 	
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	
-	t2 := BaseTask new.
+	t2 := NWBaseTask new.
 	t2 description: 'C'.
 	t2 value: 300.
 	
-	t3 := BaseTask new.
+	t3 := NWBaseTask new.
 	t3 description: 'D'.
 	t3 value: 400.
 	
-	pj := ParallelJoin new.
-	pj description: 'ParallelJoin'.
+	pj := NWParallelJoin new.
+	pj description: #NWParallelJoin.
 	
-	seq := Sequence source: t1 target: pj.
-	seq2 := Sequence source: t2 target: pj.
-	seq3 := Sequence source: pj target: t3.
+	seq := NWSequence source: t1 target: pj.
+	seq2 := NWSequence source: t2 target: pj.
+	seq3 := NWSequence source: pj target: t3.
 	
 	pj addIncomingFlow: seq.
 	pj addIncomingFlow: seq2.
 	pj addOutgoingFlow: seq3.
 	
-	je := JoinExecutor new.
+	je := NWJoinExecutor new.
 	je joinNode: pj.
 	
 	je addIncSequence: seq.

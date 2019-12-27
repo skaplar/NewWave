@@ -1,6 +1,6 @@
 Class {
 	#name : #DialogTask,
-	#superclass : #BaseTask,
+	#superclass : #NWBaseTask,
 	#instVars : [
 		'dialog'
 	],

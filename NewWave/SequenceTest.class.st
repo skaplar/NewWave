@@ -7,9 +7,9 @@ Class {
 { #category : #tests }
 SequenceTest >> testSequenceCreation [
 	| s a b |
-	a := BaseTask new.
-	b := BaseTask new.
-	s := Sequence source: a target: b.
+	a := NWBaseTask new.
+	b := NWBaseTask new.
+	s := NWSequence source: a target: b.
 	self assert: s sourceRef equals: a.
 	self assert: s targetRef equals: b.
 ]
@@ -17,18 +17,18 @@ SequenceTest >> testSequenceCreation [
 { #category : #tests }
 SequenceTest >> testSequenceCreationWithCondition [
 	| s a b |
-	a := BaseTask new.
-	b := BaseTask new.
-	s := Sequence source: a target: b condition: [:x | x = true]. 
+	a := NWBaseTask new.
+	b := NWBaseTask new.
+	s := NWSequence source: a target: b condition: [:x | x = true]. 
 	self assert: (s condition value: true) equals: true. 
 ]
 
 { #category : #tests }
 SequenceTest >> testSequenceCreationWithNumberCondition [
 	| s a b |
-	a := BaseTask new.
-	b := BaseTask new.
-	s := Sequence source: a target: b condition: [:x | x = 200].
+	a := NWBaseTask new.
+	b := NWBaseTask new.
+	s := NWSequence source: a target: b condition: [:x | x = 200].
 	self assert: (s condition value: 200) equals: true.
 
 ]
@@ -36,9 +36,9 @@ SequenceTest >> testSequenceCreationWithNumberCondition [
 { #category : #tests }
 SequenceTest >> testSequenceInitialSourceTargetFalse [
 	| s a b |
-	a := BaseTask new.
-	b := BaseTask new.
-	s := Sequence source: a target: b condition: true.
+	a := NWBaseTask new.
+	b := NWBaseTask new.
+	s := NWSequence source: a target: b condition: true.
 	self assert: s srcFetched equals: false.
 	self assert: s targetFetched equals: false.
 ]

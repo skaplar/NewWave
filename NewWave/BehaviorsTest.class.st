@@ -12,14 +12,14 @@ BehaviorsTest >> setUp [
 	| se we seq fh engine process|
 	super setUp.
 		
-	se := StartEvent new.
-	se description: 'StartEvent'.
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
 	
-	seq := Sequence source: se target: nil.
+	seq := NWSequence source: se target: nil.
 	
 	se addOutgoingFlow: seq.
 	
-	process := NewWaveProcess name: 'process1' initialFlowElement: se.
+	process := NWProcess name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	waveExecutor := (engine processHandler: 'process1') mainExecutor.
@@ -36,7 +36,7 @@ BehaviorsTest >> tearDown [
 { #category : #tests }
 BehaviorsTest >> testStartEvent [
 	| seBehavior |
-	seBehavior := StartEventBehavior new.
+	seBehavior := NWStartEventBehavior new.
 	seBehavior performExecution: waveExecutor flowHandler node executor: waveExecutor.
 	waveExecutor waveAnnouncer announce: StartAnnouncer new.
 	self assert: waveExecutor workers size equals: 1.

@@ -8,7 +8,7 @@ Trait {
 
 { #category : #initialization }
 TItemAwareElementTrait >> initializeTrait [
-	itemDefinition := ItemDefinition new.
+	itemDefinition := NWItemDefinition new.
 ]
 
 { #category : #initialization }

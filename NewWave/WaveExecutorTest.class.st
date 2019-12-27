@@ -12,27 +12,27 @@ WaveExecutorTest >> setUp [
 	| se ee t1 we seq seq2 fh |
 	super setUp.
 		
-	se := StartEvent new.
-	se description: 'StartEvent'.
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
 	
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	
-	ee := EndEvent new.
-	ee description: 'EndEvent'.
+	ee := NWEndEvent new.
+	ee description: #NWEndEvent.
 	
-	seq := Sequence source: se target: t1.
-	seq2 := Sequence source: t1 target: ee.
+	seq := NWSequence source: se target: t1.
+	seq2 := NWSequence source: t1 target: ee.
 	
 	se addOutgoingFlow: seq.
 	t1 addIncoming: seq addOutgoing: seq2.
 	ee addIncomingFlow: seq2.
 	
-	fh := FlowHandler new.
+	fh := NWFlowHandler new.
 	fh node: se.
 	
-	we := WaveExecutor new.
+	we := NWExecutor new.
 	we flowHandler: fh.
 	waveExecutor := we.
 ]
@@ -41,7 +41,7 @@ WaveExecutorTest >> setUp [
 WaveExecutorTest >> testFirstNodeIsStartEvent [
 	| node |
 	node := waveExecutor flowHandler node.
-	self assert: (node isMemberOf: StartEvent) equals: true.
+	self assert: (node isMemberOf: NWStartEvent) equals: true.
 	
 ]
 
@@ -49,7 +49,7 @@ WaveExecutorTest >> testFirstNodeIsStartEvent [
 WaveExecutorTest >> testFirstNodeIsStartEventByEquality [
 	| node |
 	node := waveExecutor flowHandler node.
-	self assert: node class == StartEvent.
+	self assert: node class == NWStartEvent.
 	
 ]
 
@@ -88,7 +88,7 @@ WaveExecutorTest >> testShouldNotGetNilNewHandler [
 { #category : #tests }
 WaveExecutorTest >> testTaskItObject [
 	| t1 task |
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
@@ -100,7 +100,7 @@ WaveExecutorTest >> testTaskItObject [
 { #category : #tests }
 WaveExecutorTest >> testTaskItObjectValuable [
 	| t1 task |
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
@@ -112,7 +112,7 @@ WaveExecutorTest >> testTaskItObjectValuable [
 { #category : #tests }
 WaveExecutorTest >> testTaskItObjectValue [
 	| t1 task |
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
@@ -124,12 +124,12 @@ WaveExecutorTest >> testTaskItObjectValue [
 { #category : #tests }
 WaveExecutorTest >> testreturnTKT [
 	| t1 task |
-	t1 := BaseTask new.
+	t1 := NWBaseTask new.
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
 	self assert: task value equals: 200.
-	self assert: (task valuable isMemberOf: BaseTask ) equals: true.
+	self assert: (task valuable isMemberOf: NWBaseTask ) equals: true.
 	
 	
 ]
