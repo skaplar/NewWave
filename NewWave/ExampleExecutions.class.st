@@ -60,6 +60,7 @@ ExampleExecutions class >> returnSimpleProcess [
 
 	t1 := CustomTask new.
 	t1 description: 'B'.
+	t1 name: 'Taskerino'.
 
 	adresa1 := Adresa example1.
 
@@ -70,7 +71,7 @@ ExampleExecutions class >> returnSimpleProcess [
 
 	t1 addDataOutputAssociation: do.
 
-	t1 value: do itemDef structureRef.
+	t1 value: 'Adresica value'.
 
 	ee := EndEvent new.
 	ee description: 'End'.
@@ -120,7 +121,7 @@ oc add: t1.
 oc add: t2.
 
 exp := NewWaveArrayDOJSONExporter tasks: oc.
-^ NewWaveArrayDOJSONImporter new importFromJSON: exp exportDOToJSON.
+^ (NewWaveArrayDOJSONImporter new importFromJSON: exp exportDOToJSON) asOrderedCollection.
 ]
 
 { #category : #'as yet unclassified' }

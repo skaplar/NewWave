@@ -134,8 +134,10 @@ NewWaveServer >> readAllTasksForUser: aRequest [
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
 	prvi := n first.
-	exp := NewWaveArrayDOJSONExporter dataObject: prvi dataOutputAssociations first valuedDataObject.
+	
+	exp := NewWaveArrayDOJSONExporter tasks: n.
 	^ exp exportDOToJSON.
+	"^ ExampleExecutions returnTwoDataObjects exportDOToJSON"
 ]
 
 { #category : #initialization }

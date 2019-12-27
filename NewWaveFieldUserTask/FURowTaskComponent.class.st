@@ -15,25 +15,24 @@ FURowTaskComponent class >> from: aComponent [
 	yourself
 ]
 
-{ #category : #evaluating }
-FURowTaskComponent >> announcer [
-	^ task announcer
-]
-
 { #category : #accessing }
 FURowTaskComponent >> component [
 	^ component
 ]
 
 { #category : #accessing }
-FURowTaskComponent >> component: aComponent [
-	component := aComponent 
+FURowTaskComponent >> component: anObject [
+	component := anObject
 ]
 
 { #category : #'as yet unclassified' }
 FURowTaskComponent >> goToDoTask [
 	"generating form should be here - some day in future"
-	
+	| object |
+	object := component call: (FUAllUserTasksComponent new task: task).
+	'povratna vrednost je ' traceCr.
+	object traceCr.
+	self answer: task.
 ]
 
 { #category : #initialization }
@@ -46,11 +45,16 @@ FURowTaskComponent >> renderButtonDoTask: html [
 	html tbsSubmitButton
 	beSuccess;
 	callback: [ self goToDoTask ];
-	with: 'Do task'
+	with: 'Do task'.
+	"  html anchor  
+        callback: [ self goToDoTask];
+        with: 'edit'."
+			
 ]
 
 { #category : #rendering }
 FURowTaskComponent >> renderContentOn: html [
+	super renderContentOn: html.
 	html tbsModalBody: [
 				html tbsForm: [	
 					html tbsContainer: [ 
@@ -68,9 +72,10 @@ FURowTaskComponent >> renderContentOn: html [
 				extraSmallSize: 6;
 				smallSize: 4;
 				mediumSize: 3;
-			with: [ html text: task taskDescription].
+			with: [ html text: task taskDescription. ].
 		html tbsColumn
-			with: [ self renderButtonDoTask: html ]
+			 with: [ 
+					self renderButtonDoTask: html ].
 		 ].	
 		html horizontalRule.
 ]]
@@ -89,9 +94,4 @@ FURowTaskComponent >> task [
 { #category : #accessing }
 FURowTaskComponent >> task: aTask [
 	task := aTask
-]
-
-{ #category : #evaluating }
-FURowTaskComponent >> value [
-	^ task value
 ]

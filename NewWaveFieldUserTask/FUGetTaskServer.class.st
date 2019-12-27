@@ -5,6 +5,14 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+FUGetTaskServer >> getAllTasks: aUser [
+	| entity obj |
+	entity := (ZnEasy get: 'http://localhost:8081/alltasks') entity string.
+	obj := NewWaveArrayDOJSONImporter new importFromJSON: (NeoJSONReader fromString: entity).
+	^ obj asOrderedCollection. 
+]
+
+{ #category : #'as yet unclassified' }
 FUGetTaskServer >> getTask: aUser [
 	| entity obj |
 	entity := (ZnEasy get: 'http://localhost:8081/events') entity string.

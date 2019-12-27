@@ -44,13 +44,19 @@ FUAllTasksListComponent class >> from: aComponent [
 	yourself
 ]
 
+{ #category : #hooks }
+FUAllTasksListComponent >> children [ 
+	^ self tasks collect: [ :each | | comp | comp := FURowTaskComponent from: self. comp task: each ]
+]
+
 { #category : #initialization }
 FUAllTasksListComponent >> initialize [
 |taksskss|
 	super initialize.
 	"taksskss := self session currentlyLoggedUser tasks."
 	"taksskss := FUGetTaskServer new getTask: (self session currentlyLoggedUser username)."
-	taksskss := ExampleExecutions returnTwoDataObjects.
+	"taksskss := ExampleExecutions returnTwoDataObjects."
+	taksskss := FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username).
 	taksskss isNil
 		ifFalse: [ 
 			"self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))"
@@ -59,12 +65,51 @@ FUAllTasksListComponent >> initialize [
 
 { #category : #rendering }
 FUAllTasksListComponent >> renderAllTasks: html [
-	self tasks ifNotNil: [ 
+	"self tasks ifNotNil: [ 
 			self tasks do: [ :t | html render: ( FURowTaskComponent new task: t ) ]
-	 ]
-"self tasks ifNotNil: [ 
-			self tasks do: [ :t | t isWaiting and: [html render: ( FURowTaskComponent new task: t )] ]
-	 ]"
+	 ]."
+	self tasks ifEmpty: [ html tbsColumn
+										extraSmallSize: 6;
+										smallSize: 3;
+										mediumSize: 2;
+										with: [ html text: 'No more tasks' ]. ].
+	self tasks 
+		do: [ :task | 
+			html
+				tbsModalBody: [ html
+						tbsForm: [ html
+								tbsContainer: [ html tbsColumn
+										extraSmallSize: 6;
+										smallSize: 3;
+										mediumSize: 2;
+										with: [ html heading
+												level: 4;
+												with: 'Task' ].
+									html tbsColumn
+										extraSmallSize: 6;
+										smallSize: 3;
+										mediumSize: 2;
+										with: [ html text: task taskName ].
+									html tbsColumn
+										extraSmallSize: 6;
+										smallSize: 4;
+										mediumSize: 3;
+										with: [ html text: task taskDescription ].
+									html tbsColumn
+										with: [ self renderButtonDoTask: html task: task ] ].
+							html horizontalRule ] ] ] 
+]
+
+{ #category : #rendering }
+FUAllTasksListComponent >> renderButtonDoTask: html	task: task [
+	html tbsSubmitButton
+	beSuccess;
+	callback: [  
+		| tmp |
+		tmp := self call: (FUAllUserTasksComponent new task: task).
+		self tasks remove: tmp.
+		];
+	with: 'Do task'.
 ]
 
 { #category : #rendering }
@@ -77,18 +122,19 @@ FUAllTasksListComponent >> renderContentOn: html [
 		extraSmallSize: 0;
 		smallSize: 1;
 		mediumSize: 2. 
-	html tbsColumn
-		extraSmallSize: 12;
-		smallSize: 10;
-		mediumSize: 8;
+	"html tbsColumn
 		with: [ 
-			self tasks do: [ :task |
-				html render: (FURowTaskComponent new task: task) ].
+			html render: self children
+		]."
+	html tbsColumn
+		with: [ 
+			self renderAllTasks: html
 		].
+	"html render: self children."
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
-		mediumSize: 2.  
+		mediumSize: 2. 
 ]
 
 { #category : #accessing }

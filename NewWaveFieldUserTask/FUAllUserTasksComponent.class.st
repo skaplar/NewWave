@@ -37,14 +37,15 @@ FUAllUserTasksComponent >> component: aComponent [
 
 { #category : #initialization }
 FUAllUserTasksComponent >> initialize [
-|taksskss|
+	| taksskss |
 	super initialize.
 	"taksskss := self session currentlyLoggedUser tasks."
-	taksskss := FUGetTaskServer new getTask: (self session currentlyLoggedUser username).
+	" Ovo je bilo da fetchujem pojedinacne zadatke sa servera "
+	"taksskss := FUGetTaskServer new
+		getTask: self session currentlyLoggedUser username."
 	taksskss isNil
-		ifFalse: [ 
-			"self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))"
-			self task: taksskss  ].
+		ifFalse:
+			[ "self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))" self task: taksskss ]
 ]
 
 { #category : #rendering }
@@ -81,9 +82,6 @@ FUAllUserTasksComponent >> renderContentOn: html [
 		smallSize: 1;
 		mediumSize: 2. 
 	html tbsColumn
-		extraSmallSize: 12;
-		smallSize: 10;
-		mediumSize: 8;
 		with: [ 
 			html tbsModalBody: [
 				html tbsForm: [	
@@ -115,6 +113,8 @@ FUAllUserTasksComponent >> sendResult [
 	newValue := self component save model.
 	json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON.
 	FUCommitTaskServer new commitTask: json.
+	"OVO SAM DODAO DA ZAVRSIM CALLBACK"
+	self answer: task.
 ]
 
 { #category : #accessing }
