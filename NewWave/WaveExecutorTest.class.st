@@ -57,7 +57,7 @@ WaveExecutorTest >> testFirstNodeIsStartEventByEquality [
 WaveExecutorTest >> testFirstNodeIsStartEventByName [
 	| node |
 	node := waveExecutor flowHandler node.
-	self assert: node class name equals: 'StartEvent'.
+	self assert: node class name equals: 'NWStartEvent'.
 	
 ]
 
