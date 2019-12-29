@@ -14,7 +14,7 @@ Class {
 { #category : #'as yet unclassified' }
 NWProcess class >> id: anId name: aName initialFlowElement: anElement [
 	^ self new 
-		id: anId
+		id: anId;
 		name: aName;
 		initialFlowElement: anElement;
 		yourself
