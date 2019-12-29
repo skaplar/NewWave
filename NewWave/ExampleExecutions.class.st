@@ -16,7 +16,7 @@ Class {
 { #category : #'as yet unclassified' }
 ExampleExecutions class >> returnExampleProcess1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
-	| se ee t1 t2 t3 split1 engine process |
+	| se ee t1 t2 t3 split1 process |
 
 	se := NWStartEvent new.
 	se description: #NWStartEvent.
@@ -46,7 +46,8 @@ ExampleExecutions class >> returnExampleProcess1 [
 	t2 addOutgoingEdge: ee.
 	t3 addOutgoingEdge: ee.
 	
-	^ NWProcess name: 'process2' initialFlowElement: se.
+	process := NWProcess id: '1' name: 'process2' initialFlowElement: se.
+	process id: 1.
 	
 ]
 
@@ -79,8 +80,7 @@ ExampleExecutions class >> returnSimpleProcess [
 	se addOutgoingEdge: t1.
 	t1 addOutgoingEdge: ee.
 	
-	process := NWProcess name: 'Process 1' initialFlowElement: se.
-	process id: '1'.
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
 	process addDataObject: do.
 
 	^ process
@@ -158,7 +158,7 @@ ExampleExecutions >> startExample1 [
 	t2 addOutgoingEdge: ee.
 	t3 addOutgoingEdge: ee.
 	
-	process := NWProcess name: 'process1' initialFlowElement: se.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -270,7 +270,7 @@ ExampleExecutions >> startExample2 [
 	pj addOutgoingEdge: t4.
 	t4 addOutgoingEdge: ee.
 
-	process := NWProcess name: 'process1' initialFlowElement: se.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -331,7 +331,7 @@ ExampleExecutions >> startExample3 [
 	d addOutgoingEdge: e2.
 	f addOutgoingEdge: e1.
 
-	process := NWProcess name: 'process1' initialFlowElement: start.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -403,7 +403,7 @@ ExampleExecutions >> startExample4 [
 	e1 addIncomingFlow: seqpj1e.
 	e2 addIncomingFlow: seqde2.
 
-	process := NWProcess name: 'process1' initialFlowElement: start.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -480,7 +480,7 @@ process|
 	e1 addIncomingFlow: seqpj1e.
 	e2 addIncomingFlow: seqce2.
 
-	process := NWProcess name: 'process1' initialFlowElement: start.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -550,7 +550,7 @@ ExampleExecutions >> startExample6 [
 	e1 addIncomingFlow: seqpj1e.
 	e2 addIncomingFlow: seqde2.
 
-	process := NWProcess name: 'process1' initialFlowElement: start.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.
@@ -646,7 +646,7 @@ ee|
 	
 	ee addIncomingFlow: seqpj2ee. 
 
-	process := NWProcess name: 'process1' initialFlowElement: start.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	engine startProcess: 'process1'.

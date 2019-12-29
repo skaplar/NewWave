@@ -19,7 +19,7 @@ BehaviorsTest >> setUp [
 	
 	se addOutgoingFlow: seq.
 	
-	process := NWProcess name: 'process1' initialFlowElement: se.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
 	engine := WaveEngine new.
 	engine addProcess: process name: 'process1' .
 	waveExecutor := (engine processHandler: 'process1') mainExecutor.
