@@ -80,6 +80,7 @@ ExampleExecutions class >> returnSimpleProcess [
 	t1 addOutgoingEdge: ee.
 	
 	process := NWProcess name: 'Process 1' initialFlowElement: se.
+	process id: '1'.
 	process addDataObject: do.
 
 	^ process

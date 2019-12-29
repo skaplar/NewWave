@@ -78,7 +78,15 @@ FUAllTasksListComponent >> renderAllTasks: html [
 			html
 				tbsModalBody: [ html
 						tbsForm: [ html
-								tbsContainer: [ html tbsColumn
+								tbsContainer: [ 
+									html tbsColumn
+										extraSmallSize: 6;
+										smallSize: 3;
+										mediumSize: 2;
+										with: [ html heading
+												level: 4;
+												with: task processName ].
+									html tbsColumn
 										extraSmallSize: 6;
 										smallSize: 3;
 										mediumSize: 2;

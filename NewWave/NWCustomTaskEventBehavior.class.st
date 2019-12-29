@@ -12,7 +12,8 @@ NWCustomTaskEventBehavior >> performExecution: elemToExecute executor: waveExecu
 	super performExecution: elemToExecute executor: waveExecutor.
 	"Ovo treba recimo dopuniti da ode na endpoint i onda tu da se preuzme, pokupi itd..."
 	"wave engine server element: elemToExecute."
-	waveExecutor processHandler engine server addTask: elemToExecute user: 'default'.
+	"waveExecutor processHandler engine server addTask: elemToExecute user: 'default'."
+	waveExecutor processHandler addTaskToServer: elemToExecute user: 'default'.
 	waveExecutor processHandler engine engineAnnouncer
 		when: WaveAnnouncer
 		do: [ :a | 

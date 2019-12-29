@@ -13,7 +13,9 @@ Class {
 		'className',
 		'properties',
 		'taskName',
-		'taskDescription'
+		'taskDescription',
+		'processName',
+		'processId'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -46,6 +48,26 @@ NewWaveDOClassDescription >> initialize [
 	
 	super initialize.
 	properties := OrderedCollection new.
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processId [
+	^ processId
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processId: anObject [
+	processId := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processName [
+	^ processName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processName: anObject [
+	processName := anObject
 ]
 
 { #category : #accessing }

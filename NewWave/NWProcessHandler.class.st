@@ -119,6 +119,13 @@ NWProcessHandler >> addSubExecutor: anInitialSequence [
 	subExecutors add: se.
 ]
 
+{ #category : #adding }
+NWProcessHandler >> addTaskToServer: task user: anUser [
+	| tw |
+	tw := NWTaskWrapper task: task process: process. 
+	engine server addTask: tw user: anUser.
+]
+
 { #category : #accessing }
 NWProcessHandler >> engine [
 	^ engine
