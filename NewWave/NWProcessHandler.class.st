@@ -124,6 +124,7 @@ NWProcessHandler >> addTaskToServer: task user: anUser [
 	| tw |
 	tw := NWTaskWrapper task: task process: process. 
 	engine server addTask: tw user: anUser.
+	^ tw.
 ]
 
 { #category : #accessing }

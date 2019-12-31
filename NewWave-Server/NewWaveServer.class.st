@@ -35,11 +35,13 @@ NewWaveServer >> addEvent: aRequest [
 
 { #category : #routes }
 NewWaveServer >> addNewEntity: aRequest [
-	| tmp entity |
+	| tmp entity pHandler |
 	tmp := NewWaveDOJSONImporter new
 		importFromJSON: aRequest entity string.
 	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
-	engine engineAnnouncer announce: (WaveAnnouncer with: entity).
+	pHandler := engine processHandler: (tmp processInstanceId). 
+	pHandler engineAnnouncer announce: (WaveAnnouncer with: entity).
+	"engine engineAnnouncer announce: (WaveAnnouncer with: tmp)"
 	^ 'Adding of entity executed'
 ]
 

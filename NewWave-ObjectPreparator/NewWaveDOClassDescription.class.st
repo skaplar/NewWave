@@ -15,7 +15,8 @@ Class {
 		'taskName',
 		'taskDescription',
 		'processName',
-		'processId'
+		'processId',
+		'processInstanceId'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -58,6 +59,16 @@ NewWaveDOClassDescription >> processId [
 { #category : #accessing }
 NewWaveDOClassDescription >> processId: anObject [
 	processId := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processInstanceId [
+	^ processInstanceId
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> processInstanceId: anObject [
+	processInstanceId := anObject
 ]
 
 { #category : #accessing }

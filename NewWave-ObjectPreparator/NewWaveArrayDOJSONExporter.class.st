@@ -57,6 +57,7 @@ NewWaveArrayDOJSONExporter >> createClassContainer [
 		container addAllToProps: (self eximplify: (each task dataOutputAssociations first valuedDataObject)).
 		container processName: each process name.
 		container processId: each process id.
+		container processInstanceId: each process processInstanceId.
 		container
 	].
 	

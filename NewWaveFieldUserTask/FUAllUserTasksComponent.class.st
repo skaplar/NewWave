@@ -111,7 +111,8 @@ FUAllUserTasksComponent >> sendResult [
 	self component validate 
 		ifFalse: [ ^nil ]."show validation message"
 	newValue := self component save model.
-	json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON.
+	"json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON."
+	json := (NewWaveDOProcessJSONExporter dataObject: newValue processName: task processName processId: task processId processInstanceId: task processInstanceId) exportDOToJSON.
 	FUCommitTaskServer new commitTask: json.
 	"OVO SAM DODAO DA ZAVRSIM CALLBACK"
 	self answer: task.

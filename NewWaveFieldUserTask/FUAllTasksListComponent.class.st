@@ -44,11 +44,6 @@ FUAllTasksListComponent class >> from: aComponent [
 	yourself
 ]
 
-{ #category : #hooks }
-FUAllTasksListComponent >> children [ 
-	^ self tasks collect: [ :each | | comp | comp := FURowTaskComponent from: self. comp task: each ]
-]
-
 { #category : #initialization }
 FUAllTasksListComponent >> initialize [
 |taksskss|
@@ -68,31 +63,23 @@ FUAllTasksListComponent >> renderAllTasks: html [
 	"self tasks ifNotNil: [ 
 			self tasks do: [ :t | html render: ( FURowTaskComponent new task: t ) ]
 	 ]."
-	self tasks ifEmpty: [ html tbsColumn
-										extraSmallSize: 6;
-										smallSize: 3;
-										mediumSize: 2;
-										with: [ html text: 'No more tasks' ]. ].
+	
+	self tasks ifEmpty: [ html heading: 'No more tasks!' ].
 	self tasks 
 		do: [ :task | 
 			html
 				tbsModalBody: [ html
-						tbsForm: [ html
-								tbsContainer: [ 
+						tbsForm: [" html
+								tbsContainer: [" 
+									html tbsColumn
+										extraSmallSize: 0;
+										smallSize: 1;
+										mediumSize: 2. 
 									html tbsColumn
 										extraSmallSize: 6;
 										smallSize: 3;
 										mediumSize: 2;
-										with: [ html heading
-												level: 4;
-												with: task processName ].
-									html tbsColumn
-										extraSmallSize: 6;
-										smallSize: 3;
-										mediumSize: 2;
-										with: [ html heading
-												level: 4;
-												with: 'Task' ].
+										with: [ html text: task processName ].
 									html tbsColumn
 										extraSmallSize: 6;
 										smallSize: 3;
@@ -105,7 +92,7 @@ FUAllTasksListComponent >> renderAllTasks: html [
 										with: [ html text: task taskDescription ].
 									html tbsColumn
 										with: [ self renderButtonDoTask: html task: task ] ].
-							html horizontalRule ] ] ] 
+							html horizontalRule ] ] "]" 
 ]
 
 { #category : #rendering }
@@ -125,24 +112,40 @@ FUAllTasksListComponent >> renderContentOn: html [
 	super renderContentOn: html.
 	html tbsContainer: [
 		html heading: 'Choose task and do it:'.
-		html horizontalRule].
+		"html horizontalRule"].
+	
 	html tbsColumn
 		extraSmallSize: 0;
 		smallSize: 1;
 		mediumSize: 2. 
-	"html tbsColumn
-		with: [ 
-			html render: self children
-		]."
+
+	html tbsColumn
+		extraSmallSize: 6;
+		smallSize: 3;
+		mediumSize: 2;
+		with: [ html heading
+					level: 4;
+					with: 'Process' ].
+	html tbsColumn
+		extraSmallSize: 6;
+		smallSize: 3;
+		mediumSize: 2;
+		with: [ html heading
+					level: 4;
+					with: 'Task' ].
+	html tbsColumn
+		extraSmallSize: 6;
+		smallSize: 3;
+		mediumSize: 2;
+		with: [ html heading
+					level: 4;
+					with: 'Description' ].				
+	html tbsRow.
+	html horizontalRule.
 	html tbsColumn
 		with: [ 
 			self renderAllTasks: html
 		].
-	"html render: self children."
-	html tbsColumn
-		extraSmallSize: 0;
-		smallSize: 1;
-		mediumSize: 2. 
 ]
 
 { #category : #accessing }

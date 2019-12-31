@@ -6,7 +6,8 @@ Class {
 		'dataObjects',
 		'flowElementList',
 		'initialFlowElement',
-		'variables'
+		'variables',
+		'processInstanceId'
 	],
 	#category : #'NewWave-Core'
 }
@@ -16,6 +17,7 @@ NWProcess class >> id: anId name: aName initialFlowElement: anElement [
 	^ self new 
 		id: anId;
 		name: aName;
+		processInstanceId: (1 to: 1000000) atRandom asString;
 		initialFlowElement: anElement;
 		yourself
 ]
@@ -77,4 +79,14 @@ NWProcess >> name [
 { #category : #accessing }
 NWProcess >> name: anObject [
 	name := anObject
+]
+
+{ #category : #accessing }
+NWProcess >> processInstanceId [
+	^ processInstanceId
+]
+
+{ #category : #accessing }
+NWProcess >> processInstanceId: anObject [
+	processInstanceId := anObject
 ]
