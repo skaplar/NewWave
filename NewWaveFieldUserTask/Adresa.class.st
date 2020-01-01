@@ -14,8 +14,8 @@ Adresa class >> example1 [
 | addr |
 addr := self new.
 addr id: '1'.
-addr broj: 'Test Street'.
-addr ulica: 'Test Place'.
+addr broj: 0.
+addr ulica: ''.
 ^ addr.
 ]
 
@@ -42,7 +42,7 @@ Adresa >> broj: anObject [
 { #category : #'as yet unclassified' }
 Adresa >> descriptionBroj [
   <magritteDescription>
-	^ MAStringDescription new 
+	^ MANumberDescription new 
 		accessor: #broj;
 		label: 'broj';
 		priority: 10;

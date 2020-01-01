@@ -29,7 +29,7 @@ FURowTaskComponent >> component: anObject [
 FURowTaskComponent >> goToDoTask [
 	"generating form should be here - some day in future"
 	| object |
-	object := component call: (FUAllUserTasksComponent new task: task).
+	object := component call: (FUTaskComponent new task: task).
 	'povratna vrednost je ' traceCr.
 	object traceCr.
 	self answer: task.

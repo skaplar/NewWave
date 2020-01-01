@@ -101,7 +101,7 @@ FUAllTasksListComponent >> renderButtonDoTask: html	task: task [
 	beSuccess;
 	callback: [  
 		| tmp |
-		tmp := self call: (FUAllUserTasksComponent new task: task).
+		tmp := self call: (FUTaskComponent new task: task).
 		self tasks remove: tmp.
 		];
 	with: 'Do task'.

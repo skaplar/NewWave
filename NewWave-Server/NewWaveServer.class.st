@@ -131,13 +131,12 @@ NewWaveServer >> port: anObject [
 
 { #category : #initialization }
 NewWaveServer >> readAllTasksForUser: aRequest [
-	| n exp |
-	n := pendingTasks at: 'default'.
-	n ifNil: [ ^ 'Non-existing user' ].
-	n ifEmpty: [ ^ 'Empty' ].
-	exp := NewWaveArrayDOJSONExporter tasks: n.
+	| taskDescriptionsList exp |
+	taskDescriptionsList := pendingTasks at: 'default'.
+	taskDescriptionsList ifNil: [ ^ 'Non-existing user' ].
+	taskDescriptionsList ifEmpty: [ ^ 'Empty' ].
+	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
 	^ exp exportDOToJSON.
-	"^ ExampleExecutions returnTwoDataObjects exportDOToJSON"
 ]
 
 { #category : #initialization }

@@ -41,7 +41,7 @@ FUSignUpComponent >> errorMessage: aMessage [
 
 { #category : #operations }
 FUSignUpComponent >> goToAllTasksView: aUser [ 
-	self call: (FUAllUserTasksComponent new tasks: aUser tasks)
+	self call: (FUTaskComponent new tasks: aUser tasks)
 ]
 
 { #category : #testing }

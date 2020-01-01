@@ -16,26 +16,12 @@ Class {
 		'do',
 		'processName',
 		'processId',
-		'processInstanceId'
+		'processInstanceId',
+		'taskName',
+		'taskDescription'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
-
-{ #category : #'as yet unclassified' }
-NewWaveDOProcessJSONExporter class >> dataObject: do [
-	^ self new
-	do: do;
-	yourself
-]
-
-{ #category : #'as yet unclassified' }
-NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId [
-	^ self new
-	do: do;
-	processName: aProcessName;
-	processId: aProcessId;
-	yourself
-]
 
 { #category : #'as yet unclassified' }
 NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId [
@@ -44,6 +30,27 @@ NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName p
 	processName: aProcessName;
 	processId: aProcessId;
 	processInstanceId: aProcessInstanceId;
+	yourself
+]
+
+{ #category : #'as yet unclassified' }
+NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId taskName: aTaskName taskDescription: aTaskDescription [
+	^ self new
+	do: do;
+	processName: aProcessName;
+	processId: aProcessId;
+	processInstanceId: aProcessInstanceId;
+	taskName: aTaskName;
+	taskDescription: aTaskDescription;
+	yourself
+]
+
+{ #category : #'as yet unclassified' }
+NewWaveDOProcessJSONExporter class >> dataObject: do task: aTask process: aProcess [
+	^ self new
+	do: do;
+	task: aTask;
+	process: aProcess;
 	yourself
 ]
 
@@ -61,6 +68,8 @@ NewWaveDOProcessJSONExporter >> createClassContainer [
 	container processName: processName.
 	container processId: processId.
 	container processInstanceId: processInstanceId.
+	container taskName: taskName.
+	container taskDescription: taskDescription.
 	^ container
 ]
 
@@ -134,4 +143,24 @@ NewWaveDOProcessJSONExporter >> processName [
 { #category : #accessing }
 NewWaveDOProcessJSONExporter >> processName: anObject [
 	processName := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskDescription [
+	^ taskDescription
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskDescription: anObject [
+	taskDescription := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskName [
+	^ taskName
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskName: anObject [
+	taskName := anObject
 ]

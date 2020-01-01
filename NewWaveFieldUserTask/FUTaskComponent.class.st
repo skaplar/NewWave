@@ -1,5 +1,5 @@
 Class {
-	#name : #FUAllUserTasksComponent,
+	#name : #FUTaskComponent,
 	#superclass : #FUScreenComponent,
 	#instVars : [
 		'report',
@@ -10,14 +10,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-FUAllUserTasksComponent class >> from: aComponent [
+FUTaskComponent class >> from: aComponent [
 	^ self new
 	component: aComponent;
 	yourself
 ]
 
 { #category : #'as yet unclassified' }
-FUAllUserTasksComponent >> buildComponent [
+FUTaskComponent >> buildComponent [
 	| taskObject |
 	taskObject := (NewWaveMagritteContainerCreator dataObject: self task) createEntity.
 	^ taskObject asComponent.
@@ -25,18 +25,18 @@ FUAllUserTasksComponent >> buildComponent [
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> component [
+FUTaskComponent >> component [
 	^ component ifNil: [ 
 		component := self buildComponent ]
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> component: aComponent [
+FUTaskComponent >> component: aComponent [
 	component := aComponent 
 ]
 
 { #category : #initialization }
-FUAllUserTasksComponent >> initialize [
+FUTaskComponent >> initialize [
 	| taksskss |
 	super initialize.
 	"taksskss := self session currentlyLoggedUser tasks."
@@ -49,7 +49,7 @@ FUAllUserTasksComponent >> initialize [
 ]
 
 { #category : #rendering }
-FUAllUserTasksComponent >> renderAcceptButton: html [
+FUTaskComponent >> renderAcceptButton: html [
 	html tbsSubmitButton 
 		tbsPullRight;
 		beSuccess;
@@ -64,7 +64,7 @@ FUAllUserTasksComponent >> renderAcceptButton: html [
 ]
 
 { #category : #rendering }
-FUAllUserTasksComponent >> renderAllTasks: html [
+FUTaskComponent >> renderAllTasks: html [
 	self tasks isNil 
 		ifFalse: [ 
 			self tasks do: [ :t | t isWaiting and: [html render: ( FURowTaskComponent new task: t )] ]
@@ -72,7 +72,7 @@ FUAllUserTasksComponent >> renderAllTasks: html [
 ]
 
 { #category : #rendering }
-FUAllUserTasksComponent >> renderContentOn: html [
+FUTaskComponent >> renderContentOn: html [
 	super renderContentOn: html.
 	html tbsContainer: [
 		html heading: 'Choose task and do it:'.
@@ -96,17 +96,17 @@ FUAllUserTasksComponent >> renderContentOn: html [
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> report [
+FUTaskComponent >> report [
 	^ report
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> report: arg1 [
+FUTaskComponent >> report: arg1 [
 	report := arg1
 ]
 
 { #category : #'as yet unclassified' }
-FUAllUserTasksComponent >> sendResult [
+FUTaskComponent >> sendResult [
 	| newValue json |
 	self component validate 
 		ifFalse: [ ^nil ]."show validation message"
@@ -119,11 +119,11 @@ FUAllUserTasksComponent >> sendResult [
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> task [
+FUTaskComponent >> task [
 	^ task
 ]
 
 { #category : #accessing }
-FUAllUserTasksComponent >> task: anObject [
+FUTaskComponent >> task: anObject [
 	task := anObject
 ]
