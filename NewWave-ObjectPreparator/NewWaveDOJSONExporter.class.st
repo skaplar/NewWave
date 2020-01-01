@@ -1,3 +1,6 @@
+"
+I am a class which simply export one DataObject into JSON.
+"
 Class {
 	#name : #NewWaveDOJSONExporter,
 	#superclass : #Object,

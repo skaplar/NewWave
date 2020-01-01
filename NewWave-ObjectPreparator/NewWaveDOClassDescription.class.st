@@ -1,6 +1,7 @@
 "
 I am a class that should be used for mapping classes.
 I contain class description, and all properties of the class that should be mapped.
+I also contain information abount the process which I belond.
 
     Instance Variables
 	className:		<String>Name of the class to be mapped

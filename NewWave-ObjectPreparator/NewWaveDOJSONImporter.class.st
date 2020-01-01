@@ -1,3 +1,6 @@
+"
+I am a class which simply import one DataObject from JSON.
+"
 Class {
 	#name : #NewWaveDOJSONImporter,
 	#superclass : #Object,

@@ -87,6 +87,41 @@ ExampleExecutions class >> returnSimpleProcess [
 ]
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcess2 [
+	
+	| se t1 adresa1 do ee process|
+
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWCustomTask new.
+	t1 description: 'BA'.
+	t1 name: 'Taskerinoa'.
+
+	adresa1 := Adresa example2.
+
+	do := NWDataObject new.
+	do itemDef structureRef: adresa1. 
+	do valuedDataObject: adresa1.
+	do name: 'Adresa example2'.
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: 'Adresica value'.
+
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '2' name: 'Process 2' initialFlowElement: se.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions class >> returnTwoDataObjects [
 
 | oc t1 adresa1 adresa2 do do2 t2 exp |

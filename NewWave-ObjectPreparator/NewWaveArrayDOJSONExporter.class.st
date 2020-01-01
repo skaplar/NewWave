@@ -1,29 +1,6 @@
 "
-I am a copy of class NewWaveDOJSONExporter. This comment is copied from there, and might not be entirely accurate
+I am a class that is used to export Array of NewWaveDOClassDescription. I am used by the server to export necesserary data to the endpoint. I work with NWTaskWrapper classes. NWTaskWrapper bundles task and process info in one place.
 
-Please comment me using the following template inspired by Class Responsibility Collaborator (CRC) design:
-
-For the Class part:  State a one line summary. For example, ""I represent a paragraph of text"".
-
-For the Responsibility part: Three sentences about my main responsibilities - what I do, what I know.
-
-For the Collaborators Part: State my main collaborators and one line about how I interact with them. 
-
-Public API and Key Messages
-
-- message one   
-- message two 
-- (for bonus points) how to create instances.
-
-   One simple example is simply gorgeous.
- 
-Internal Representation and Key Implementation Points.
-
-    Instance Variables
-	do:		<Object>
-
-
-    Implementation Points
 "
 Class {
 	#name : #NewWaveArrayDOJSONExporter,

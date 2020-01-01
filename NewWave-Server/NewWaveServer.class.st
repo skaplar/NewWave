@@ -131,12 +131,10 @@ NewWaveServer >> port: anObject [
 
 { #category : #initialization }
 NewWaveServer >> readAllTasksForUser: aRequest [
-	| n prvi exp |
+	| n exp |
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].
-	prvi := n first.
-	
 	exp := NewWaveArrayDOJSONExporter tasks: n.
 	^ exp exportDOToJSON.
 	"^ ExampleExecutions returnTwoDataObjects exportDOToJSON"
