@@ -50,16 +50,17 @@ FUTaskComponent >> initialize [
 
 { #category : #rendering }
 FUTaskComponent >> renderAcceptButton: html [
-	html tbsSubmitButton 
-		tbsPullRight;
-		beSuccess;
-		callback: [ self sendResult ];
-		value: 'Finish task'.
-	html tbsSubmitButton
-		tbsPullRight;
-		beSuccess;
-		callback: [ self goBack ];
-		value: 'Cancel'.
+	html space.
+	html tbsContainer: [
+		html tbsSubmitButton 
+			beSuccess;
+			callback: [ self sendResult ];
+			value: 'Finish task'.
+		html tbsSubmitButton
+			beSuccess;
+			callback: [ self goBack ];
+			value: 'Cancel'.
+	].
 	
 ]
 
