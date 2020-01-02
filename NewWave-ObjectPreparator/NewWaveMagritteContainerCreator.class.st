@@ -26,7 +26,7 @@ NewWaveMagritteContainerCreator class >> dataObject: do [
 
 { #category : #initialization }
 NewWaveMagritteContainerCreator >> addMagritteMethods: newClass var: el [
-  | methodTemplate methodSource madesc |
+  | methodTemplate methodSource madesc visible |
 	madesc := self getMADictionary.
   methodTemplate := 'description{1}
   <magritteDescription>
@@ -34,11 +34,14 @@ NewWaveMagritteContainerCreator >> addMagritteMethods: newClass var: el [
 		accessor: #{3};
 		label: ''{4}'';
 		priority: 10;
-		yourself'.   
+		visible: {5};
+		yourself'.
+		visible := (el varName = 'id') ifTrue: [ false ] ifFalse: [ true ]. 
   methodSource := methodTemplate format:  {el varName capitalized}, 
 		{madesc at: el varType}, 
 		{el varName},
-		{el varName}.
+		{el varName},
+		{visible}.
   newClass class compile: methodSource.
 ]
 
