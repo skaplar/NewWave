@@ -103,7 +103,7 @@ FUAllTasksListComponent >> renderButtonDoTask: html	task: task [
 		| tmp |
 		tmp := self call: (FUTaskComponent new task: task).
 		self tasks remove: tmp.
-		];
+	];
 	with: 'Do task'.
 ]
 

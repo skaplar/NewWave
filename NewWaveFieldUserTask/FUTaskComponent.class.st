@@ -64,14 +64,6 @@ FUTaskComponent >> renderAcceptButton: html [
 ]
 
 { #category : #rendering }
-FUTaskComponent >> renderAllTasks: html [
-	self tasks isNil 
-		ifFalse: [ 
-			self tasks do: [ :t | t isWaiting and: [html render: ( FURowTaskComponent new task: t )] ]
-	 ]
-]
-
-{ #category : #rendering }
 FUTaskComponent >> renderContentOn: html [
 	super renderContentOn: html.
 	html tbsContainer: [
