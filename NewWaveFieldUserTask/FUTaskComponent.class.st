@@ -58,7 +58,7 @@ FUTaskComponent >> renderAcceptButton: html [
 			value: 'Finish task'.
 		html tbsSubmitButton
 			beSuccess;
-			callback: [ self goBack ];
+			callback: [ self answer: false ];
 			value: 'Cancel'.
 	].
 	
@@ -108,7 +108,7 @@ FUTaskComponent >> sendResult [
 	json := (NewWaveDOProcessJSONExporter dataObject: newValue processName: task processName processId: task processId processInstanceId: task processInstanceId) exportDOToJSON.
 	FUCommitTaskServer new commitTask: json.
 	"OVO SAM DODAO DA ZAVRSIM CALLBACK"
-	self answer: task.
+	self answer: true.
 ]
 
 { #category : #accessing }
