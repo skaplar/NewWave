@@ -133,7 +133,7 @@ ExampleExecutions class >> returnSimpleProcess3 [
 	t1 description: 'BA'.
 	t1 name: 'Taskerinoa'.
 
-	adresa1 := Adresa example2.
+	adresa1 := Adresa example1.
 
 	do := NWDataObject new.
 	do itemDef structureRef: adresa1. 
