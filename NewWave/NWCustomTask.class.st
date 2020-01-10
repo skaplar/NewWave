@@ -15,7 +15,9 @@ Class {
 	#instVars : [
 		'value',
 		'announcer',
-		'result'
+		'result',
+		'user',
+		'group'
 	],
 	#category : #'NewWave-Core'
 }
@@ -36,6 +38,16 @@ NWCustomTask >> ctype [
 	^ #NWCustomTask
 ]
 
+{ #category : #accessing }
+NWCustomTask >> group [
+	^ group
+]
+
+{ #category : #accessing }
+NWCustomTask >> group: anObject [
+	group := anObject
+]
+
 { #category : #initialization }
 NWCustomTask >> initialize [
 	super initialize.
@@ -51,6 +63,16 @@ NWCustomTask >> result [
 { #category : #initialization }
 NWCustomTask >> result: aResult [
 	result := aResult
+]
+
+{ #category : #accessing }
+NWCustomTask >> user [
+	^ user
+]
+
+{ #category : #accessing }
+NWCustomTask >> user: anObject [
+	user := anObject
 ]
 
 { #category : #initialization }
