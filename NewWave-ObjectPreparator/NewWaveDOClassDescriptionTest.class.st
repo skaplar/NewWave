@@ -1,21 +1,21 @@
 Class {
-	#name : #FUDOClassDescriptionTest,
+	#name : #NewWaveDOClassDescriptionTest,
 	#superclass : #TestCase,
-	#category : #'NewWaveFieldUserTask-Tests'
+	#category : #'NewWave-ObjectPreparator'
 }
 
 { #category : #tests }
-FUDOClassDescriptionTest >> testAddAllToProps [
+NewWaveDOClassDescriptionTest >> testAddAllToProps [
 	| obj coll collItem|
-	obj := FUDOClassDescription new.
+	obj := NewWaveDOClassDescription new.
 	coll := OrderedCollection new.
 	
-	collItem := FUDOPropertyDescription new
+	collItem := NewWaveDOPropertyDescription new
 		varName: 'First Name';
 		varType: 'ByteString';
 		varValue: 'Mike'.
 	coll add: collItem .
-	collItem := FUDOPropertyDescription new
+	collItem := NewWaveDOPropertyDescription new
 		varName: 'Last Name';
 		varType: 'ByteString';
 		varValue: 'Doe'.
@@ -27,9 +27,9 @@ FUDOClassDescriptionTest >> testAddAllToProps [
 ]
 
 { #category : #tests }
-FUDOClassDescriptionTest >> testCreate [
+NewWaveDOClassDescriptionTest >> testCreate [
 	| obj |
-	obj := FUDOClassDescription new.
+	obj := NewWaveDOClassDescription new.
 	obj className: 'Person'.
 	obj properties: OrderedCollection new.
 	self assert: obj className1 equals: 'Person'.

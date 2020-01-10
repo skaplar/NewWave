@@ -26,8 +26,8 @@ FUGetTaskServer >> getTaskTest: aUser [
 	adresica := Adresa new.
 	adresica ulica: 'Radnicka'.
 	adresica broj: 3."<-nepotrebno"
-	json := (FUDOJSONExporter dataObject: adresica) exportDOToJSON."<-nepotrebno"
-	imp := FUDOJSONImporter new importFromJSON: json."<-pretvara json koji je dobio u FUDOClassDescription objekat"
+	json := (NewWaveDOJSONExporter dataObject: adresica) exportDOToJSON."<-nepotrebno"
+	imp := NewWaveDOJSONImporter new importFromJSON: json."<-pretvara json koji je dobio u FUDOClassDescription objekat"
 	"^ imp."
 	aa := (ZnEasy get: 'http://localhost:8081/events') entity string.
 	imp := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: aa).

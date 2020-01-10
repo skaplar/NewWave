@@ -1,13 +1,13 @@
 Class {
-	#name : #FUDOPropertyDescriptionTest,
+	#name : #NewWavePropertyDescriptionTest,
 	#superclass : #TestCase,
-	#category : #'NewWaveFieldUserTask-Tests'
+	#category : #'NewWave-ObjectPreparator'
 }
 
 { #category : #tests }
-FUDOPropertyDescriptionTest >> testAddingProperty [
+NewWavePropertyDescriptionTest >> testAddingProperty [
 	| prop |
-	prop := FUDOPropertyDescription new.
+	prop := NewWaveDOPropertyDescription new.
 	prop varName: 'First Name'.
 	prop varType: 'ByteString'.
 	prop varValue: 'Mike'.

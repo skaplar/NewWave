@@ -60,10 +60,9 @@ FUAllTasksListComponent >> initialize [
 
 { #category : #rendering }
 FUAllTasksListComponent >> renderAllTasks: html [
-	"self tasks ifNotNil: [ 
-			self tasks do: [ :t | html render: ( FURowTaskComponent new task: t ) ]
-	 ]."
 	
+	"This is also here for now, however I intend to refactor it."
+	self tasks: (FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username)).
 	self tasks ifEmpty: [ html heading: 'No more tasks!' ].
 	self tasks 
 		do: [ :task | 
@@ -157,16 +156,6 @@ FUAllTasksListComponent >> report [
 { #category : #accessing }
 FUAllTasksListComponent >> report: arg1 [
 	report := arg1
-]
-
-{ #category : #'as yet unclassified' }
-FUAllTasksListComponent >> sendResult [
-	| newValue json |
-	self component validate 
-		ifFalse: [ ^nil ]."show validation message"
-	newValue := self component save model.
-	json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON.
-	FUCommitTaskServer new commitTask: json.
 ]
 
 { #category : #initialization }
