@@ -134,7 +134,7 @@ NewWaveServer >> readAllTasksForUser: aRequest [
 	| taskDescriptionsList exp |
 	taskDescriptionsList := pendingTasks at: 'default'.
 	taskDescriptionsList ifNil: [ ^ 'Non-existing user' ].
-	taskDescriptionsList ifEmpty: [ ^ 'Empty' ].
+	taskDescriptionsList ifEmpty: [ ^ '[]' ].
 	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
 	^ exp exportDOToJSON.
 ]

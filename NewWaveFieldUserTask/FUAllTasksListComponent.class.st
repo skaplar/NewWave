@@ -30,10 +30,6 @@ Internal Representation and Key Implementation Points.
 Class {
 	#name : #FUAllTasksListComponent,
 	#superclass : #FUScreenComponent,
-	#instVars : [
-		'report',
-		'tasks'
-	],
 	#category : #'NewWaveFieldUserTask-Components'
 }
 
@@ -46,25 +42,21 @@ FUAllTasksListComponent class >> from: aComponent [
 
 { #category : #initialization }
 FUAllTasksListComponent >> initialize [
-|taksskss|
+
 	super initialize.
-	"taksskss := self session currentlyLoggedUser tasks."
-	"taksskss := FUGetTaskServer new getTask: (self session currentlyLoggedUser username)."
 	"taksskss := ExampleExecutions returnTwoDataObjects."
-	taksskss := FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username).
-	taksskss isNil
-		ifFalse: [ 
-			"self report: (FUTaskReport from: (self session currentlyLoggedUser tasks))"
-			self tasks: taksskss  ].
+	"self tasks: (FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username))."
+	
 ]
 
 { #category : #rendering }
 FUAllTasksListComponent >> renderAllTasks: html [
 	
+	| taskers |
 	"This is also here for now, however I intend to refactor it."
-	self tasks: (FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username)).
-	self tasks ifEmpty: [ html heading: 'No more tasks!' ].
-	self tasks 
+	taskers := (FUGetTaskServer new getAllTasks: (self session currentlyLoggedUser username)).
+	taskers ifEmpty: [ html heading: 'No more tasks!' ].
+	taskers 
 		do: [ :task | 
 			html
 				tbsModalBody: [ html
@@ -101,7 +93,8 @@ FUAllTasksListComponent >> renderButtonDoTask: html	task: task [
 	callback: [  
 		| tmp |
 		tmp := self call: (FUTaskComponent new task: task).
-		tmp ifTrue: [ self tasks remove: task. ]
+		"I can return from component true, false or anything I like."
+		"tmp ifTrue: [ self tasks remove: task. ]"
 		
 	];
 	with: 'Do task'.
@@ -146,24 +139,4 @@ FUAllTasksListComponent >> renderContentOn: html [
 		with: [ 
 			self renderAllTasks: html
 		].
-]
-
-{ #category : #accessing }
-FUAllTasksListComponent >> report [
-	^ report
-]
-
-{ #category : #accessing }
-FUAllTasksListComponent >> report: arg1 [
-	report := arg1
-]
-
-{ #category : #initialization }
-FUAllTasksListComponent >> tasks [
-	^ tasks
-]
-
-{ #category : #initialization }
-FUAllTasksListComponent >> tasks: aTasks [
-	tasks := aTasks
 ]
