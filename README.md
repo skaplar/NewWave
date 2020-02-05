@@ -6,40 +6,23 @@ Workflow engine written in Pharo. Still in early development.
 
 In order to run the engine, for the minimal execution you need create Start and End, with the Sequence connecting them.
 ```smalltalk
-start := StartEvent new.
+start := NWStartEvent new.
 start description: 'StartEvent'.
 
-end := EndEvent new.
+end := NWEndEvent new.
 end description: 'End Event ee'.
 
 start addOutgoingEdge: end.
 
-engine := WaveEngine initialNode: start.
-engine startEngine.
-```
-
-Which is just syntactic sugar for:
-
-```smalltalk
-start := StartEvent new.
-start description: 'StartEvent'.
-
-end := EndEvent new.
-end description: 'End Event ee'.
-
-seq1 := Sequence source: start target: end.
-start addOutgoingFlow: seq1.
-end addIncomingFlow: seq1. 
-
+process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
 engine := WaveEngine new.
-we := WaveExecutor initialNode: start.
-engine addExecutor: we.
-engine startEngine.
+engine addProcess: process name: 'process1' .
+engine startProcess: 'process1'.
 ```
 
-WaveExecutor is the executor for the engine, and it needs the node from which will start executing. 
-In the example initialNode is named `start`. We supply the executor to the engine by calling `addExecutor:` and simply 
-run the engine with `engine startEngine.`
+NewWave now supports multiple process execution. ProcessHandler is in charge of processes and it is created when process is sent to the engine (addProcess:). WaveExecutor is the executor for the process, and it needs the node from which will start executing. In the example initialNode is named `start`. One process can have multiple executors, one is main and the others are spawned when required (parallel split for example).
+
+We run the engine with `engine startProcess: 'processname'.`
 
 NewWave also supports execution with Exclusive and Parallel gateways, with different types of tasks.
 
@@ -49,7 +32,7 @@ You can customize the type of task you want to perform by subclassing one of the
 For example we want our task to generate a number between and 1 and 10. It is enough to subclass BaseTask, and to redefine the value method.
 
 ```smalltalk
-BaseTask subclass: #MyTask
+NWBaseTask subclass: #MyTask
 	instanceVariableNames: ''
 	classVariableNames: ''
 	package: 'NewWave-Model'
@@ -63,24 +46,24 @@ MyTask >> value
 Now we want to create an execution using the MyTask and Exclusive gateway.
 
 ```smalltalk
-	se := StartEvent new.
+	se := NWStartEvent new.
 	se description: 'Start '.
 
 	t1 := MyTask new.
 	t1 description: 'Generate random number'.
 
-	t2 := BaseTask new.
+	t2 := NWBaseTask new.
 	t2 description: 'B'.
 	t2 value: 'Super Cool'.
 
-	t3 := BaseTask new.
+	t3 := NWBaseTask new.
 	t3 description: 'C'.
 	t3 value: 'Cool'.
 
-	ee := EndEvent new.
+	ee := NWEndEvent new.
 	ee description: 'End'.
 
-	exclusive := Exclusive new.
+	exclusive := NWExclusive new.
 	exclusive description: 'Exclusive'.
 	
 	se addOutgoingEdge: t1.
@@ -91,8 +74,10 @@ Now we want to create an execution using the MyTask and Exclusive gateway.
 	t2 addOutgoingEdge: ee.
 	t3 addOutgoingEdge: ee.
 	
-	engine := WaveEngine initialNode: se.
-	engine startEngine.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
+	engine := WaveEngine new.
+	engine addProcess: process name: 'process1' .
+	engine startProcess: 'process1'.
 
 ```
 Descriptions are a way to distinguish different elements for printing, debugging, visualizing, etc.
@@ -111,7 +96,7 @@ Cool
 Because this is simple example, this type of task can be replaced with ScriptTask. So in the previous example we replace MyTask with:
 
 ```smalltalk
-t1 := ScriptTask new.
+t1 := NWScriptTask new.
 t1 description: 'Generate random number'.
 t1 script: [ 10 atRandom ].
 ```
@@ -122,24 +107,24 @@ t1 script: [ 10 atRandom ].
 ## Parallel Gateway 
 
 ```smalltalk
-	se := StartEvent new.
+	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := ScriptTask new.
+	t1 := NWScriptTask new.
 	t1 description: 'A'.
 	t1 script: [ 10 timesRepeat: [ 10 milliSeconds wait. 'Task1 executed' logCr. ]].
 
-	t2 := ScriptTask new.
+	t2 := NWScriptTask new.
 	t2 description: 'B'.
 	t2 script: [ 20 timesRepeat: [ 10 milliSeconds wait. 'Task2 executed' logCr. ]].
 
-	ee := EndEvent new.
+	ee := NWEndEvent new.
 	ee description: 'End'.
 
-	parallel := Parallel new.
+	parallel := NWParallel new.
 	parallel description: 'Parallel'.
 	
-	join := ParallelJoin new.
+	join := NWParallelJoin new.
 	join description: 'Main join'.
 	
 	se addOutgoingEdge: parallel.
@@ -151,8 +136,10 @@ t1 script: [ 10 atRandom ].
 	
 	join addOutgoingEdge: ee.
 	
-	engine := WaveEngine initialNode: se.
-	engine startEngine.
+	process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
+	engine := WaveEngine new.
+	engine addProcess: process name: 'process1' .
+	engine startProcess: 'process1'.
 ```
 
 Output will look something like:
