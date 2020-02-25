@@ -46,6 +46,7 @@ Adresa >> descriptionBroj [
 		accessor: #broj;
 		label: 'broj';
 		priority: 10;
+		visible: true;
 		yourself
 ]
 
@@ -56,6 +57,7 @@ Adresa >> descriptionId [
 		accessor: #id;
 		label: 'id';
 		priority: 10;
+		visible: false;
 		yourself
 ]
 
@@ -66,6 +68,7 @@ Adresa >> descriptionUlica [
 		accessor: #ulica;
 		label: 'ulica';
 		priority: 10;
+		visible: true;
 		yourself
 ]
 

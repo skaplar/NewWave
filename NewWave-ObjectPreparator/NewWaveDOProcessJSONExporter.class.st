@@ -18,23 +18,16 @@ Class {
 		'processId',
 		'processInstanceId',
 		'taskName',
-		'taskDescription'
+		'taskDescription',
+		'userName',
+		'groupName',
+		'taskId'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
 
 { #category : #'as yet unclassified' }
-NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId [
-	^ self new
-	do: do;
-	processName: aProcessName;
-	processId: aProcessId;
-	processInstanceId: aProcessInstanceId;
-	yourself
-]
-
-{ #category : #'as yet unclassified' }
-NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId taskName: aTaskName taskDescription: aTaskDescription [
+NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId taskName: aTaskName taskDescription: aTaskDescription userName: aUserName groupName: aGroupName [
 	^ self new
 	do: do;
 	processName: aProcessName;
@@ -42,6 +35,23 @@ NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName p
 	processInstanceId: aProcessInstanceId;
 	taskName: aTaskName;
 	taskDescription: aTaskDescription;
+	userName: aUserName;
+	groupName: aGroupName;
+	yourself
+]
+
+{ #category : #'as yet unclassified' }
+NewWaveDOProcessJSONExporter class >> dataObject: do processName: aProcessName processId: aProcessId processInstanceId: aProcessInstanceId taskName: aTaskName taskDescription: aTaskDescription userName: aUserName groupName: aGroupName taskId: aTaskId [
+	^ self new
+	do: do;
+	processName: aProcessName;
+	processId: aProcessId;
+	processInstanceId: aProcessInstanceId;
+	taskId: aTaskId;
+	taskName: aTaskName;
+	taskDescription: aTaskDescription;
+	userName: aUserName;
+	groupName: aGroupName;
 	yourself
 ]
 
@@ -70,6 +80,9 @@ NewWaveDOProcessJSONExporter >> createClassContainer [
 	container processInstanceId: processInstanceId.
 	container taskName: taskName.
 	container taskDescription: taskDescription.
+	container userName: userName.
+	container groupName: groupName.
+	container taskId: taskId.
 	^ container
 ]
 
@@ -107,6 +120,16 @@ NewWaveDOProcessJSONExporter >> exportDOToJSON [
 				nextPut: self createClassContainer].
 	Transcript show: t.
 	^ t.
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> groupName [
+	^ groupName
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> groupName: anObject [
+	groupName := anObject
 ]
 
 { #category : #initialization }
@@ -156,6 +179,16 @@ NewWaveDOProcessJSONExporter >> taskDescription: anObject [
 ]
 
 { #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskId [
+	^ taskId
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> taskId: anObject [
+	taskId := anObject
+]
+
+{ #category : #accessing }
 NewWaveDOProcessJSONExporter >> taskName [
 	^ taskName
 ]
@@ -163,4 +196,14 @@ NewWaveDOProcessJSONExporter >> taskName [
 { #category : #accessing }
 NewWaveDOProcessJSONExporter >> taskName: anObject [
 	taskName := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> userName [
+	^ userName
+]
+
+{ #category : #accessing }
+NewWaveDOProcessJSONExporter >> userName: anObject [
+	userName := anObject
 ]

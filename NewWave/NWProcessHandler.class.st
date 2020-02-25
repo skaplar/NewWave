@@ -120,10 +120,21 @@ NWProcessHandler >> addSubExecutor: anInitialSequence [
 ]
 
 { #category : #adding }
-NWProcessHandler >> addTaskToServer: task user: anUser [
-		| container |
-		container := ( NewWaveDOProcessJSONExporter dataObject: (task dataOutputAssociations first valuedDataObject) processName: process name processId: process id processInstanceId: process processInstanceId taskName: task name taskDescription: task description) createClassContainer.
-		engine server addTask: container user: anUser.
+NWProcessHandler >> addTaskToServer: task [
+		| container dataObject|
+		dataObject := task dataOutputAssociations first valuedDataObject.
+		container := 
+			(NewWaveDOProcessJSONExporter 
+				dataObject: dataObject 
+				processName: process name 
+				processId: process id 
+				processInstanceId: process processInstanceId
+				taskName: task name 
+				taskDescription: task description
+				userName: task user username
+				groupName: task group groupName
+				taskId: task id ) createClassContainer.
+		engine server addTaskWrapper: container addTask: task.
 		^ container.
 ]
 

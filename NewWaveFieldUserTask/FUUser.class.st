@@ -11,7 +11,8 @@ Class {
 	#instVars : [
 		'username',
 		'password',
-		'tasks'
+		'tasks',
+		'groupName'
 	],
 	#category : #NewWaveFieldUserTask
 }
@@ -21,6 +22,15 @@ FUUser class >> username: aUsername password: aPassword [
 	^ self new 
 		username: aUsername;
 		password: aPassword;
+		yourself
+]
+
+{ #category : #'instance creation' }
+FUUser class >> username: aUsername password: aPassword groupName: aGroupName [
+	^ self new 
+		username: aUsername;
+		password: aPassword;
+		groupName: aGroupName;
 		yourself
 ]
 
@@ -40,6 +50,16 @@ FUUser >> getWaitingTasksSize [
 	waitingTasks := OrderedCollection new.
 	waitingTasks := self tasks select: [ :t | t status = 'waiting' ].
 	^ waitingTasks size
+]
+
+{ #category : #accessing }
+FUUser >> groupName [
+	^ groupName
+]
+
+{ #category : #accessing }
+FUUser >> groupName: anObject [
+	groupName := anObject
 ]
 
 { #category : #initialization }

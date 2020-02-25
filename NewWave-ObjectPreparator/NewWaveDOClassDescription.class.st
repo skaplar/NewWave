@@ -17,7 +17,10 @@ Class {
 		'taskDescription',
 		'processName',
 		'processId',
-		'processInstanceId'
+		'processInstanceId',
+		'userName',
+		'groupName',
+		'taskId'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -27,7 +30,7 @@ NewWaveDOClassDescription class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(className properties taskName taskDescription) ] 
+		mapping mapInstVars: #(className properties taskName taskDescription userName groupName taskId) ] 
 ]
 
 { #category : #accessing }
@@ -43,6 +46,16 @@ NewWaveDOClassDescription >> className1 [
 { #category : #accessing }
 NewWaveDOClassDescription >> className: anObject [
 	className := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> groupName [
+	^ groupName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> groupName: anObject [
+	groupName := anObject
 ]
 
 { #category : #initialization }
@@ -103,6 +116,16 @@ NewWaveDOClassDescription >> taskDescription: anObject [
 ]
 
 { #category : #accessing }
+NewWaveDOClassDescription >> taskId [
+	^ taskId
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskId: anObject [
+	taskId := anObject
+]
+
+{ #category : #accessing }
 NewWaveDOClassDescription >> taskName [
 	^ taskName
 ]
@@ -110,4 +133,14 @@ NewWaveDOClassDescription >> taskName [
 { #category : #accessing }
 NewWaveDOClassDescription >> taskName: anObject [
 	taskName := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> userName [
+	^ userName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> userName: anObject [
+	userName := anObject
 ]

@@ -173,6 +173,50 @@ ExampleExecutions class >> returnSimpleProcess3 [
 ]
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcess4WithGroups [
+"This is same as the first + groups"
+	
+	| se t1 adresa1 do ee process management |
+
+	management := LoadUserManagement 				  						   
+										pathToUsers:'/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/users.json'
+										pathToGroups: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/groups.json'
+										pathToMemberships: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/membership.json'.
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWCustomTask new.
+	t1 id: '123456'.
+	t1 description: 'B'.
+	t1 name: 'Taskerino'.
+	t1 group: (management findGroup: '1').
+	"t1 user: (management findUser: '1')."
+
+	adresa1 := Adresa example1.
+
+	do := NWDataObject new.
+	do itemDef structureRef: adresa1. 
+	do valuedDataObject: adresa1.
+	do name: 'Adresa example'.
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: 'Adresica value'.
+
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions class >> returnTwoDataObjects [
 
 | oc t1 adresa1 adresa2 do do2 t2 exp |

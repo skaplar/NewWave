@@ -6,7 +6,9 @@ Class {
 		'teapot',
 		'engine',
 		'element',
-		'pendingTasks'
+		'pendingTasks',
+		'pendingTasksCollection',
+		'originalTasksCollection'
 	],
 	#category : #'NewWave-Server'
 }
@@ -77,6 +79,40 @@ NewWaveServer >> addTask: aTask user: aUser [
 			tasks add: aTask.
 		]
 		ifAbsentPut: [ OrderedCollection with: aTask ].
+	pendingTasksCollection add: aTask.
+]
+
+{ #category : #routes }
+NewWaveServer >> addTaskWrapper: aTaskWrapper addTask: anOriginalTask [
+	"aTaskWrapper is a NewWaveDOClassDescription, which is used to be send to the server
+	anOriginal task is a task entity in the system.
+	I have a list of original tasks so I can update them"
+	pendingTasksCollection add: aTaskWrapper.
+	originalTasksCollection add: anOriginalTask.
+]
+
+{ #category : #routes }
+NewWaveServer >> assignTask: aRequest [
+	| tmp taskDescriptionsList |
+	aRequest traceCr.
+	taskDescriptionsList := pendingTasksCollection
+		detect: [ :each | 
+			| gName pId tId |
+			gName := aRequest at: #groupName.
+			pId := aRequest at: #processId.
+			tId := aRequest at: #taskId.
+			each groupName = gName & (each processId = pId)
+				& (each taskId = tId) ].
+	taskDescriptionsList userName: (aRequest at: #userName).
+	tmp := originalTasksCollection detect: [ :each | each id = (aRequest at: #taskId)].
+	tmp user: (engine loadUserManagement findUserByName: (aRequest at: #userName)).
+
+	"tmp := NewWaveDOJSONImporter new
+		importFromJSON: aRequest entity string.
+	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
+	pHandler := engine processHandler: (tmp processInstanceId). 
+	pHandler engineAnnouncer announce: (WaveAnnouncer with: entity)."
+	^ 'Adding of entity executed'.
 ]
 
 { #category : #accessing }
@@ -103,6 +139,8 @@ NewWaveServer >> engine: waveEngine [
 NewWaveServer >> initialize [ 
 	super initialize.
 	pendingTasks := Dictionary new.
+	pendingTasksCollection := OrderedCollection new.
+	originalTasksCollection := OrderedCollection new.
 ]
 
 { #category : #initialization }
@@ -119,9 +157,19 @@ NewWaveServer >> initializePort: anInteger [
 		yourself.
 ]
 
+{ #category : #accessing }
+NewWaveServer >> originalTasksCollection [
+	^ originalTasksCollection
+]
+
 { #category : #initialization }
 NewWaveServer >> pendingTasks [
 	^ pendingTasks
+]
+
+{ #category : #initialization }
+NewWaveServer >> pendingTasksCollection [
+	^ pendingTasksCollection
 ]
 
 { #category : #accessing }
@@ -130,10 +178,30 @@ NewWaveServer >> port: anObject [
 ]
 
 { #category : #initialization }
-NewWaveServer >> readAllTasksForUser: aRequest [
+NewWaveServer >> readAllTasksForGroup: aRequest [
 	| taskDescriptionsList exp |
+	taskDescriptionsList := pendingTasksCollection select: [ :each | each groupName = (aRequest at: #groupname) ].
+	taskDescriptionsList ifEmpty: [ ^ '[]' ].
+	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
+	^ exp exportDOToJSON.
+]
+
+{ #category : #initialization }
+NewWaveServer >> readAllTasksForUser: aRequest [
+	"Deprecated and not used, here for legacy reasons."
+	| taskDescriptionsList exp |
+		"taskDescriptionsList := pendingTasks at: (aRequest at: #username) ifAbsent: [ ^'[]' ]."
 	taskDescriptionsList := pendingTasks at: 'default'.
 	taskDescriptionsList ifNil: [ ^ 'Non-existing user' ].
+	taskDescriptionsList ifEmpty: [ ^ '[]' ].
+	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
+	^ exp exportDOToJSON.
+]
+
+{ #category : #initialization }
+NewWaveServer >> readAllTasksForUserName: aRequest [
+	| taskDescriptionsList exp |
+	taskDescriptionsList := pendingTasksCollection select: [ :each | each userName = (aRequest at: #username) ].
 	taskDescriptionsList ifEmpty: [ ^ '[]' ].
 	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
 	^ exp exportDOToJSON.
@@ -168,15 +236,21 @@ NewWaveServer >> registerRoutes [
 		GET: '/events' -> (Send message: #readEvents: to: self); output: #json;
 		GET: '/eventzz' -> (Send message: #addEvent: to: self); output: #json;
 		POST: '/addNewEntity' -> (Send message: #addNewEntity: to: self);
-		GET: '/alltasks' -> (Send message: #readAllTasksForUser: to: self); output: #json.
+		GET: '/alltasks' -> (Send message: #readAllTasksForUser: to: self); output: #json;
+		GET: '/alltasks/<username>' -> (Send message: #readAllTasksForUserName: to: self); output: #json;
+		GET: '/alltasksgroup/<groupname>' -> (Send message: #readAllTasksForGroup: to: self); output: #json;
+		POST: '/assignTask' -> (Send message: #assignTask: to: self).
 		
 ]
 
 { #category : #routes }
 NewWaveServer >> removeTask: aTask user: aUser [
 	| tasks |
+	pendingTasksCollection remove: aTask.
 	tasks := pendingTasks at: aUser ifAbsent: [ ^ '{"result": "Empty"}'].
 	tasks remove: aTask.
+	
+	
 ]
 
 { #category : #controlling }

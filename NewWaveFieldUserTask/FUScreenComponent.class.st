@@ -27,6 +27,6 @@ FUScreenComponent >> initialize [
 
 { #category : #rendering }
 FUScreenComponent >> renderContentOn: html [
-	html render: header
+	html render: header.
 
 ]
