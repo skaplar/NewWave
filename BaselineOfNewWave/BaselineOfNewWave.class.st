@@ -66,7 +66,7 @@ BaselineOfNewWave >> magritte: spec [
 			spec 
 				loads: #( Seaside );
 				repository: 'github://magritte-metamodel/magritte:v3.6';
-				onConflictUseIncoming  ]
+				onConflict: [ :ex | ex useIncoming ]  ]
 
 ]
 
