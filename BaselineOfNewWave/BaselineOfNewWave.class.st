@@ -31,7 +31,7 @@ BaselineOfNewWave >> baseline: spec [
 				with: [ spec requires: #(NewWave) ].
 			spec 
 				package: 'NewWaveFieldUserTask' 
-				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
+				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap4 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
 				with: [ spec requires: #(NewWave Roassal3) ].
@@ -52,7 +52,7 @@ BaselineOfNewWave >> baseline: spec [
 { #category : #accessing }
 BaselineOfNewWave >> bootstrap: spec [
 	spec 
-		baseline: 'Bootstrap'
+		baseline: 'Bootstrap4'
 		with: [ 
 			"spec repository: 'github://astares/Seaside-Bootstrap:master/src'"
 			spec repository: 'github://astares/Seaside-Bootstrap4:master/src' 
