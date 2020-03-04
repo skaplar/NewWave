@@ -54,7 +54,8 @@ BaselineOfNewWave >> bootstrap: spec [
 	spec 
 		baseline: 'Bootstrap'
 		with: [ 
-			spec repository: 'github://astares/Seaside-Bootstrap:master/src' 
+			"spec repository: 'github://astares/Seaside-Bootstrap:master/src'"
+			spec repository: 'github://astares/Seaside-Bootstrap4:master/src' 
 		 ]
 ]
 
@@ -116,6 +117,7 @@ BaselineOfNewWave >> seaside: spec [
 	spec 
 		baseline: 'Seaside3'
 		with: [ 
+			"spec repository: 'github://SeasideSt/Seaside:master/repository'"
 			spec repository: 'github://SeasideSt/Seaside:v3.3.3/repository'
 		 ]
 ]
