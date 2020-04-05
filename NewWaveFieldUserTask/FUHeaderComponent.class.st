@@ -52,19 +52,13 @@ FUHeaderComponent >> renderContentOn: html [
 				smallSize: 5;
 				mediumSize: 5;
 			with: [self renderBrandOn: html].
-			html tbsColumn tbsDropdown: [ 
-				html tbsDropdownAnchor with: [html text: 'Tasks '; tbsCaret].
-				html tbsDropdownMenu: [ 		 
-					html tbsDropdownMenuItem: [ html anchor callback: [ component call: (FUAllTasksListComponent new) ]; with: 'User tasks.'  ].
-					html tbsDropdownMenuItem: [ html anchor callback: [ component call: (FUAllTasksByGroupListComponent new) ]; with: 'Group tasks.'  ].
-				].
-			].
 			html tbsColumn
 				extraSmallSize: 5;
 				smallSize: 5;
 				mediumSize: 5;
-			with: [self renderSignUp: html]
-		]
+			with: [self renderSignUp: html].
+		].
+		self renderTasks: html.
 	]
 ]
 
@@ -85,4 +79,20 @@ FUHeaderComponent >> renderSignUp: html [
 			callback: [self goToSignUpView] ;
 			with: ' SignUp'  ]
 		]
+]
+
+{ #category : #rendering }
+FUHeaderComponent >> renderTasks: html [ 
+
+	html tbsContainer: [ 	
+		self session currentlyLoggedUser isNotNil ifTrue: [ 
+			html tbsColumn tbsDropdown: [ 
+				html tbsDropdownAnchor with: [html text: 'Tasks '; tbsCaret].
+				html tbsDropdownMenu: [ 		 
+					html tbsDropdownMenuItem: [ html anchor callback: [ component call: (FUAllTasksListComponent new) ]; with: 'User tasks.'  ].
+					html tbsDropdownMenuItem: [ html anchor callback: [ component call: (FUAllTasksByGroupListComponent new) ]; with: 'Group tasks.'  ].
+				].
+			].
+		].
+	].
 ]

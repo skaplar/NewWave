@@ -20,7 +20,9 @@ Class {
 		'processInstanceId',
 		'userName',
 		'groupName',
-		'taskId'
+		'taskId',
+		'complexProperties',
+		'magritteDescriptions'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -30,7 +32,17 @@ NewWaveDOClassDescription class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(className properties taskName taskDescription userName groupName taskId) ] 
+		mapping mapInstVars: #(className properties taskName taskDescription userName groupName taskId complexProperties magritteDescriptions) ].
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> addAllToComplexProps: aColl [
+	complexProperties addAll: aColl
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> addAllToMagritteDescriptions: aColl [
+	magritteDescriptions addAll: aColl
 ]
 
 { #category : #accessing }
@@ -49,6 +61,16 @@ NewWaveDOClassDescription >> className: anObject [
 ]
 
 { #category : #accessing }
+NewWaveDOClassDescription >> complexProperties [
+	^ complexProperties
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> complexProperties: anObject [
+	complexProperties := anObject
+]
+
+{ #category : #accessing }
 NewWaveDOClassDescription >> groupName [
 	^ groupName
 ]
@@ -63,6 +85,18 @@ NewWaveDOClassDescription >> initialize [
 	
 	super initialize.
 	properties := OrderedCollection new.
+	complexProperties := OrderedCollection new.
+	magritteDescriptions := OrderedCollection new.
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> magritteDescriptions [
+	^ magritteDescriptions
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> magritteDescriptions: anObject [
+	magritteDescriptions := anObject
 ]
 
 { #category : #accessing }

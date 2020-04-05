@@ -25,6 +25,7 @@ t := 	(NeoJSONReader on: json readStream)
 			mapping listOfElementSchema: NewWaveDOPropertyDescription  ];
 		for: NewWaveDOClassDescription do: [ :mapping | 
 			(mapping mapInstVar: #properties) valueSchema: #ArrayOfNewWaveDOPropertyDescription.
+			(mapping mapInstVar: #complexProperties) valueSchema: #ArrayOfNewWaveDOClassDescription.
 		];
 		nextAs: #ArrayOfNewWaveDOClassDescription.
 ^ t.

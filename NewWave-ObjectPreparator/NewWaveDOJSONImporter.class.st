@@ -15,12 +15,17 @@ NewWaveDOJSONImporter >> importFromJSON: json [
 
 | t |
 t := 	(NeoJSONReader on: json readStream) 
-		mapAllInstVarsFor: NewWaveDOPropertyDescription ;
+		mapAllInstVarsFor: NewWaveDOPropertyDescription;
 		mapAllInstVarsFor: NewWaveDOClassDescription;
 		for: #ArrayOfNewWaveDOPropertyDescription customDo: [ :mapping |
-			mapping listOfElementSchema: NewWaveDOPropertyDescription  ];
+			mapping listOfElementSchema: NewWaveDOPropertyDescription.			
+		];
+		for: #ArrayOfNewWaveDOClassDescription customDo: [  :mapping |
+			mapping listOfElementSchema: NewWaveDOClassDescription  
+			];
 		for: NewWaveDOClassDescription do: [ :mapping | 
 			(mapping mapInstVar: #properties) valueSchema: #ArrayOfNewWaveDOPropertyDescription.
+			(mapping mapInstVar: #complexProperties) valueSchema: #ArrayOfNewWaveDOClassDescription.
 		];
 		nextAs: NewWaveDOClassDescription.
 ^ t.

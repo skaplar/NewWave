@@ -100,12 +100,12 @@ FUTaskComponent >> report: arg1 [
 
 { #category : #'as yet unclassified' }
 FUTaskComponent >> sendResult [
-	| newValue json |
+	| newValue json nWClassDecsription |
 	self component validate 
 		ifFalse: [ ^nil ]."show validation message"
 	newValue := self component save model.
 	"json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON."
-	json := (NewWaveDOProcessJSONExporter 
+	"json := (NewWaveDOProcessJSONExporter 
 		dataObject: newValue 
 		processName: task processName 
 		processId: task processId 
@@ -114,8 +114,17 @@ FUTaskComponent >> sendResult [
 		taskDescription: task taskDescription
 		userName: task userName 
 		groupName: task groupName
-		taskId: task taskId) exportDOToJSON.
-	FUCommitTaskServer new commitTask: json.
+		taskId: task taskId) exportDOToJSON."
+	nWClassDecsription := (NWClassDescriptionGenerator dataObject: newValue) createClassDescription.
+	nWClassDecsription processName: task processName.
+	nWClassDecsription processId: task processId.
+	nWClassDecsription processInstanceId: task processInstanceId.
+	nWClassDecsription taskName: task taskName.
+	nWClassDecsription taskDescription: task taskDescription.
+	nWClassDecsription userName: task userName.
+	nWClassDecsription groupName: task groupName.
+	nWClassDecsription taskId: task taskId.
+	FUCommitTaskServer new commitTask: (NWClassJSONExporter new exportOneNWClassDescriptionToJSON: nWClassDecsription).
 	"OVO SAM DODAO DA ZAVRSIM CALLBACK"
 	self answer: true.
 ]

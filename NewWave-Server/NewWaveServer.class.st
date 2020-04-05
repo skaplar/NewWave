@@ -38,8 +38,8 @@ NewWaveServer >> addEvent: aRequest [
 { #category : #routes }
 NewWaveServer >> addNewEntity: aRequest [
 	| tmp entity pHandler |
-	tmp := NewWaveDOJSONImporter new
-		importFromJSON: aRequest entity string.
+	tmp := NWClassJSONImporter new
+		importObjectFromJSON: aRequest entity string.
 	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
 	pHandler := engine processHandler: (tmp processInstanceId). 
 	pHandler engineAnnouncer announce: (WaveAnnouncer with: entity).
@@ -93,6 +93,10 @@ NewWaveServer >> addTaskWrapper: aTaskWrapper addTask: anOriginalTask [
 
 { #category : #routes }
 NewWaveServer >> assignTask: aRequest [
+	"Assigning a task to the user, with the request from the server. 
+	IE. When the group on the task in the process is the only thing that is defined,
+	user which belongs to the group can assign itself to the task using web application."
+	
 	| tmp taskDescriptionsList |
 	aRequest traceCr.
 	taskDescriptionsList := pendingTasksCollection
@@ -105,7 +109,13 @@ NewWaveServer >> assignTask: aRequest [
 				& (each taskId = tId) ].
 	taskDescriptionsList userName: (aRequest at: #userName).
 	tmp := originalTasksCollection detect: [ :each | each id = (aRequest at: #taskId)].
-	tmp user: (engine loadUserManagement findUserByName: (aRequest at: #userName)).
+
+	"userManagement := engine findManagementByProcessId: (aRequest at: #processId). 
+	tmp user: (userManagement findUserByName: (aRequest at: #userName)).
+	This is an idea when I start working on support for multiple groups and managements."
+	
+	
+	tmp user: (engine userManagement findUserByName: (aRequest at: #userName)).
 
 	"tmp := NewWaveDOJSONImporter new
 		importFromJSON: aRequest entity string.
@@ -182,14 +192,16 @@ NewWaveServer >> readAllTasksForGroup: aRequest [
 	| taskDescriptionsList exp |
 	taskDescriptionsList := pendingTasksCollection select: [ :each | each groupName = (aRequest at: #groupname) ].
 	taskDescriptionsList ifEmpty: [ ^ '[]' ].
-	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
-	^ exp exportDOToJSON.
+	"exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList."
+	exp := NWClassJSONExporter withClassDescriptions: taskDescriptionsList.
+	^ exp exportNWClassDescriptionToJSON.
 ]
 
 { #category : #initialization }
 NewWaveServer >> readAllTasksForUser: aRequest [
-	"Deprecated and not used, here for legacy reasons."
 	| taskDescriptionsList exp |
+	self deprecated: 'Deprecated and not used, here for legacy reasons.'.
+
 		"taskDescriptionsList := pendingTasks at: (aRequest at: #username) ifAbsent: [ ^'[]' ]."
 	taskDescriptionsList := pendingTasks at: 'default'.
 	taskDescriptionsList ifNil: [ ^ 'Non-existing user' ].
@@ -203,13 +215,16 @@ NewWaveServer >> readAllTasksForUserName: aRequest [
 	| taskDescriptionsList exp |
 	taskDescriptionsList := pendingTasksCollection select: [ :each | each userName = (aRequest at: #username) ].
 	taskDescriptionsList ifEmpty: [ ^ '[]' ].
-	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
-	^ exp exportDOToJSON.
+	"exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList."
+	exp := NWClassJSONExporter withClassDescriptions: taskDescriptionsList.
+	^ exp exportNWClassDescriptionToJSON.
 ]
 
 { #category : #initialization }
 NewWaveServer >> readEvents: aRequest [
 	| n prvi exp |
+	
+	self deprecated: 'We use users and groups now'.
 	n := pendingTasks at: 'default'.
 	n ifNil: [ ^ 'Non-existing user' ].
 	n ifEmpty: [ ^ 'Empty' ].

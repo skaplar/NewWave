@@ -14,6 +14,15 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnAcmeManagement [
+
+	^ NWUserManagement 				  						   
+		pathToUsers:'/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/users.json'
+		pathToGroups: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/groups.json'
+		pathToMemberships: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/membership.json'.
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions class >> returnExampleProcess1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
 	| se ee t1 t2 t3 split1 process |
@@ -177,8 +186,50 @@ ExampleExecutions class >> returnSimpleProcess4WithGroups [
 "This is same as the first + groups"
 	
 	| se t1 adresa1 do ee process management |
+										
+	management := ExampleExecutions returnAcmeManagement.						
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
 
-	management := LoadUserManagement 				  						   
+	t1 := NWCustomTask new.
+	t1 id: '123456'.
+	t1 description: 'B'.
+	t1 name: 'Taskerino'.
+	t1 group: (management findGroup: '1').
+	"t1 user: (management findUser: '1')."
+
+	adresa1 := Adresa example3.
+
+	do := NWDataObject new.
+	do itemDef structureRef: adresa1. 
+	do valuedDataObject: adresa1.
+	do name: 'Adresa example'.
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: 'Adresica value'.
+
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process managementName: 'acme'.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcess5WithGroupsAndSplits [
+"This is same as the first + groups"
+	
+	| se t1 adresa1 do ee process management |
+
+	management := NWUserManagement 				  						   
 										pathToUsers:'/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/users.json'
 										pathToGroups: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/groups.json'
 										pathToMemberships: '/Users/sebastijan.kaplar/Desktop/NewWave-UserManagement/membership.json'.
@@ -251,7 +302,8 @@ t2 addDataOutputAssociation: do2.
 oc add: t1.
 oc add: t2.
 
-exp := NewWaveArrayDOJSONExporter tasks: oc.
+exp := NewWaveArrayDOJSONExporter nwClassDescriptions: oc.
+
 ^ (NewWaveArrayDOJSONImporter new importFromJSON: exp exportDOToJSON) asOrderedCollection.
 ]
 

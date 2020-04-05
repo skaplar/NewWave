@@ -103,7 +103,7 @@ NewWaveDOProcessJSONExporter >> eximplify [
 		desc := NewWaveDOPropertyDescription new.
 		desc varName: each.
 		desc varValue: (do instVarNamed: each).
-		desc varType: (do instVarNamed: each) class asString.  
+		desc varType: (do instVarNamed: each) class asString. 
 		desc
 	].
 ]

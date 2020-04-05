@@ -78,6 +78,23 @@ WaveEngine >> engineAnnouncer: anAnnouncer [
 	engineAnnouncer := anAnnouncer 
 ]
 
+{ #category : #adding }
+WaveEngine >> findManagementByProcessId: aProcessId [
+	"In order to find the management, first we find the appropriate management name, then we use the user management to find the user management class."
+	| managmentName |
+	self deprecated: 'should not be used until multiple groups are ready'.
+	
+	managmentName := self findManagementNameByProcessId: aProcessId.
+	self userManagement findUserManagementByName: managmentName.
+]
+
+{ #category : #adding }
+WaveEngine >> findManagementNameByProcessId: aProcessId [
+	"When sending a request from the server we get the processId, and we use it to find the appropriate process handler, and it's managementName"
+	self deprecated: 'should not be used until multiple groups are ready'.
+	processHandlers values detect: [ :each | (each process id) = aProcessId ] ifFound: [ :processHandler | ^ processHandler process managementName ] 
+]
+
 { #category : #accessing }
 WaveEngine >> initialize [
 	super initialize.
