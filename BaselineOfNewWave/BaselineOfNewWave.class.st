@@ -64,7 +64,7 @@ BaselineOfNewWave >> magritte: spec [
 		baseline: 'Magritte'
 		with: [ 
 			spec 
-				"loads: #( Seaside );"
+				loads: #( Seaside );
 				repository: 'github://magritte-metamodel/magritte:v3.6' ]
 
 ]
