@@ -23,7 +23,8 @@ NWClassDescriptionGenerator class >> dataObject: anObject [
 
 { #category : #initialization }
 NWClassDescriptionGenerator >> addDescriptions: container [
-	" Here all the magritteDescription pragmas are collected, which can be used on the server to be recompiled."
+	"Here all the magritteDescription pragmas are collected, which can be used on the server to be recompiled.
+	Magritte descriptions which already exist on the object instance (manually written)."
 	
 	| descriptionPragmas |
 	descriptionPragmas := Pragma
@@ -70,10 +71,13 @@ NWClassDescriptionGenerator >> createClassDescription [
 
 { #category : #initialization }
 NWClassDescriptionGenerator >> dodajUContainer: container [
+	"NWClassDescription can have simple and complex properties. Complex properties are again NWClassDescriptions.
+	If the property has possibleDateType then it's simple, it's complex otherwise."
+	
 	^ self collectInstVars collect: [ :each | 
 		| desc postojiMoguciTip |	
 		postojiMoguciTip := self possibleDataTypes hasLiteral: ((anObject instVarNamed: each) class asString).
-		postojiMoguciTip ifFalse:[
+		postojiMoguciTip ifFalse: [
 			| obj |
 			obj := anObject instVarNamed: each.
 			desc := NewWaveDOClassDescription new.
@@ -88,14 +92,14 @@ NWClassDescriptionGenerator >> dodajUContainer: container [
 					tmp  				
 				]).
 			container complexProperties add: desc.
-			]
-		ifTrue:[
+		] 
+	   ifTrue: [
 			desc := NewWaveDOPropertyDescription new.
 			desc varName: each.
 			desc varValue: (anObject instVarNamed: each).
 			desc varType: (anObject instVarNamed: each) class asString.  
 			container properties add: desc.
-			]		
+		]		
 	].
 ]
 
@@ -106,6 +110,6 @@ NWClassDescriptionGenerator >> initialize [
 
 { #category : #accessing }
 NWClassDescriptionGenerator >> possibleDataTypes [
-	^ { 'ByteString'. 'SmallInteger'. 'Date'. 'Boolean'. 'Array' } asArray
+	^ { 'ByteString'. 'SmallInteger'. 'Date'. 'Boolean'. 'Array'. 'False'. 'True' } asArray
 	"^ OrderedCollection with: 'ByteString' with: 'SmallInteger' with: 'Date.' "
 ]

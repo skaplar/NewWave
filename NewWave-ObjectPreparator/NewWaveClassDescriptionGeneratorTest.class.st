@@ -8,7 +8,7 @@ Class {
 NewWaveClassDescriptionGeneratorTest >> testCollectInsVars [
 	| nwClassDescriptionGenerator |
 	nwClassDescriptionGenerator := NWClassDescriptionGenerator dataObject: Adresa example3.
-	self assert: nwClassDescriptionGenerator collectInstVars size equals: 4.
+	self assert: nwClassDescriptionGenerator collectInstVars size equals: 5.
 	
 	
 ]

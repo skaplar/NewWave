@@ -18,10 +18,17 @@ NWCustomTaskEventBehavior >> performExecution: elemToExecute executor: waveExecu
 	waveExecutor processHandler engineAnnouncer
 		when: WaveAnnouncer
 		do: [ :a |
+			
 			a parameter traceCr.
 			waveExecutor taskResult: a parameter.
-			waveExecutor processHandler addDataObjectFromServer: a parameter.
-			waveExecutor processHandler engine server removeTask: taskWrapper user: (elemToExecute user username).
-			waveExecutor tryToExecuteNext: elemToExecute ].
+			"waveExecutor processHandler addDataObjectFromServer: a parameter."
+			
+			elemToExecute dataOutputAssociations first valuedDataObject: a parameter.
+			waveExecutor processHandler engine server removeTask: taskWrapper.
+			
+			"Ovo bih trebao mnogo bolje da vidim kako da resim, odnosno da prebacim announcer na process handler da znam tacno koji ce mi reagovati kad se pozove."
+			waveExecutor processHandler engineAnnouncer unsubscribe: self.
+			waveExecutor tryToExecuteNext: elemToExecute 
+		].
 	elemToExecute value
 ]

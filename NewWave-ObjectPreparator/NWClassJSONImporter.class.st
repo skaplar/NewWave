@@ -38,14 +38,19 @@ NWClassJSONImporter >> importObjectFromJSON: json [
 	t := (NeoJSONReader on: json readStream)
 		mapAllInstVarsFor: NewWaveDOPropertyDescription;
 		mapAllInstVarsFor: NewWaveDOClassDescription;
+		mapAllInstVarsFor: NWMagritteDescriptionWrapper;
 		for: #ArrayOfNewWaveDOPropertyDescription
 			customDo: [ :mapping | mapping listOfElementSchema: NewWaveDOPropertyDescription ];
 		for: #ArrayOfNewWaveDOClassDescription
-			customDo: [ :mapping | mapping listOfElementSchema: NewWaveDOClassDescription ];		
+			customDo: [ :mapping | mapping listOfElementSchema: NewWaveDOClassDescription ];
+		for: #ArrayOfNWMagritteDescriptionWrappers
+			customDo:
+				[ :mapping | mapping listOfElementSchema: NWMagritteDescriptionWrapper ];		
 		for: NewWaveDOClassDescription
 			do: [ :mapping |
 				(mapping mapInstVar: #properties) valueSchema: #ArrayOfNewWaveDOPropertyDescription.
-				(mapping mapInstVar: #complexProperties) valueSchema: #ArrayOfNewWaveDOClassDescription. ];
+				(mapping mapInstVar: #complexProperties) valueSchema: #ArrayOfNewWaveDOClassDescription.
+				(mapping mapInstVar: #magritteDescriptions) valueSchema: #ArrayOfNWMagritteDescriptionWrappers. ];
 		nextAs: NewWaveDOClassDescription.
 	^ t
 ]

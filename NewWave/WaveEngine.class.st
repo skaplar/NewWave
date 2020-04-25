@@ -101,8 +101,8 @@ WaveEngine >> initialize [
 	self engineAnnouncer: Announcer new.
 	pluginData := Dictionary new.
 	processHandlers := Dictionary new.
-	"scheduler := TaskScheduler new."
-	"scheduler start."
+	"scheduler := TaskScheduler new.
+	scheduler start."
 ]
 
 { #category : #finalization }

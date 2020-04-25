@@ -40,9 +40,10 @@ NewWaveServer >> addNewEntity: aRequest [
 	| tmp entity pHandler |
 	tmp := NWClassJSONImporter new
 		importObjectFromJSON: aRequest entity string.
-	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
-	pHandler := engine processHandler: (tmp processInstanceId). 
-	pHandler engineAnnouncer announce: (WaveAnnouncer with: entity).
+	"entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity."
+	pHandler := engine processHandler: (tmp processInstanceId).
+	"Ranije sam prosledjivao entity, medjutim ne zelim da mi se kompajlira jos jednom objekat tako da ga vracam ovde kao NWClassDescription" 
+	pHandler engineAnnouncer announce: (WaveAnnouncer with: tmp).
 	"engine engineAnnouncer announce: (WaveAnnouncer with: tmp)"
 	^ 'Adding of entity executed'
 ]
@@ -55,7 +56,7 @@ NewWaveServer >> addNewEntityMultipleDataObjects: aRequest [
 	"tmp := NeoJSONWriter toString: aRequest entity fields."
 	"tmp := NewWaveDOJSONImporter new importFromJSON: (NeoJSONReader fromString: aRequest entity string)."
 	"Ovo je bilo kad sam pokusavao parcijalno da zavrsim zadatke... Odnosno kad sam citao dataObjekte sa servera, jedan po jedan, sada ce da ide promena da se salju svi dataobjekti odjednom..."
-	tmp := NewWaveDOJSONImporter new
+	tmp := NWClassJSONImporter new
 		importFromJSON: aRequest entity string.
 	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
 	pendingTasks
@@ -206,7 +207,7 @@ NewWaveServer >> readAllTasksForUser: aRequest [
 	taskDescriptionsList := pendingTasks at: 'default'.
 	taskDescriptionsList ifNil: [ ^ 'Non-existing user' ].
 	taskDescriptionsList ifEmpty: [ ^ '[]' ].
-	exp := NewWaveArrayDOJSONExporter nwClassDescriptions: taskDescriptionsList.
+	exp := NWClassJSONExporter withClassDescriptions: taskDescriptionsList.
 	^ exp exportDOToJSON.
 ]
 
@@ -259,11 +260,8 @@ NewWaveServer >> registerRoutes [
 ]
 
 { #category : #routes }
-NewWaveServer >> removeTask: aTask user: aUser [
-	| tasks |
+NewWaveServer >> removeTask: aTask [
 	pendingTasksCollection remove: aTask.
-	tasks := pendingTasks at: aUser ifAbsent: [ ^ '{"result": "Empty"}'].
-	tasks remove: aTask.
 	
 	
 ]

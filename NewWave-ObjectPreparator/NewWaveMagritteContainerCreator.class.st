@@ -186,7 +186,9 @@ NewWaveMagritteContainerCreator >> getMADictionary [
 	dict at: 'ByteString' put: 'MAStringDescription'.
 	dict at: 'SmallInteger' put: 'MANumberDescription'.
 	dict at: 'Date' put: 'MADateDescription'.
-	dict at: 'Boolean' put: 'MABooleanDescription'.	
+	dict at: 'Boolean' put: 'MABooleanDescription'.
+	dict at: 'False' put: 'MABooleanDescription'.	
+	dict at: 'True' put: 'MABooleanDescription'.	
 	^dict
 ]
 

@@ -23,6 +23,57 @@ ExampleExecutions class >> returnAcmeManagement [
 ]
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnBoundaryEventProcess [
+"This example uses two parallel gateways, where both paths are taken, and uses two joines. "
+	| se ee t1 t2 t3 we split1 engine be te process |
+TKTDebugger disable.
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
+
+	t1 := DialogTask new.
+	t1 description: 'A'.
+	
+	be := NWBoundaryEvent new.
+	be description: 'Boundzzzz'.
+	be cancelActivity: true.
+	
+	te := NWTimerTempDefinition new.
+	te timeDate: (DateAndTime now + 10 seconds).
+	te repeat: false.
+	te every: Duration zero.
+	be addEventDefinition: te.
+
+	t2 := NWBaseTask new.
+	t2 description: 'B'.
+	t2 value: 200.
+
+	t3 := NWBaseTask new.
+	t3 description: 'C'.
+	t3 value: 300.
+
+	ee := NWEndEvent new.
+	ee description: #NWEndEvent.
+
+	split1 := NWExclusive new.
+	split1 description: 'Split1'.
+
+   se addOutgoingEdge: t1.
+   t1 addOutgoingEdge: split1.
+
+	be addOutgoingEdge: ee.
+	t1 addBoundaryEvent: be.
+
+   split1 addOutgoingEdge: t2 withCondition: [:x | x = true].
+   split1 addOutgoingEdge: t3 withCondition: [:x | x = false].
+	
+	t2 addOutgoingEdge: ee.
+	t3 addOutgoingEdge: ee.
+
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	^ process managementName: 'acme'.
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions class >> returnExampleProcess1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
 	| se ee t1 t2 t3 split1 process |
@@ -58,6 +109,118 @@ ExampleExecutions class >> returnExampleProcess1 [
 	process := NWProcess id: '1' name: 'process2' initialFlowElement: se.
 	process id: 1.
 	
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnExampleProcessJobPosting [
+	
+	| se t1 t2 t3 adresa1 do do2 do3 jobPostingEntity ee process management split1 |
+										
+	management := ExampleExecutions returnJobPostingManagement.						
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWCustomTask new.
+	t1 id: '123'.
+	t1 description: 'Reporting job opening.'.
+	t1 name: 'Job opening'.
+	t1 group: (management findGroup: '1').
+
+	adresa1 := NWJobOpening example1.
+
+	do := NWDataObject new.
+	do itemDef structureRef: adresa1. 
+	"do valuedDataObject: adresa1."
+	do valuedDataObject: (NWClassDescriptionGenerator dataObject: adresa1) createClassDescription.
+	do name: 'Job opening example'.
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: 'Job opening value'.
+	
+	t2 := NWCustomTask new.
+	t2 id: '124'.
+	t2 description: 'Write job posting'.
+	t2 name: 'Job Posting'.
+	t2 group: (management findGroup: '2').
+	
+	jobPostingEntity := NWJobPosting example1.
+	jobPostingEntity := (NWClassDescriptionGenerator dataObject: jobPostingEntity) createClassDescription.
+
+	do2 := NWDataObject new.
+	do2 itemDef structureRef: jobPostingEntity. 
+	do2 valuedDataObject: jobPostingEntity.
+	do2 name: 'Job opening example'.
+
+	t2 addDataOutputAssociation: do2.
+
+	t2 value: 'Write job opening value'.
+	
+	
+	t3 := NWCustomTask new.
+	t3 id: '999'.
+	t3 description: 'Review job posting.'.
+	t3 name: 'Job posting review'.
+	t3 group: (management findGroup: '1').
+	
+	t3 addDataOutputAssociation: do2.
+	t3 value: 'Review job posting'.
+
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	split1 := NWExclusive new.
+	split1 description: 'Split1'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: t2.
+	t2 addOutgoingEdge: t3.
+	t3 addOutgoingEdge: split1.
+	split1 addOutgoingEdge: ee withCondition: [ :x | (x properties at: 4) varValue = true ].
+	split1 addOutgoingEdge: t2 withCondition: [ :x | (x properties at: 4) varValue = false ].
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process managementName: 'businessDepartment'.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnIntermediateCatchEventProcess [
+"This example uses intermediate event, where execution is paused for 40 seconds, and then completed. "
+| se ee t1 we seq seq2 fh engine te process |
+	se := NWStartEvent new.
+	se description: #NWStartEvent.
+	
+	t1 := NWIntermediateCatchEvent new.
+	t1 description: 'Intermediate Catch Event'.
+	
+	te := NWTimerTempDefinition new.
+	te timeDate: (DateAndTime now + 15 seconds).
+	te repeat: false.
+	te every: Duration zero.
+	t1 addEventDefinition: te.
+	
+	ee := NWEndEvent new.
+	ee description: #NWEndEvent.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	^ process managementName: 'acme'.
+
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnJobPostingManagement [
+
+	^ NWUserManagement 				  						   
+		pathToUsers:'/Users/sebastijan.kaplar/Desktop/NewWave-JobPosting-Management/users.json'
+		pathToGroups: '/Users/sebastijan.kaplar/Desktop/NewWave-JobPosting-Management/groups.json'
+		pathToMemberships: '/Users/sebastijan.kaplar/Desktop/NewWave-JobPosting-Management/membership.json'.
 ]
 
 { #category : #'as yet unclassified' }
@@ -203,7 +366,7 @@ ExampleExecutions class >> returnSimpleProcess4WithGroups [
 
 	do := NWDataObject new.
 	do itemDef structureRef: adresa1. 
-	do valuedDataObject: adresa1.
+	do valuedDataObject: (NWClassDescriptionGenerator dataObject: adresa1) createClassDescription.
 	do name: 'Adresa example'.
 
 	t1 addDataOutputAssociation: do.
@@ -215,6 +378,67 @@ ExampleExecutions class >> returnSimpleProcess4WithGroups [
 	
 	se addOutgoingEdge: t1.
 	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process managementName: 'acme'.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcess5WithGroupsAndBoundary [
+"This is same as the first + groups"
+	
+	| se t1 adresa1 do ee process management te be t2 do2 adresa2|
+										
+	management := ExampleExecutions returnAcmeManagement.						
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWCustomTask new.
+	t1 id: '123456'.
+	t1 description: 'B'.
+	t1 name: 'Taskerino'.
+	t1 group: (management findGroup: '1').
+	"t1 user: (management findUser: '1')."
+
+	adresa1 := Adresa example3.
+
+	do := NWDataObject new.
+	do itemDef structureRef: adresa1. 
+	do valuedDataObject: (NWClassDescriptionGenerator dataObject: adresa1) createClassDescription.
+	do name: 'Adresa example'.
+
+	t1 addDataOutputAssociation: do.
+
+	t1 value: 'Adresica value'.
+	
+	
+	t2 := NWBaseTask new.
+	t2 description: 'B'.
+	t2 value: 'B has been performed'.
+	
+
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: t2.
+	t2 addOutgoingEdge: ee.
+	
+	be := NWBoundaryEvent new.
+	be description: 'Boundzzzz'.
+	be cancelActivity: true.
+	
+	te := NWTimerTempDefinition new.
+	te timeDate: (DateAndTime now + 20 seconds).
+	te repeat: false.
+	te every: Duration zero.
+	be addEventDefinition: te.
+	t1 addBoundaryEvent: be.
+	be addOutgoingEdge: ee.
 	
 	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
 	process managementName: 'acme'.
@@ -265,46 +489,6 @@ ExampleExecutions class >> returnSimpleProcess5WithGroupsAndSplits [
 	process addDataObject: do.
 
 	^ process
-]
-
-{ #category : #'as yet unclassified' }
-ExampleExecutions class >> returnTwoDataObjects [
-
-| oc t1 adresa1 adresa2 do do2 t2 exp |
-	
-oc := OrderedCollection new.
-
-t1 := NWCustomTask new.
-t1 description: 'A'.
-t1 name: 'Taskerino filipino'.
-
-adresa1 := Adresa example1.
-
-do := NWDataObject new.
-do itemDef structureRef: adresa1. 
-do valuedDataObject: adresa1.
-
-
-t1 addDataOutputAssociation: do.
-
-t2 := NWCustomTask new.
-t2 description: 'B'.
-t2 name: 'Taskerino tajlandino'.
-
-adresa2 := Adresa example2.
-
-do2 := NWDataObject new.
-do2 itemDef structureRef: adresa2. 
-do2 valuedDataObject: adresa2.
-do2 name: 'Adresa22 example22'.
-t2 addDataOutputAssociation: do2.
-
-oc add: t1.
-oc add: t2.
-
-exp := NewWaveArrayDOJSONExporter nwClassDescriptions: oc.
-
-^ (NewWaveArrayDOJSONImporter new importFromJSON: exp exportDOToJSON) asOrderedCollection.
 ]
 
 { #category : #'as yet unclassified' }
