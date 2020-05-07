@@ -7,8 +7,7 @@ Class {
 		'engine',
 		'element',
 		'pendingTasks',
-		'pendingTasksCollection',
-		'originalTasksCollection'
+		'pendingTasksCollection'
 	],
 	#category : #'NewWave-Server'
 }
@@ -84,12 +83,11 @@ NewWaveServer >> addTask: aTask user: aUser [
 ]
 
 { #category : #routes }
-NewWaveServer >> addTaskWrapper: aTaskWrapper addTask: anOriginalTask [
-	"aTaskWrapper is a NewWaveDOClassDescription, which is used to be send to the server
+NewWaveServer >> addTaskWrapper: nwClassDescription [
+	"nwClassDescription is a NewWaveDOClassDescription, which is used to be send to the server
 	anOriginal task is a task entity in the system.
 	I have a list of original tasks so I can update them"
-	pendingTasksCollection add: aTaskWrapper.
-	originalTasksCollection add: anOriginalTask.
+	pendingTasksCollection add: nwClassDescription.
 ]
 
 { #category : #routes }
@@ -98,7 +96,7 @@ NewWaveServer >> assignTask: aRequest [
 	IE. When the group on the task in the process is the only thing that is defined,
 	user which belongs to the group can assign itself to the task using web application."
 	
-	| tmp taskDescriptionsList |
+	| taskDescriptionsList |
 	aRequest traceCr.
 	taskDescriptionsList := pendingTasksCollection
 		detect: [ :each | 
@@ -106,23 +104,23 @@ NewWaveServer >> assignTask: aRequest [
 			gName := aRequest at: #groupName.
 			pId := aRequest at: #processId.
 			tId := aRequest at: #taskId.
-			each groupName = gName & (each processId = pId)
-				& (each taskId = tId) ].
+			each groupName = gName 
+				& (each processId = pId)
+				& (each taskId = tId) 
+		].
+	
 	taskDescriptionsList userName: (aRequest at: #userName).
-	tmp := originalTasksCollection detect: [ :each | each id = (aRequest at: #taskId)].
-
-	"userManagement := engine findManagementByProcessId: (aRequest at: #processId). 
-	tmp user: (userManagement findUserByName: (aRequest at: #userName)).
-	This is an idea when I start working on support for multiple groups and managements."
+	engine 
+		assignTask: 
+			(aRequest at: #taskId) 
+		onProcess: 
+			(aRequest at: #processInstanceId) 
+		withNewUser: 
+			(aRequest at: #userName).
 	
+	"This is an idea when I start working on support for multiple groups and managements."
+	"tmp user: (engine userManagement findUserByName: (aRequest at: #userName))."
 	
-	tmp user: (engine userManagement findUserByName: (aRequest at: #userName)).
-
-	"tmp := NewWaveDOJSONImporter new
-		importFromJSON: aRequest entity string.
-	entity := (NewWaveMagritteContainerCreator dataObject: tmp) createEntity.
-	pHandler := engine processHandler: (tmp processInstanceId). 
-	pHandler engineAnnouncer announce: (WaveAnnouncer with: entity)."
 	^ 'Adding of entity executed'.
 ]
 
@@ -151,7 +149,6 @@ NewWaveServer >> initialize [
 	super initialize.
 	pendingTasks := Dictionary new.
 	pendingTasksCollection := OrderedCollection new.
-	originalTasksCollection := OrderedCollection new.
 ]
 
 { #category : #initialization }
@@ -166,11 +163,6 @@ NewWaveServer >> initializePort: anInteger [
 		registerRoutes;
 		registerErrorHandlers;
 		yourself.
-]
-
-{ #category : #accessing }
-NewWaveServer >> originalTasksCollection [
-	^ originalTasksCollection
 ]
 
 { #category : #initialization }

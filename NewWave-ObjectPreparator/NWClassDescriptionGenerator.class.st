@@ -54,6 +54,13 @@ NWClassDescriptionGenerator >> anObject: tmpObject [
 	anObject := tmpObject
 ]
 
+{ #category : #'as yet unclassified' }
+NWClassDescriptionGenerator >> checkIdField: nwClassDecsription [ 
+	nwClassDecsription properties detect: [ :each | each varName = 'id' ]
+		ifNone: [ self error: 'id field is missing for Entity', nwClassDecsription className1 ].
+	
+]
+
 { #category : #accessing }
 NWClassDescriptionGenerator >> collectInstVars [
 	^ anObject class instVarNames
@@ -65,6 +72,7 @@ NWClassDescriptionGenerator >> createClassDescription [
 	container := NewWaveDOClassDescription new.
 	container className: anObject class name. 
 	self dodajUContainer: container.
+	self checkIdField: container.
 	self addDescriptions: container.
 	^ container
 ]

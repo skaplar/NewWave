@@ -85,7 +85,7 @@ UserManagment >> defineUserManagement [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 description: 'BA'.
 	t1 name: 'Taskerinoa'.
 	t1 group: group1.

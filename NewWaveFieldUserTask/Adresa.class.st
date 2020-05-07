@@ -35,14 +35,14 @@ addr area: (NWArea name: 'Novi Sad' zip: '21000').
 
 { #category : #examples }
 Adresa class >> example3 [
-| addr |
-addr := self new.
-addr id: '2'.
-addr broj: 'Osamdeset'.
-addr ulica: 'Galac'.
-addr area: (NWArea name: 'Novi Sad' zip: '21000'). 
-addr grad: 'Novi Sad'.
-^ addr.
+	| addr |
+	addr := self new.
+	addr id: '2'.
+	addr broj: 80.
+	addr ulica: 'Bul. Cara Lazara'.
+	addr area: (NWArea name: 'Novi Sad' zip: '21000'). 
+	addr grad: 'Novi Sad'.
+	^ addr.
 ]
 
 { #category : #accessing }

@@ -37,9 +37,9 @@ NWBehaviorHandler >> initialize [
 			(#ParallelGateway -> NWParallelGatewayBehavior new).
 			(#NWParallelJoin -> NWParallelJoinBehavior new).
 			(#NWNullNode -> NWNullNodeBehavior new).
-			(#NWCustomTask -> NWCustomTaskEventBehavior new).
+			(#NWUserTask -> NWUserTaskEventBehavior new).
 			(#NWFieldUserTask -> NWFieldUserTaskEventBehavior new).
-			(#UserTask -> NWUserTaskEventBehavior new).
+			(#UserTask -> NWUserTaskEventBehaviorOld new).
 			(#NWIntermediateCatchEvent -> NWIntermediateCatchEventBehavior new).
 			(#NWBoundaryEvent -> NWBoundaryEventBehavior new).} asDictionary 
 ]

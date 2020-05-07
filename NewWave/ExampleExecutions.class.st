@@ -74,6 +74,91 @@ TKTDebugger disable.
 ]
 
 { #category : #'as yet unclassified' }
+ExampleExecutions class >> returnExamplePaymentProcess [	
+	| se t1 paymentMethod1 do ee process management split1 t2 t3 acceptCardEntity do2 do3  acceptCashEntity |
+										
+	management := ExampleExecutions returnAcmeManagement.						
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWUserTask new.
+	t1 id: '123456'.
+	t1 description: 'Identify the payment process.'.
+	t1 name: 'Identification'.
+	t1 group: (management findGroup: '1').
+	t1 user: (management findUser: '1').
+
+	paymentMethod1 := NWPaymentMethod example1.
+
+	do := NWDataObject new.
+	do itemDef structureRef: paymentMethod1. 
+	do valuedDataObject: (NWClassDescriptionGenerator dataObject: paymentMethod1) createClassDescription.
+	do name: 'Payment method Data object 1'.
+
+	t1 addDataOutputAssociation: do.
+	t1 value: 'Identification value'.
+	
+	split1 := NWExclusive new.
+	split1 description: 'Payment Split1'.
+	
+	t2 := NWUserTask new.
+	t2 id: '124'.
+	t2 description: 'Accept card or check'.
+	t2 name: 'Accept payment'.
+	t2 user: (management findUser: '1').
+	t2 group: (management findGroup: '1').
+	
+	acceptCardEntity := NWAcceptCard example1.
+	acceptCardEntity := (NWClassDescriptionGenerator dataObject: acceptCardEntity) createClassDescription.
+
+	do2 := NWDataObject new.
+	do2 itemDef structureRef: acceptCardEntity. 
+	do2 valuedDataObject: acceptCardEntity.
+	do2 name: 'Accept card data object 2'.
+
+	t2 addDataOutputAssociation: do2.
+	t2 value: 'Accept card'.
+	
+	
+	t3 := NWUserTask new.
+	t3 id: '1224'.
+	t3 description: 'Accept cash'.
+	t3 name: 'Accept cash payment'.
+	t3 user: (management findUser: '1').
+	t3 group: (management findGroup: '1').
+	
+	acceptCashEntity := NWAcceptCash example1.
+	acceptCashEntity := (NWClassDescriptionGenerator dataObject: acceptCashEntity) createClassDescription.
+
+	do3 := NWDataObject new.
+	do3 itemDef structureRef: acceptCashEntity. 
+	do3 valuedDataObject: acceptCashEntity.
+	do3 name: 'Accept card data object 2'.
+
+	t3 addDataOutputAssociation: do3.
+	t3 value: 'Accept cash'.
+		
+	ee := NWEndEvent new.
+	ee description: 'End'.
+
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: split1.
+	
+	split1 addOutgoingEdge: t2 withCondition: [ :x | (x properties at: 2) varValue = 'Card' ].
+	split1 addOutgoingEdge: t3 withCondition: [ :x | (x properties at: 2) varValue = 'Cash' ].
+	
+	t2 addOutgoingEdge: ee.
+	t3 addOutgoingEdge: ee.
+		
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process managementName: 'acme'.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
 ExampleExecutions class >> returnExampleProcess1 [
 	"This example uses exclusive gateway, where one of the two paths is taken based on the user input."
 	| se ee t1 t2 t3 split1 process |
@@ -121,7 +206,7 @@ ExampleExecutions class >> returnExampleProcessJobPosting [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 id: '123'.
 	t1 description: 'Reporting job opening.'.
 	t1 name: 'Job opening'.
@@ -139,7 +224,7 @@ ExampleExecutions class >> returnExampleProcessJobPosting [
 
 	t1 value: 'Job opening value'.
 	
-	t2 := NWCustomTask new.
+	t2 := NWUserTask new.
 	t2 id: '124'.
 	t2 description: 'Write job posting'.
 	t2 name: 'Job Posting'.
@@ -158,7 +243,7 @@ ExampleExecutions class >> returnExampleProcessJobPosting [
 	t2 value: 'Write job opening value'.
 	
 	
-	t3 := NWCustomTask new.
+	t3 := NWUserTask new.
 	t3 id: '999'.
 	t3 description: 'Review job posting.'.
 	t3 name: 'Job posting review'.
@@ -231,7 +316,7 @@ ExampleExecutions class >> returnSimpleProcess [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 description: 'B'.
 	t1 name: 'Taskerino'.
 
@@ -266,7 +351,7 @@ ExampleExecutions class >> returnSimpleProcess2 [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 description: 'BA'.
 	t1 name: 'Taskerinoa'.
 
@@ -301,7 +386,7 @@ ExampleExecutions class >> returnSimpleProcess3 [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 description: 'BA'.
 	t1 name: 'Taskerinoa'.
 
@@ -347,7 +432,6 @@ ExampleExecutions class >> returnSimpleProcess3 [
 { #category : #'as yet unclassified' }
 ExampleExecutions class >> returnSimpleProcess4WithGroups [
 "This is same as the first + groups"
-	
 	| se t1 adresa1 do ee process management |
 										
 	management := ExampleExecutions returnAcmeManagement.						
@@ -355,7 +439,7 @@ ExampleExecutions class >> returnSimpleProcess4WithGroups [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 id: '123456'.
 	t1 description: 'B'.
 	t1 name: 'Taskerino'.
@@ -397,7 +481,7 @@ ExampleExecutions class >> returnSimpleProcess5WithGroupsAndBoundary [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 id: '123456'.
 	t1 description: 'B'.
 	t1 name: 'Taskerino'.
@@ -461,7 +545,7 @@ ExampleExecutions class >> returnSimpleProcess5WithGroupsAndSplits [
 	se := NWStartEvent new.
 	se description: 'Start'.
 
-	t1 := NWCustomTask new.
+	t1 := NWUserTask new.
 	t1 id: '123456'.
 	t1 description: 'B'.
 	t1 name: 'Taskerino'.
@@ -486,6 +570,44 @@ ExampleExecutions class >> returnSimpleProcess5WithGroupsAndSplits [
 	t1 addOutgoingEdge: ee.
 	
 	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process addDataObject: do.
+
+	^ process
+]
+
+{ #category : #'as yet unclassified' }
+ExampleExecutions class >> returnSimpleProcessForDemo [
+	| se t1 adresa1 do ee process management |
+										
+	management := ExampleExecutions returnAcmeManagement.						
+										
+	se := NWStartEvent new.
+	se description: 'Start'.
+
+	t1 := NWUserTask new.
+	t1 id: '123456'.
+	t1 description: 'Entering the address'.
+	t1 name: 'Address task'.
+	t1 value: 'Task1 value'.
+	t1 group: (management findGroup: '1').
+	"t1 user: (management findUser: '1')."
+
+	adresa1 := Adresa example3.
+
+	do := NWDataObject new. 
+	do valuedDataObject: (NWClassDescriptionGenerator dataObject: adresa1) createClassDescription.
+	do name: 'Adress data object example'.
+
+	t1 addDataOutputAssociation: do.
+	
+	ee := NWEndEvent new.
+	ee description: 'End'.
+	
+	se addOutgoingEdge: t1.
+	t1 addOutgoingEdge: ee.
+	
+	process := NWProcess id: '1' name: 'Process 1' initialFlowElement: se.
+	process managementName: 'acme'.
 	process addDataObject: do.
 
 	^ process
@@ -587,7 +709,7 @@ pj2 addOutgoingEdge: ee.
 engine := WaveEngine new.
 we := NWExecutor initialNode: se.
 engine addExecutor: we.
-engine startEngine.
+engine startProcess.
 
 ]
 
@@ -1051,7 +1173,7 @@ ExampleExecutions >> startExample8IntermediateCatchEvent [
 	we flowHandler: fh.
 	engine := WaveEngine new. 
 	engine addExecutor: we.
-	engine startEngine.
+	engine startProcess.
 "	20 seconds asDelay wait.
 	engine stopEngine."
 ]
@@ -1106,6 +1228,6 @@ TKTDebugger disable.
 	engine := WaveEngine new.
 	we := NWExecutor initialNode: se.
 	engine addExecutor: we.
-	engine startEngine.
-	engine stopEngine.
+	engine startProcess.
+	engine stopProcess.
 ]

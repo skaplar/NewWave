@@ -117,6 +117,7 @@ FUAllTasksByGroupListComponent >> renderButtonDoTask: html	task: task [
 						formAt: 'processId' put: task processId;
 						formAt: 'groupName' put:  task groupName;
 						formAt: 'taskId' put: task taskId;
+						formAt: 'processInstanceId' put: task processInstanceId;
    						post.
 				];
 				with: 'Assign'.
