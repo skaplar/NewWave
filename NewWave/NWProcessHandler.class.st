@@ -84,14 +84,6 @@ NWProcessHandler >> activations [
 	^ activations
 ]
 
-{ #category : #adding }
-NWProcessHandler >> addDataObjectFromServer: aDataObject [
-	| toRemove |
-	self deprecated: 'Ova metoda izgleda ne radi nista za sada, tako da mozemo da je zakomentarisemo.'.
-	toRemove := process dataObjects detect: [ :each | each valuedDataObject id = aDataObject id ] ifNone: [ nil ].
-	toRemove valuedDataObject: aDataObject.
-]
-
 { #category : #accessing }
 NWProcessHandler >> addExecutor: anExecutor [
 	self mainExecutor: anExecutor.
@@ -141,9 +133,7 @@ NWProcessHandler >> addTaskToServer: nWClassDecsription [
 
 { #category : #adding }
 NWProcessHandler >> addTaskToServer: task nwClassDescription: nWClassDecsription [
-		"Ovo je bilo kada sam slao objekte instanci klasa, sada vec saljem NewWaveDOClassDescription kada pokrenem model."
-		"dataObject := task dataOutputAssociations first valuedDataObject.
-		nWClassDecsription := (NWClassDescriptionGenerator dataObject: dataObject) createClassDescription."
+
 		nWClassDecsription processName: process name.
 		nWClassDecsription processId: process id.
 		nWClassDecsription processInstanceId: process processInstanceId.

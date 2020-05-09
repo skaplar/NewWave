@@ -45,10 +45,8 @@ NWUserTaskEventBehavior >> performExecution: elemToExecute executor: waveExecuto
 			
 			a parameter traceCr.
 			waveExecutor taskResult: a parameter.
-			"waveExecutor processHandler addDataObjectFromServer: a parameter."
 			
 			"Need a way to update original data if needed."
-			"elemToExecute dataOutputAssociations first valuedDataObject: a parameter."
 			elemToExecute dataOutputAssociations isNotEmpty ifTrue: 
 				[ elemToExecute dataOutputAssociations first valuedDataObject: a parameter ].
 			waveExecutor processHandler engine server removeTask: taskWrapper.
