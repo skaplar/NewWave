@@ -7,7 +7,8 @@ Class {
 		'flowElementList',
 		'initialFlowElement',
 		'variables',
-		'processInstanceId'
+		'processInstanceId',
+		'managementName'
 	],
 	#category : #'NewWave-Core'
 }
@@ -69,6 +70,16 @@ NWProcess >> initialize [
 	dataObjects := OrderedCollection new.
 	flowElementList := OrderedCollection new.
 	variables := Dictionary new.
+]
+
+{ #category : #accessing }
+NWProcess >> managementName [
+	^ managementName
+]
+
+{ #category : #accessing }
+NWProcess >> managementName: anObject [
+	managementName := anObject
 ]
 
 { #category : #accessing }

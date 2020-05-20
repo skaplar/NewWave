@@ -1,7 +1,7 @@
 Class {
 	#name : #NewWavePropertyDescriptionTest,
 	#superclass : #TestCase,
-	#category : #'NewWave-ObjectPreparator'
+	#category : #'NewWave-ObjectPreparator-Tests'
 }
 
 { #category : #tests }

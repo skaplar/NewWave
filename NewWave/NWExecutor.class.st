@@ -168,10 +168,12 @@ NWExecutor >> tryToExecuteNext [
 NWExecutor >> tryToExecuteNext: aCompletedNode [
 	| tmp |
 	self workList addToCompleted: (self activationForNode: aCompletedNode).
-	tmp := self shouldExecuteNextNewHandler.
+	tmp := self shouldExecuteNextNewHandler.	
+	processHandler stopNotRunningBoundaryEvents.
 	"So this should happen once, when the element should be activated and executed"
 	"self newActivationForNode: tmp."
-	self execute: tmp.
+	"TODO: Ovo sam dodao i zaustavljanje procesa radi... za sada proveri i dalje..."
+	self worker schedule: [ self execute: tmp.].
 ]
 
 { #category : #accessing }

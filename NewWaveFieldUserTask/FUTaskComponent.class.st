@@ -19,6 +19,7 @@ FUTaskComponent class >> from: aComponent [
 { #category : #'as yet unclassified' }
 FUTaskComponent >> buildComponent [
 	| taskObject |
+	self task className1 ifNil: [ ^ nil ].
 	taskObject := (NewWaveMagritteContainerCreator dataObject: self task) createEntity.
 	^ taskObject asComponent.
 
@@ -100,13 +101,31 @@ FUTaskComponent >> report: arg1 [
 
 { #category : #'as yet unclassified' }
 FUTaskComponent >> sendResult [
-	| newValue json |
-	self component validate 
-		ifFalse: [ ^nil ]."show validation message"
-	newValue := self component save model.
-	"json := (FUDOJSONExporter dataObject: newValue) exportDOToJSON."
-	json := (NewWaveDOProcessJSONExporter dataObject: newValue processName: task processName processId: task processId processInstanceId: task processInstanceId) exportDOToJSON.
-	FUCommitTaskServer new commitTask: json.
+	| newValue json nWClassDecsription |
+	
+	self component ifNotNil: [ :tmpComponent |
+		tmpComponent validate 
+			ifFalse: [ ^nil ]."show validation message"
+		newValue := tmpComponent save model.
+		nWClassDecsription := (NWClassDescriptionGenerator dataObject: newValue) createClassDescription.
+	] ifNil: [ 
+		nWClassDecsription := NewWaveDOClassDescription new.
+	].
+	
+	"self component validate 
+		ifFalse: [ ^nil ].
+	newValue := self component save model."
+	
+	"nWClassDecsription := (NWClassDescriptionGenerator dataObject: newValue) createClassDescription."
+	nWClassDecsription processName: task processName.
+	nWClassDecsription processId: task processId.
+	nWClassDecsription processInstanceId: task processInstanceId.
+	nWClassDecsription taskName: task taskName.
+	nWClassDecsription taskDescription: task taskDescription.
+	nWClassDecsription userName: task userName.
+	nWClassDecsription groupName: task groupName.
+	nWClassDecsription taskId: task taskId.
+	FUCommitTaskServer new commitTask: (NWClassJSONExporter new exportOneNWClassDescriptionToJSON: nWClassDecsription).
 	"OVO SAM DODAO DA ZAVRSIM CALLBACK"
 	self answer: true.
 ]

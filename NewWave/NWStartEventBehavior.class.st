@@ -11,7 +11,9 @@ Class {
 NWStartEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	waveExecutor waveAnnouncer
 		when: StartAnnouncer
-		do: [ | worker |
+		do: [ | worker aRunner |
+			aRunner := TKTNewProcessTaskRunner new.
+			aRunner schedule: [ 
 			worker := TKTWorker new.
 			worker start.
 			('Starting worker on process '
@@ -21,4 +23,5 @@ NWStartEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 			waveExecutor workers at: worker name put: worker.
 			waveExecutor flowHandler workerid: worker name.
 			waveExecutor tryToExecuteNext: elemToExecute ]
+		 ].
 ]

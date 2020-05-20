@@ -16,8 +16,7 @@ Class {
 	#instVars : [
 		'varName',
 		'varType',
-		'varValue',
-		'maDescription'
+		'varValue'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -27,17 +26,7 @@ NewWaveDOPropertyDescription class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(varName varType varValue maDescription) ] 
-]
-
-{ #category : #accessing }
-NewWaveDOPropertyDescription >> maDescription [
-	^ maDescription
-]
-
-{ #category : #accessing }
-NewWaveDOPropertyDescription >> maDescription: anObject [
-	maDescription := anObject
+		mapping mapInstVars: #(varName varType varValue) ] 
 ]
 
 { #category : #accessing }

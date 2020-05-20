@@ -7,7 +7,7 @@ Class {
 { #category : #accessing }
 NWIntermediateCatchEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 	elemToExecute eventDefinitions do: [ :each |
-		waveExecutor processHandler engine scheduler 
+		waveExecutor processHandler processScheduler 
 		do: [ 
 			waveExecutor tryToExecuteNext: elemToExecute. 
 		] 

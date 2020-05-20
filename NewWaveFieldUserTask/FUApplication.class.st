@@ -14,8 +14,10 @@ Class {
 FUApplication class >> createDemo [
 
 self current
-	addUser: (FUUser username: 'user1' password: (SHA256 hashMessage: 'user1'));
-	addUser: (FUUser username: 'user2' password: (SHA256 hashMessage: 'user2')).
+	addUser: (FUUser username: 'user1' password: (SHA256 hashMessage: 'user1') groupName: 'admin');
+	addUser: (FUUser username: 'user2' password: (SHA256 hashMessage: 'user2') groupName: 'users');
+	addUser: (FUUser username: 'business1' password: (SHA256 hashMessage: 'business1') groupName: 'businessDept');
+	addUser: (FUUser username: 'hr1' password: (SHA256 hashMessage: 'hr1') groupName: 'humanResources').
 ]
 
 { #category : #accessing }

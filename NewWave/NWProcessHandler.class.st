@@ -43,7 +43,8 @@ Class {
 		'workList',
 		'activations',
 		'process',
-		'engine'
+		'engine',
+		'processScheduler'
 	],
 	#category : #'NewWave-Engine'
 }
@@ -83,13 +84,6 @@ NWProcessHandler >> activations [
 	^ activations
 ]
 
-{ #category : #adding }
-NWProcessHandler >> addDataObjectFromServer: aDataObject [
-	| toRemove |
-	toRemove := process dataObjects detect: [ :each | each valuedDataObject id = aDataObject id ] ifNone: [ nil ].
-	toRemove valuedDataObject: aDataObject.
-]
-
 { #category : #accessing }
 NWProcessHandler >> addExecutor: anExecutor [
 	self mainExecutor: anExecutor.
@@ -120,11 +114,37 @@ NWProcessHandler >> addSubExecutor: anInitialSequence [
 ]
 
 { #category : #adding }
-NWProcessHandler >> addTaskToServer: task user: anUser [
-		| container |
-		container := ( NewWaveDOProcessJSONExporter dataObject: (task dataOutputAssociations first valuedDataObject) processName: process name processId: process id processInstanceId: process processInstanceId taskName: task name taskDescription: task description) createClassContainer.
-		engine server addTask: container user: anUser.
-		^ container.
+NWProcessHandler >> addTaskToServer: nWClassDecsription [
+		"Ovo je bilo kada sam slao objekte instanci klasa, sada vec saljem NewWaveDOClassDescription kada pokrenem model."
+		"dataObject := task dataOutputAssociations first valuedDataObject.
+		nWClassDecsription := (NWClassDescriptionGenerator dataObject: dataObject) createClassDescription."
+		"nWClassDecsription := task dataOutputAssociations first valuedDataObject."
+		nWClassDecsription processName: process name.
+		nWClassDecsription processId: process id.
+		nWClassDecsription processInstanceId: process processInstanceId.
+		"nWClassDecsription taskName: task name.
+		nWClassDecsription taskDescription: task description.
+		nWClassDecsription userName: task user username.
+		nWClassDecsription groupName: task group groupName.
+		nWClassDecsription taskId: task id."
+		engine server addTaskWrapper: nWClassDecsription.
+		^ nWClassDecsription.
+]
+
+{ #category : #adding }
+NWProcessHandler >> addTaskToServer: task nwClassDescription: nWClassDecsription [
+
+		nWClassDecsription processName: process name.
+		nWClassDecsription processId: process id.
+		nWClassDecsription processInstanceId: process processInstanceId.
+		nWClassDecsription taskName: task name.
+		nWClassDecsription taskDescription: task description.
+		nWClassDecsription userName: task user username.
+		nWClassDecsription groupName: task group groupName.
+		nWClassDecsription taskId: task id.
+		
+		engine server addTaskWrapper: nWClassDecsription.
+		^ nWClassDecsription.
 ]
 
 { #category : #accessing }
@@ -155,6 +175,7 @@ NWProcessHandler >> initialize [
 	self engineAnnouncer: Announcer new.
 	workList := NWWorkList new.
 	activations := Dictionary new.
+	processScheduler := TaskScheduler new.
 ]
 
 { #category : #accessing }
@@ -195,14 +216,30 @@ NWProcessHandler >> process: anObject [
 ]
 
 { #category : #accessing }
-NWProcessHandler >> startEngine [
+NWProcessHandler >> processScheduler [
+	^ processScheduler
+]
+
+{ #category : #accessing }
+NWProcessHandler >> startProcess [
+	processScheduler start.
 	mainExecutor tryToExecuteNext.
 	mainExecutor waveAnnouncer announce: StartAnnouncer new.
 ]
 
 { #category : #accessing }
-NWProcessHandler >> stopEngine [
+NWProcessHandler >> stopNotRunningBoundaryEvents [
+	"When the node/task is completed, we check for the non-running scheduler tasks.
+	called by the tryToExecuteNext: from NWExecutor"
+	processScheduler tasksDo: [ :task |
+		task isRunning ifFalse: [ task delete. ].
+	].
+]
+
+{ #category : #accessing }
+NWProcessHandler >> stopProcess [
 	"I am force stopping all the workers in the engine."
+	processScheduler stop.
 	mainExecutor workers valuesDo: [ :d | d stop ].
 ]
 

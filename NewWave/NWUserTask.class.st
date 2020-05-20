@@ -10,7 +10,7 @@ I am a CustomTask, and can work in various of ways. You can set my value to a co
     Implementation Points
 "
 Class {
-	#name : #NWCustomTask,
+	#name : #NWUserTask,
 	#superclass : #NWBaseActivity,
 	#instVars : [
 		'value',
@@ -23,64 +23,64 @@ Class {
 }
 
 { #category : #initialization }
-NWCustomTask >> announcer [
+NWUserTask >> announcer [
 	^ announcer
 ]
 
 { #category : #initialization }
-NWCustomTask >> complete [
+NWUserTask >> complete [
 	announcer announce: (WaveAnnouncer with: self result).
 	
 ]
 
 { #category : #initialization }
-NWCustomTask >> ctype [
-	^ #NWCustomTask
+NWUserTask >> ctype [
+	^ #NWUserTask
 ]
 
 { #category : #accessing }
-NWCustomTask >> group [
+NWUserTask >> group [
 	^ group
 ]
 
 { #category : #accessing }
-NWCustomTask >> group: anObject [
+NWUserTask >> group: anObject [
 	group := anObject
 ]
 
 { #category : #initialization }
-NWCustomTask >> initialize [
+NWUserTask >> initialize [
 	super initialize.
 	announcer := Announcer new.
 	
 ]
 
 { #category : #initialization }
-NWCustomTask >> result [
+NWUserTask >> result [
 	^ result
 ]
 
 { #category : #initialization }
-NWCustomTask >> result: aResult [
+NWUserTask >> result: aResult [
 	result := aResult
 ]
 
 { #category : #accessing }
-NWCustomTask >> user [
+NWUserTask >> user [
 	^ user
 ]
 
 { #category : #accessing }
-NWCustomTask >> user: anObject [
+NWUserTask >> user: anObject [
 	user := anObject
 ]
 
 { #category : #initialization }
-NWCustomTask >> value [
+NWUserTask >> value [
 	^ value
 ]
 
 { #category : #initialization }
-NWCustomTask >> value: aValue [
+NWUserTask >> value: aValue [
 	value := aValue
 ]

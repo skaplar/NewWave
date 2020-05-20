@@ -17,7 +17,12 @@ Class {
 		'taskDescription',
 		'processName',
 		'processId',
-		'processInstanceId'
+		'processInstanceId',
+		'userName',
+		'groupName',
+		'taskId',
+		'complexProperties',
+		'magritteDescriptions'
 	],
 	#category : #'NewWave-ObjectPreparator'
 }
@@ -27,7 +32,17 @@ NewWaveDOClassDescription class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(className properties taskName taskDescription) ] 
+		mapping mapInstVars: #(className properties taskName taskDescription userName groupName taskId complexProperties magritteDescriptions) ].
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> addAllToComplexProps: aColl [
+	complexProperties addAll: aColl
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> addAllToMagritteDescriptions: aColl [
+	magritteDescriptions addAll: aColl
 ]
 
 { #category : #accessing }
@@ -45,11 +60,43 @@ NewWaveDOClassDescription >> className: anObject [
 	className := anObject
 ]
 
+{ #category : #accessing }
+NewWaveDOClassDescription >> complexProperties [
+	^ complexProperties
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> complexProperties: anObject [
+	complexProperties := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> groupName [
+	^ groupName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> groupName: anObject [
+	groupName := anObject
+]
+
 { #category : #initialization }
 NewWaveDOClassDescription >> initialize [ 
 	
 	super initialize.
 	properties := OrderedCollection new.
+	complexProperties := OrderedCollection new.
+	magritteDescriptions := OrderedCollection new.
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> magritteDescriptions [
+	^ magritteDescriptions
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> magritteDescriptions: anObject [
+	magritteDescriptions := anObject
 ]
 
 { #category : #accessing }
@@ -103,6 +150,16 @@ NewWaveDOClassDescription >> taskDescription: anObject [
 ]
 
 { #category : #accessing }
+NewWaveDOClassDescription >> taskId [
+	^ taskId
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> taskId: anObject [
+	taskId := anObject
+]
+
+{ #category : #accessing }
 NewWaveDOClassDescription >> taskName [
 	^ taskName
 ]
@@ -110,4 +167,14 @@ NewWaveDOClassDescription >> taskName [
 { #category : #accessing }
 NewWaveDOClassDescription >> taskName: anObject [
 	taskName := anObject
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> userName [
+	^ userName
+]
+
+{ #category : #accessing }
+NewWaveDOClassDescription >> userName: anObject [
+	userName := anObject
 ]

@@ -68,6 +68,14 @@ WaveEngine >> addProcess: aProcess name: aProcessName [
 	processHandlers at: aProcessName put: processHandler. 
 ]
 
+{ #category : #'as yet unclassified' }
+WaveEngine >> assignTask: aTaskId onProcess: aProcessId withNewUser: aUserName [
+	| nwProcessHandler elemToExecute |
+	nwProcessHandler := self processHandler: aProcessId.
+	elemToExecute := nwProcessHandler workList running detect: [ :each | each node id = aTaskId ].
+	elemToExecute node user: (self userManagement findUserByName: (aUserName)). 
+]
+
 { #category : #accessing }
 WaveEngine >> engineAnnouncer [
 	^ engineAnnouncer 
@@ -78,14 +86,31 @@ WaveEngine >> engineAnnouncer: anAnnouncer [
 	engineAnnouncer := anAnnouncer 
 ]
 
+{ #category : #adding }
+WaveEngine >> findManagementByProcessId: aProcessId [
+	"In order to find the management, first we find the appropriate management name, then we use the user management to find the user management class."
+	| managmentName |
+	self deprecated: 'should not be used until multiple groups are ready'.
+	
+	managmentName := self findManagementNameByProcessId: aProcessId.
+	self userManagement findUserManagementByName: managmentName.
+]
+
+{ #category : #adding }
+WaveEngine >> findManagementNameByProcessId: aProcessId [
+	"When sending a request from the server we get the processId, and we use it to find the appropriate process handler, and it's managementName"
+	self deprecated: 'should not be used until multiple groups are ready'.
+	processHandlers values detect: [ :each | (each process id) = aProcessId ] ifFound: [ :processHandler | ^ processHandler process managementName ] 
+]
+
 { #category : #accessing }
 WaveEngine >> initialize [
 	super initialize.
 	self engineAnnouncer: Announcer new.
 	pluginData := Dictionary new.
 	processHandlers := Dictionary new.
-	"scheduler := TaskScheduler new."
-	"scheduler start."
+	"scheduler := TaskScheduler new.
+	scheduler start."
 ]
 
 { #category : #finalization }
@@ -99,7 +124,7 @@ WaveEngine >> reExecuteProcess: aProcessName [
 	process := (processHandlers at: aProcessName) process.
 	processHandler := NWProcessHandler initialProcess: process engine: self.
 	processHandlers at: aProcessName put: processHandler. 
-	processHandler startEngine.
+	processHandler startProcess.
 ]
 
 { #category : #adding }
@@ -107,7 +132,7 @@ WaveEngine >> restartProcess: aProcessName newProcess: proc1 [
 	| processHandler |
 	processHandler := NWProcessHandler initialProcess: proc1 engine: self.
 	processHandlers at: aProcessName put: processHandler. 
-	processHandler startEngine.
+	processHandler startProcess.
 ]
 
 { #category : #accessing }
@@ -119,12 +144,12 @@ WaveEngine >> scheduler [
 WaveEngine >> startProcess: aProcessName [
 	| processHandler |
 	processHandler := processHandlers at: aProcessName.
-	processHandler startEngine.
+	processHandler startProcess.
 ]
 
 { #category : #adding }
 WaveEngine >> stopProcess: aProcessName [
 	| processHandler |
 	processHandler := processHandlers at: aProcessName.
-	processHandler stopEngine.
+	processHandler stopProcess.
 ]

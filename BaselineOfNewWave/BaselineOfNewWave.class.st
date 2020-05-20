@@ -54,7 +54,7 @@ BaselineOfNewWave >> bootstrap: spec [
 	spec 
 		baseline: 'Bootstrap'
 		with: [ 
-			spec repository: 'github://astares/Seaside-Bootstrap:master/src' 
+			spec repository: 'github://astares/Seaside-Bootstrap:master/src'
 		 ]
 ]
 
@@ -65,7 +65,8 @@ BaselineOfNewWave >> magritte: spec [
 		with: [ 
 			spec 
 				loads: #( Seaside );
-				repository: 'github://magritte-metamodel/magritte:master/source' ]
+				repository: 'github://magritte-metamodel/magritte:v3.6' ]
+
 ]
 
 { #category : #accessing }

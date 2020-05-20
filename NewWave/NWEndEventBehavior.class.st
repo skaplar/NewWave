@@ -23,6 +23,7 @@ NWEndEventBehavior >> performExecution: elemToExecute executor: waveExecutor [
 
 	" Kad se zaustavi glavni executor zaustavi i task scheduler"
 	waveExecutor processHandler mainExecutor = waveExecutor
-		ifTrue: [ "wave engine scheduler stop." ].
+		ifTrue: [ "wave engine scheduler stop."  ].
+	waveExecutor processHandler processScheduler stop.
 	waveExecutor worker stop
 ]
