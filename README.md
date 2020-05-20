@@ -2,6 +2,11 @@
 
 Workflow engine written in Pharo. Still in early development. 
 
+## Video tutorial
+
+[![NewWave demo](http://img.youtube.com/vi/o3mmY-ehgFE/0.jpg)](http://www.youtube.com/watch?v=o3mmY-ehgFE)
+
+
 ## First Example
 
 In order to run the engine, for the minimal execution you need create Start and End, with the Sequence connecting them.
