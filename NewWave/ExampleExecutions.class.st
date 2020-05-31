@@ -77,7 +77,7 @@ TKTDebugger disable.
 ExampleExecutions class >> returnExamplePaymentProcess [	
 	| se t1 paymentMethod1 do ee process management split1 t2 t3 acceptCardEntity do2 do3  acceptCashEntity |
 										
-	management := ExampleExecutions returnAcmeManagement.						
+	management := UserManagment new defineDefaultUserManagement.				
 										
 	se := NWStartEvent new.
 	se description: 'Start'.

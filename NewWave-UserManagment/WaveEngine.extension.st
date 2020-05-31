@@ -1,6 +1,14 @@
 Extension { #name : #WaveEngine }
 
 { #category : #'*NewWave-UserManagment' }
+WaveEngine >> loadDefaultUsersAndGroups [
+	"This is the default management."
+	pluginData
+		at: #NWUserManagement
+		put: UserManagment new defineDefaultUserManagement.
+]
+
+{ #category : #'*NewWave-UserManagment' }
 WaveEngine >> loadUsersAndGroups [
 	"This is the default management."
 	pluginData
