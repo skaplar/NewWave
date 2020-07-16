@@ -5,6 +5,36 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
+UserManagment >> defineDefaultUserManagement [
+	| userManagement user1 group1 membership1 |
+	
+	userManagement := NWUserManagement new.
+	
+	user1 := NWUser new.
+	user1 userId: '1'.
+	user1 firstname: 'Tast'.
+	user1 lastname: 'User'.
+	user1 email: 'user1@gmail.com'.
+	user1 username: 'user1'.
+	user1 password: 'user1'.
+
+	userManagement addUser: user1.
+
+	group1 := Group new.
+	group1 groupId: '1'.
+	group1 groupName: 'admin'.
+	userManagement addGroup: group1.
+	
+	membership1 := Membership new.
+	membership1 groupId: '1'.
+	membership1 userId: '1'.
+	userManagement addMembership: membership1.
+	
+	^ userManagement
+
+]
+
+{ #category : #'as yet unclassified' }
 UserManagment >> defineUserManagement [
 	| se t1 adresa1 do ee proc1 engine user1 user2 user3 user4 user5 group1 group2 group3 group4 group5 |
 

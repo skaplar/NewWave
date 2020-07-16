@@ -221,3 +221,7 @@ This app should be started in Playground with command:
 
     FUApplicationRootComponent initialize.
     FUApplication createDemo.
+    
+# Additional examples
+1. https://1drv.ms/v/s!AtyGLaEfarFQgoca6Ni6OZor4ldycw?e=51RyYK (https://www.stakeholdermap.com/bpm/posting-job-notification-business-process-model.html)
+2.  https://1drv.ms/v/s!AtyGLaEfarFQgocceSePKwfDe7o-mw?e=WomYXC (https://www.stakeholdermap.com/bpm/business-process-model-payment-process.html)
