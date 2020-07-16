@@ -208,6 +208,7 @@ You can load NewWave now using metacello as follows:
 Metacello new
   baseline: #NewWave;
   repository: 'github://skaplar/NewWave:master';
+  onConflictUseIncoming;
   load.
 ```
 
