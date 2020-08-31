@@ -81,3 +81,8 @@ NWClassJSONExporter >> initialize [
 	super initialize.
 	nwClassDescriptions := OrderedCollection new.
 ]
+
+{ #category : #accessing }
+NWClassJSONExporter >> nwClassDescriptions [
+	^ nwClassDescriptions
+]

@@ -19,7 +19,7 @@ end description: 'End Event ee'.
 
 start addOutgoingEdge: end.
 
-process := NWProcess id: '1' name: 'process1' initialFlowElement: se.
+process := NWProcess id: '1' name: 'process1' initialFlowElement: start.
 engine := WaveEngine new.
 engine addProcess: process name: 'process1' .
 engine startProcess: 'process1'.
