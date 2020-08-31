@@ -1,3 +1,9 @@
+"
+I am a textual field type used to indicate text input field.
+
+
+    
+"
 Class {
 	#name : #NWTextFieldType,
 	#superclass : #NWFieldType,

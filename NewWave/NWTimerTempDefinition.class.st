@@ -1,3 +1,16 @@
+"
+I am also a timer definition element. However I have a much simpler API.
+
+Example:
+
+	te := NWTimerTempDefinition new.
+	te timeDate: (DateAndTime now + 10 seconds).
+	te repeat: false.
+	te every: Duration zero. 
+	
+	Duration zero means that we don't want repetition.
+
+"
 Class {
 	#name : #NWTimerTempDefinition,
 	#superclass : #NWEventDefinition,

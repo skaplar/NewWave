@@ -1,3 +1,13 @@
+"
+I am a FieldType class used for composing forms when not using objects and reflection.
+I am a base element. 
+
+    Instance Variables
+	name:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWFieldType,
 	#superclass : #NWElement,
