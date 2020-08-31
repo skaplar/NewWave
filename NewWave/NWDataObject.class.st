@@ -1,3 +1,15 @@
+"
+I am a data object in the workflow. I can hold any Pharo object as a value to pass to the engine. I can also have a name.
+
+    Instance Variables
+	itemDef:		<Object>
+	itemDefinition:		<Object>
+	name:		<Object>
+	valuedDataObject:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWDataObject,
 	#superclass : #NWElement,

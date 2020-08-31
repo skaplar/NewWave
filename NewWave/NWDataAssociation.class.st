@@ -1,3 +1,11 @@
+"
+I represent an association between two data objects. I have a source and a target.
+
+    Instance Variables
+	sourceRef:		<NWDataObject>
+	targetRef:		<NWDataObject>
+
+"
 Class {
 	#name : #NWDataAssociation,
 	#superclass : #NWElement,

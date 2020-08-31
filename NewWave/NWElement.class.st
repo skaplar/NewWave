@@ -1,3 +1,12 @@
+"
+I am the core element of the NewWave elements. All others derive from me. 
+Every element has an id, description and a type.
+
+Instance Variables
+	ctype:		Symbol - Type of an element
+	description:		String - Element description
+	id:		String - Element id.
+"
 Class {
 	#name : #NWElement,
 	#superclass : #Object,

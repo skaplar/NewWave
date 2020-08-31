@@ -1,3 +1,14 @@
+"
+I am a boundary event. I can be attached to certain object. I can cancel execution of the activites.
+
+    Instance Variables
+	attachedToRef:		<Object>
+	attechedToRefId:		<Object>
+	cancelActivity:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWBoundaryEvent,
 	#superclass : #NWEvent,

@@ -1,3 +1,16 @@
+"
+I represent a Timer Event. I can be used with to schedule events in the workflow.
+
+    Instance Variables
+	calendarName:		<Object>
+	endDate:		<Object>
+	timeCycle:		<Object>
+	timeDate:		<Object>
+	timeDuration:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWTimerEventDefinition,
 	#superclass : #NWEventDefinition,

@@ -1,3 +1,7 @@
+"
+I indicate an end event in the workflow.
+
+"
 Class {
 	#name : #NWEndEvent,
 	#superclass : #NWEvent,

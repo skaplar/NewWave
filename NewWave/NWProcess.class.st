@@ -1,3 +1,18 @@
+"
+I represent a Process. 
+
+    Instance Variables
+	dataObjects:		Array of DataObjects
+	flowElementList:		List of all elements that are part of the flow.
+	initialFlowElement:		Initial flow element. Usually a StartEvent.
+	managementName:		Name of the corresponding management.
+	name:		Process name.
+	processInstanceId:		Instance id of the process.
+	variables:		Additional variables.
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWProcess,
 	#superclass : #NWElement,

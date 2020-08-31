@@ -25,20 +25,21 @@ NWClassDescriptionGenerator class >> dataObject: anObject [
 NWClassDescriptionGenerator >> addDescriptions: container [
 	"Here all the magritteDescription pragmas are collected, which can be used on the server to be recompiled.
 	Magritte descriptions which already exist on the object instance (manually written)."
-	
+
 	| descriptionPragmas |
 	descriptionPragmas := Pragma
 		allNamed: MAPragmaBuilder magritteDescriptionPragma
 		from: anObject class
 		to: Object.
-		
+
 	container
 		addAllToMagritteDescriptions:
 			(descriptionPragmas
 				collect: [ :pragma | 
 					| magritteDescriptionWrapper |
 					magritteDescriptionWrapper := NWMagritteDescriptionWrapper new.
-					magritteDescriptionWrapper descriptionName: pragma method selector asString.
+					magritteDescriptionWrapper
+						descriptionName: pragma method selector asString.
 					magritteDescriptionWrapper
 						descriptionValue: pragma method asString.
 					magritteDescriptionWrapper ])

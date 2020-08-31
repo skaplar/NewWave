@@ -1,3 +1,6 @@
+"
+I am value that corresponds to FormProperty.
+"
 Class {
 	#name : #NWFormValue,
 	#superclass : #NWElement,

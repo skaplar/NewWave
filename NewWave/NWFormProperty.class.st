@@ -1,3 +1,16 @@
+"
+I represent a form property.
+
+    Instance Variables
+	formValues:		<Object>
+	label:		<Object>
+	name:		<Object>
+	type:		<Object>
+	variable:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWFormProperty,
 	#superclass : #NWElement,

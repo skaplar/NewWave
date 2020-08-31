@@ -1,3 +1,6 @@
+"
+I am a start event in the workflow.
+"
 Class {
 	#name : #NWStartEvent,
 	#superclass : #NWEvent,

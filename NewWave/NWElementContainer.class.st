@@ -1,3 +1,13 @@
+"
+I am an element container. I can contain elements and sequences. 
+
+    Instance Variables
+	elements:		<Object>
+	sequenceFlows:		<Object>
+
+
+    Implementation Points
+"
 Class {
 	#name : #NWElementContainer,
 	#superclass : #NWElement,
