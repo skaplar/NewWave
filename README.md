@@ -2,6 +2,11 @@
 
 Workflow engine written in Pharo. Still in early development. 
 
+## Video tutorial
+
+[![NewWave demo](http://img.youtube.com/vi/o3mmY-ehgFE/0.jpg)](http://www.youtube.com/watch?v=o3mmY-ehgFE)
+
+
 ## First Example
 
 In order to run the engine, for the minimal execution you need create Start and End, with the Sequence connecting them.
@@ -203,6 +208,7 @@ You can load NewWave now using metacello as follows:
 Metacello new
   baseline: #NewWave;
   repository: 'github://skaplar/NewWave:master';
+  onConflictUseIncoming;
   load.
 ```
 
@@ -215,3 +221,7 @@ This app should be started in Playground with command:
 
     FUApplicationRootComponent initialize.
     FUApplication createDemo.
+    
+# Additional examples
+1. https://1drv.ms/v/s!AtyGLaEfarFQgoca6Ni6OZor4ldycw?e=51RyYK (https://www.stakeholdermap.com/bpm/posting-job-notification-business-process-model.html)
+2.  https://1drv.ms/v/s!AtyGLaEfarFQgocceSePKwfDe7o-mw?e=WomYXC (https://www.stakeholdermap.com/bpm/business-process-model-payment-process.html)
