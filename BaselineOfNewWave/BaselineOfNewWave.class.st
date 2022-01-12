@@ -35,7 +35,7 @@ BaselineOfNewWave >> baseline: spec [
 				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
-				with: [ spec requires: #(NewWave Roassal3) ].
+				with: [ spec requires: #(NewWave) ].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
@@ -51,7 +51,8 @@ BaselineOfNewWave >> baseline: spec [
 	spec
 		for: #(#'pharo7.x' #'pharo8.x')
 		do: [
-			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ]].
+			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ].
+			spec package: 'NewWave-Roassal' with: [ spec requires: #(Roassal3) ].].
 
 ]
 
