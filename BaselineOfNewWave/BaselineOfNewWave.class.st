@@ -17,7 +17,6 @@ BaselineOfNewWave >> baseline: spec [
 			self bootstrap: spec.
 			self magritte: spec.
 			self neoJson: spec.
-			self zinc: spec.
 
 			"Packages"
 			spec 
@@ -30,7 +29,7 @@ BaselineOfNewWave >> baseline: spec [
 				with: [ spec requires: #(NewWave) ].
 			spec 
 				package: 'NewWaveFieldUserTask' 
-				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
+				with: [ spec requires: #(Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
 				with: [ spec requires: #(NewWave) ].
@@ -53,7 +52,11 @@ BaselineOfNewWave >> baseline: spec [
 			self taskIt: spec.
 			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ].
 			self roassal: spec.
-			spec package: 'NewWave-Roassal' with: [ spec requires: #(Roassal3) ].].
+			spec package: 'NewWave-Roassal' with: [ spec requires: #(Roassal3) ].
+			self zinc: spec.
+			spec package: 'NewWaveFieldUserTask' with: [ spec requires: #(ZincHTTPComponents) ].
+			
+].
 
 ]
 
