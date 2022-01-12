@@ -116,7 +116,7 @@ WaveExecutorTest >> testTaskItObjectValue [
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
-	self assert: task value equals: 200.
+	self assert: task valuable value equals: 200.
 	
 	
 ]
@@ -128,7 +128,7 @@ WaveExecutorTest >> testreturnTKT [
 	t1 description: 'B'.
 	t1 value: 200.
 	task := waveExecutor returnTKT: t1.
-	self assert: task value equals: 200.
+	self assert: task valuable value equals: 200.
 	self assert: (task valuable isMemberOf: NWBaseTask ) equals: true.
 	
 	

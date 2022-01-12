@@ -10,43 +10,54 @@ BaselineOfNewWave >> baseline: spec [
 	spec
 		for: #common
 		do: [ "Dependencies"
-			self taskIt: spec.
 			self teapot: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
-			self roassal: spec.
 			self seaside: spec.
 			self bootstrap: spec.
 			self magritte: spec.
 			self neoJson: spec.
-			self zinc: spec.
 
 			"Packages"
 			spec 
 				package: 'NewWave' 
-				with: [ spec requires: #(TaskIt Scheduler) ].
+				with: [ spec requires: #(Scheduler) ].
+			
 			spec package: 'NewWave-Plugin'.
 			spec 
 				package: 'NewWave-ObjectPreparator' 
 				with: [ spec requires: #(NewWave) ].
 			spec 
 				package: 'NewWaveFieldUserTask' 
-				with: [ spec requires: #(ZincHTTPComponents Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
+				with: [ spec requires: #(Core 'NewWave-ObjectPreparator' NeoJSON Magritte Seaside3 Bootstrap 'NewWave-Server') ].
 			spec
 				package: 'NewWave-Roassal'
-				with: [ spec requires: #(NewWave Roassal3) ].
+				with: [ spec requires: #(NewWave) ].
 			spec
 				package: 'NewWave-Server'
 				with: [ spec requires: #(NewWave Teapot) ].
 				
 			"Groups"
+			spec group: 'default' with: #(All).
 			spec group: 'Core' with: #(NewWave).
 			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ].
+	spec
+		for: #(#'pharo7.x' #'pharo8.x')
+		do: [  
+			self taskIt: spec.
+			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ].
+			self roassal: spec.
+			spec package: 'NewWave-Roassal' with: [ spec requires: #(Roassal3) ].
+			self zinc: spec.
+			spec package: 'NewWaveFieldUserTask' with: [ spec requires: #(ZincHTTPComponents) ].
+			
+].
+
 ]
 
 { #category : #accessing }
