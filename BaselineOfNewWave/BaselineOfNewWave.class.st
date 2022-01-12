@@ -10,11 +10,9 @@ BaselineOfNewWave >> baseline: spec [
 	spec
 		for: #common
 		do: [ "Dependencies"
-			self taskIt: spec.
 			self teapot: spec.
 			"self scheduler: spec."
 			self scheduler2: spec.
-			self roassal: spec.
 			self seaside: spec.
 			self bootstrap: spec.
 			self magritte: spec.
@@ -41,6 +39,7 @@ BaselineOfNewWave >> baseline: spec [
 				with: [ spec requires: #(NewWave Teapot) ].
 				
 			"Groups"
+			spec group: 'default' with: #(All).
 			spec group: 'Core' with: #(NewWave).
 			spec group: 'WebTask' with: #( 'NewWaveFieldUserTask' ).
 			spec group: 'TeapotServer' with: #(Core Teapot).
@@ -50,8 +49,10 @@ BaselineOfNewWave >> baseline: spec [
 				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ].
 	spec
 		for: #(#'pharo7.x' #'pharo8.x')
-		do: [
+		do: [  
+			self taskIt: spec.
 			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ].
+			self roassal: spec.
 			spec package: 'NewWave-Roassal' with: [ spec requires: #(Roassal3) ].].
 
 ]
