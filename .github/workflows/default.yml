@@ -11,7 +11,7 @@ on:
     
   push:
     branches:
-      - migrate-to-ogc
+      - development
   
 
 jobs:
