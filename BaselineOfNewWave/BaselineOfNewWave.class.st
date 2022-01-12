@@ -24,7 +24,8 @@ BaselineOfNewWave >> baseline: spec [
 			"Packages"
 			spec 
 				package: 'NewWave' 
-				with: [ spec requires: #(TaskIt Scheduler) ].
+				with: [ spec requires: #(Scheduler) ].
+			
 			spec package: 'NewWave-Plugin'.
 			spec 
 				package: 'NewWave-ObjectPreparator' 
@@ -46,7 +47,12 @@ BaselineOfNewWave >> baseline: spec [
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec
 				group: 'All'
-				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ]
+				with: #(Core TeapotServer 'NewWave-Plugin' WebTask Visualization) ].
+	spec
+		for: #(#'pharo7.x' #'pharo8.x')
+		do: [
+			spec package: 'NewWave' with: [ spec requires: #(TaskIt) ]].
+
 ]
 
 { #category : #accessing }
