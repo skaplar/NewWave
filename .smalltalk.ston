@@ -2,7 +2,8 @@ SmalltalkCISpec {
   #loading : [
     SCIMetacelloLoadSpec {
       #baseline : 'NewWave',
-      #platforms : [ #pharo ]
+      #platforms : [ #pharo ],
+      #onConflict : #useIncoming
     }
   ]
 }
