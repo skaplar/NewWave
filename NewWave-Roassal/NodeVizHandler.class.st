@@ -36,7 +36,7 @@ NodeVizHandler >> createView [
 	events do: [ :event | | e |
 		e := RSEllipse new 
 		size: 100; 
-		color: Color red trans;
+		color: (Color red alpha: 0.5);
 		model: event;
 		yourself.
 		e @ RSLabeled @ RSDraggable @ RSPopup.
@@ -45,7 +45,7 @@ NodeVizHandler >> createView [
 	tasks do: [ :task | | e |
 		e := RSBox new 
 			size: 100;
-			color: Color orange trans;
+			color: (Color orange alpha: 0.5);
 			cornerRadius: 15;
 			model: task;
 			yourself.
@@ -56,7 +56,7 @@ NodeVizHandler >> createView [
 	gates do: [ :gate | | e |
 		e := RSPolygon new
 			points: (Array with: 0 @ 0 with: 70 @ 50 with: 0 @ 100 with: -70 @ 50);
-			color: Color blue trans;
+			color: (Color blue alpha: 0.5);
 			yourself.
 		e @ RSLabeled @ RSPopup @ RSDraggable.
 		c add: e ].
@@ -67,12 +67,11 @@ NodeVizHandler >> createView [
 		withBorderAttachPoint;
 		connectFrom: #yourself 
 		toAll: [ :e |
-			e logCr.
 			e outgoingFlows collect: #targetRef ].
 		
 
 	RSHorizontalTreeLayout on: c nodes.
-	canvas := c @ RSControlsCanvas 
+	canvas := c @ RSCanvasController 
 ]
 
 { #category : #initialization }

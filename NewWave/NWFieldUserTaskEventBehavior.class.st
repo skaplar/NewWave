@@ -13,7 +13,6 @@ NWFieldUserTaskEventBehavior >> performExecution: elemToExecute executor: waveEx
 	waveExecutor processHandler engineAnnouncer 
 		when: WaveAnnouncer
 		do: [ :a | 
-			a parameter logCr. 
 			waveExecutor taskResult: a parameter. 
 			waveExecutor processHandler server removeTask: elemToExecute user: 'default'.
 			waveExecutor tryToExecuteNext: elemToExecute.
