@@ -14,7 +14,8 @@ BaselineOfNewWave >> baseline: spec [
 
 			"Packages"
 			spec 
-				package: 'NewWave' with: [ spec requires: #(Scheduler) ];
+				package: 'NewWave-Core' with: [ spec requires: #(Scheduler) ];
+				package: 'NewWave-Core-Tests' with: [ spec requires: #('NewWave-Core') ];
 				package: 'NewWave-Plugin';
 				package: 'NewWave-ObjectPreparator' with: [ spec requires: #(NewWave) ];
 				package: 'NewWave-Roassal' with: [ spec requires: #(NewWave) ];
@@ -22,7 +23,7 @@ BaselineOfNewWave >> baseline: spec [
 				
 			"Groups"
 			spec group: 'default' with: #(All).
-			spec group: 'Core' with: #(NewWave).
+			spec group: 'Core' with: #('NewWave-Core' 'NewWave-Tests').
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec group: 'All' with: #(Core 'NewWave-Plugin' Visualization) ].
 	
