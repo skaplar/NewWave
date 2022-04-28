@@ -4,7 +4,7 @@ I am a class that executes the tasks,
 Class {
 	#name : #NWTaskEventBehavior,
 	#superclass : #NWActivityEventBehavior,
-	#category : #'NewWave-Engine'
+	#category : #'NewWave-Core-Engine'
 }
 
 { #category : #'as yet unclassified' }

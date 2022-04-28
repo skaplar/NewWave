@@ -46,8 +46,6 @@ NewWaveCustomTaskPlugin >> displayForm: aRequest [
 		partial nextPutAll: (el at: 'columnLabel').
 		partial nextPutAll: '}}'.
 	].
-	parts logCr.
-	partial contents logCr.
 	p := partial contents asMustacheTemplate value: '' asDictionary partials: parts.
 	^ templateString contents asMustacheTemplate value: (NeoJSONReader 
          fromString: forma) partials: {'partial' -> p } asDictionary.

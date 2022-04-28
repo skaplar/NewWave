@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'waveExecutor'
 	],
-	#category : #'NewWave-Tests'
+	#category : #'NewWave-Core-Tests'
 }
 
 { #category : #running }

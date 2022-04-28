@@ -38,7 +38,7 @@ Class {
 		'workers',
 		'processHandler'
 	],
-	#category : #'NewWave-Engine'
+	#category : #'NewWave-Core-Engine'
 }
 
 { #category : #'as yet unclassified' }

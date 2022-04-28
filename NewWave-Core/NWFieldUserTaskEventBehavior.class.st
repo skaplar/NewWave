@@ -1,7 +1,7 @@
 Class {
 	#name : #NWFieldUserTaskEventBehavior,
 	#superclass : #NWActivityEventBehavior,
-	#category : #'NewWave-Engine'
+	#category : #'NewWave-Core-Engine'
 }
 
 { #category : #accessing }
