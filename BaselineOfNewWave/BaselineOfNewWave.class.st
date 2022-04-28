@@ -23,7 +23,7 @@ BaselineOfNewWave >> baseline: spec [
 				
 			"Groups"
 			spec group: 'default' with: #(All).
-			spec group: 'Core' with: #('NewWave-Core' 'NewWave-Tests').
+			spec group: 'Core' with: #('NewWave-Core' 'NewWave-Core-Tests').
 			spec group: 'Visualization' with: #(Core 'NewWave-Roassal').
 			spec group: 'All' with: #(Core 'NewWave-Plugin' Visualization) ].
 	
