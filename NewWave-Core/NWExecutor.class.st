@@ -80,9 +80,10 @@ NWExecutor >> activations [
 { #category : #running }
 NWExecutor >> execute: elem [
 	| elemHandler executor |
-	elemHandler := NWBehaviorHandler new.
-	executor := elemHandler behaviors at: elem ctype.
-	" Ideja je da bi execute mogao da se pozove i naknadno, odnosno ukoliko je aktivacija vec napravljena ili treba da se nastavi nakon prekida."
+	self halt.
+	"elemHandler := NWBehaviorHandler new."
+	executor := elem behaviorClass new.
+	"The idea is that it could be invoked later, or if activation has already been made or should continue after the interruption."
 	self workList addToRunning: (self activationForNode: elem).
 	executor performExecution: elem executor: self.
 	

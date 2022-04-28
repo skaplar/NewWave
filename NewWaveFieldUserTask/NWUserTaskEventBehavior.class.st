@@ -4,7 +4,7 @@ I am a class that is used to execute CustomTask.
 Class {
 	#name : #NWUserTaskEventBehavior,
 	#superclass : #NWActivityEventBehavior,
-	#category : #'NewWave-Core-Engine'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #'as yet unclassified' }

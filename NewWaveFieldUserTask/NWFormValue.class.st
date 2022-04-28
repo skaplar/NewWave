@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'name'
 	],
-	#category : #'NewWave-Core-Core'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #'as yet unclassified' }

@@ -63,11 +63,6 @@ NWSequence >> condition: aCondition [
 	condition := aCondition
 ]
 
-{ #category : #adding }
-NWSequence >> ctype [
-	^ #NWSequence
-]
-
 { #category : #initialization }
 NWSequence >> initialize [
 

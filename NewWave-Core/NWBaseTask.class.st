@@ -17,8 +17,8 @@ Class {
 }
 
 { #category : #accessing }
-NWBaseTask >> ctype [
-	^ #NWBaseTask
+NWBaseTask >> behaviorClass [ 
+	^ NWTaskEventBehavior 
 ]
 
 { #category : #accessing }

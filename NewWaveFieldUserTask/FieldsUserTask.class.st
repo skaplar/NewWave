@@ -1,7 +1,7 @@
 Class {
 	#name : #FieldsUserTask,
 	#superclass : #NWFieldUserTask,
-	#category : #'NewWave-Core-Model'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #initialization }

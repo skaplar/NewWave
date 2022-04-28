@@ -21,7 +21,7 @@ Class {
 		'formValues',
 		'label'
 	],
-	#category : #'NewWave-Core-Core'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #accessing }

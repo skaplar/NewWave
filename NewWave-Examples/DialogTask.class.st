@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dialog'
 	],
-	#category : #'NewWave-Core-Model'
+	#category : #'NewWave-Examples'
 }
 
 { #category : #accessing }

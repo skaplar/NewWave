@@ -20,7 +20,7 @@ Class {
 		'result',
 		'formProperties'
 	],
-	#category : #'NewWave-Core-Core'
+	#category : #'NewWave-UserManagment'
 }
 
 { #category : #accessing }
@@ -42,15 +42,15 @@ NWFieldUserTask >> announcer [
 	^ announcer
 ]
 
+{ #category : #accessing }
+NWFieldUserTask >> behaviorClass [ 
+	^ NWFieldUserTaskEventBehavior 
+]
+
 { #category : #initialization }
 NWFieldUserTask >> complete [
 	announcer announce: (WaveAnnouncer with: self result).
 	
-]
-
-{ #category : #initialization }
-NWFieldUserTask >> ctype [
-	^ #NWFieldUserTask
 ]
 
 { #category : #initialization }

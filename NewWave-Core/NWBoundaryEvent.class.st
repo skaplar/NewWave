@@ -21,6 +21,11 @@ Class {
 }
 
 { #category : #testing }
+NWBoundaryEvent >> behaviorClass [ 
+	^ NWBoundaryEventBehavior 
+]
+
+{ #category : #testing }
 NWBoundaryEvent >> cancelActivity [
 	^ cancelActivity
 ]
@@ -28,11 +33,6 @@ NWBoundaryEvent >> cancelActivity [
 { #category : #testing }
 NWBoundaryEvent >> cancelActivity: aBoolean [
 	cancelActivity := aBoolean
-]
-
-{ #category : #testing }
-NWBoundaryEvent >> ctype [
-	^ #NWBoundaryEvent
 ]
 
 { #category : #testing }

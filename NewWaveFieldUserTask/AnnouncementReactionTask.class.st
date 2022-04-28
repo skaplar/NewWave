@@ -1,7 +1,7 @@
 Class {
 	#name : #AnnouncementReactionTask,
 	#superclass : #NWUserTask,
-	#category : #'NewWave-Core-Model'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #accessing }

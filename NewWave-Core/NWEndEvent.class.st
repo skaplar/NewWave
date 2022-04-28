@@ -9,6 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-NWEndEvent >> ctype [
-	^ #NWEndEvent
+NWEndEvent >> behaviorClass [ 
+	^ NWEndEventBehavior 
 ]

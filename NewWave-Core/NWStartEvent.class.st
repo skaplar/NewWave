@@ -7,7 +7,7 @@ Class {
 	#category : #'NewWave-Core-Core'
 }
 
-{ #category : #accessing }
-NWStartEvent >> ctype [
-	^ #NWStartEvent
+{ #category : #tests }
+NWStartEvent >> behaviorClass [ 
+	^ NWStartEventBehavior 
 ]
