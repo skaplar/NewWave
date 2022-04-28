@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-NWNullNode >> ctype [
-	^ #NWNullNode
+NWNullNode >> behaviorClass [ 
+	^ NWNullNodeBehavior 
 ]

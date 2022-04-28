@@ -9,6 +9,6 @@ Class {
 }
 
 { #category : #accessing }
-NWParallelJoin >> ctype [
-	^ #NWParallelJoin
+NWParallelJoin >> behaviorClass [
+	^ NWParallelJoinBehavior 
 ]

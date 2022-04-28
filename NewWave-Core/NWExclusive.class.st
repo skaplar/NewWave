@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-NWExclusive >> ctype [
-	^ #ExclusiveGateway
+NWExclusive >> behaviorClass [ 
+	^ NWExclusiveGatewayBehavior 
 ]

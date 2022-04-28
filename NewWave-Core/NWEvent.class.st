@@ -27,11 +27,6 @@ NWEvent >> basetype [
 ]
 
 { #category : #testing }
-NWEvent >> ctype [
-	^ #NWEvent
-]
-
-{ #category : #testing }
 NWEvent >> eventDefinitions [
 	^ eventDefinitions
 ]

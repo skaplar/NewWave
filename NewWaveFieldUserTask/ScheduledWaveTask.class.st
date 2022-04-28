@@ -1,7 +1,7 @@
 Class {
 	#name : #ScheduledWaveTask,
 	#superclass : #NWUserTask,
-	#category : #'NewWave-Core-Model'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #initialization }

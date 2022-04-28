@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #testing }
-NWIntermediateCatchEvent >> ctype [
-	^ #NWIntermediateCatchEvent
+NWIntermediateCatchEvent >> behaviorClass [ 
+	^ NWIntermediateCatchEventBehavior 
 ]

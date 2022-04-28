@@ -52,11 +52,6 @@ NWBaseActivity >> boundaryEvents [
 	^ boundaryEvents 
 ]
 
-{ #category : #initialization }
-NWBaseActivity >> ctype [
-	^ #NWBaseActivity
-]
-
 { #category : #accessing }
 NWBaseActivity >> dataOutputAssociations [
 	^ dataOutputAssociations

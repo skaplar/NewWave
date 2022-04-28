@@ -6,8 +6,3 @@ Class {
 	#superclass : #NWEvent,
 	#category : #'NewWave-Core-Core'
 }
-
-{ #category : #testing }
-NWThrowEvent >> ctype [
-	^ #NWThrowEvent
-]

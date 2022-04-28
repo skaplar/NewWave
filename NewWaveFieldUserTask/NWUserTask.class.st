@@ -19,7 +19,7 @@ Class {
 		'user',
 		'group'
 	],
-	#category : #'NewWave-Core-Core'
+	#category : #NewWaveFieldUserTask
 }
 
 { #category : #initialization }
@@ -28,14 +28,14 @@ NWUserTask >> announcer [
 ]
 
 { #category : #initialization }
-NWUserTask >> complete [
-	announcer announce: (WaveAnnouncer with: self result).
-	
+NWUserTask >> behaviorClass [ 
+	^ NWUserTaskEventBehavior 
 ]
 
 { #category : #initialization }
-NWUserTask >> ctype [
-	^ #NWUserTask
+NWUserTask >> complete [
+	announcer announce: (WaveAnnouncer with: self result).
+	
 ]
 
 { #category : #accessing }

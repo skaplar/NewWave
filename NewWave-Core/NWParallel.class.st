@@ -8,6 +8,6 @@ Class {
 }
 
 { #category : #accessing }
-NWParallel >> ctype [
-	^ #ParallelGateway
+NWParallel >> behaviorClass [ 
+	^ NWParallelGatewayBehavior 
 ]

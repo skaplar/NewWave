@@ -10,7 +10,7 @@ Which will run example 1. And so on for the other examples.
 Class {
 	#name : #ExampleExecutions,
 	#superclass : #Object,
-	#category : #'NewWave-Core-Example'
+	#category : #'NewWave-Examples'
 }
 
 { #category : #'as yet unclassified' }

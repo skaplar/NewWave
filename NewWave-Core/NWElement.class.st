@@ -31,12 +31,7 @@ NWElement class >> neoJsonMapping: mapper [
 	"For inheritance mapping to work, the schema/classname must be self,
 	but the instance variables have to be enumerated manually per class"
 	mapper for: self do: [ :mapping |
-		mapping mapInstVars: #(description ctype id) ] 
-]
-
-{ #category : #accessing }
-NWElement >> ctype [
-	^ ShouldBeImplemented
+		mapping mapInstVars: #(description id) ] 
 ]
 
 { #category : #accessing }

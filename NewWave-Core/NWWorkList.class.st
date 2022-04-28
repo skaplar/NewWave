@@ -38,6 +38,12 @@ NWWorkList >> initialize [
 	running := OrderedCollection new.
 ]
 
+{ #category : #printing }
+NWWorkList >> printOn: aStream [ 
+	super printOn: aStream.
+	aStream << ' (running: ' << running asString << ')'
+]
+
 { #category : #adding }
 NWWorkList >> running [
 	^ running select: [ :each | each activated ].
