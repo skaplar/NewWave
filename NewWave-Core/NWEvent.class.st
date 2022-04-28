@@ -23,7 +23,7 @@ NWEvent >> addEventDefinition: anEventDefinition [
 
 { #category : #testing }
 NWEvent >> basetype [
-	^ #NWEvent
+	^ #Event
 ]
 
 { #category : #testing }

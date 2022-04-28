@@ -32,5 +32,5 @@ NWGateway >> addIncomingList: anIncomingList addOutgoing: anOutgoing [
 
 { #category : #adding }
 NWGateway >> basetype [
-	^ #NWGateway
+	^ #Gateway
 ]

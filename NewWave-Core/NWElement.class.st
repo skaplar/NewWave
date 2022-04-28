@@ -12,7 +12,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'description',
-		'ctype',
 		'id'
 	],
 	#category : #'NewWave-Core-Core'
